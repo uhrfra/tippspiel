@@ -72,19 +72,17 @@ class Session
 	
 	public static function changeUserPassword($userid, $oldpassword, $newpassword, $newpassword2)
 	{
-
 		$db = new Database();
 
-
 		// Check password
-		if (strlen(trim ($oldpassword)) < 5)
+		if (strlen(trim ($newpassword)) < 5)
 		{
 			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
 		}
 
 		if ($newpassword != $newpassword2)
 		{
-			throw new ExceptionInvalidUser("Die Eingaben für das neue Passwort unterscheiden sich");
+			throw new ExceptionInvalidUser("Die Eingaben für das neue Passwort unterscheiden sich.");
 		}
 		
 		$r = $db->queryResult("SELECT passwort FROM user WHERE id= '$userid';");
@@ -96,6 +94,37 @@ class Session
 		$pwmd5 = md5($newpassword);
 		$db->query("UPDATE user SET passwort = '$pwmd5' WHERE id = '$userid';");
 		
+	}
+	
+	public static function resetUserPassword($login, $token, $newpassword, $newpassword2)
+	{
+		$db = new Database();
+
+		// Check password
+		if (strlen(trim ($newpassword)) < 5)
+		{
+			throw new ExceptionInvalidUser("Passwort muss mindesten fünf Zeichen lang sein.");
+		}
+
+		if ($newpassword != $newpassword2)
+		{
+			throw new ExceptionInvalidUser("Die Eingaben für das neue Passwort unterscheiden sich.");
+		}
+		
+		$userid = $db->queryResult("SELECT id FROM user WHERE login = '$login';");
+		if ($userid == null)
+		{
+			throw new ExceptionInvalidUser("Falsches Login.");
+		}
+		
+		$userid = $db->queryResult("SELECT id FROM user WHERE login = '$login' AND pwresettoken = '$token';");
+		if ($userid == null)
+		{
+			throw new ExceptionSession("Invalid token.");
+		}
+		$pwmd5 = md5($newpassword);
+		$db->query("UPDATE user SET passwort = '$pwmd5' WHERE id = '$userid';");
+		$db->query("UPDATE user SET pwresettoken = '' WHERE id = '$userid';");
 	}
 	
 	public static function changeUserEmail($userid, $email)
@@ -143,6 +172,9 @@ class Session
 		// Write session id into the database
 		$db->query("INSERT INTO sessions(sessionid,validstamp,userid) VALUES('$sessionid',CURRENT_TIMESTAMP + INTERVAL $sessiontime MINUTE, '$res[2]');");
 		
+		// Reset password reset token (it it not needed any more, if the user knows his password).
+		$db->query("UPDATE user SET pwresettoken = '' WHERE id = '$res[2]';");
+			
 		// Create cookie with session id
 		if (!setcookie("tippersession", $sessionid))
 		{
@@ -260,6 +292,26 @@ class Session
 		$user->attr2 = $res[5];
 		$user->attr3 = $res[6];
 		return $user;
+	}
+	
+	public static function getUserIdByLoginAndEmail($login, $email)
+	{
+		$user = new User();
+		$db = new Database();
+		$res = $db->queryRow("SELECT id FROM user WHERE login = '$login' and email = '$email';");
+		
+		if ($res == null)
+		{
+			return null;
+		}
+		
+		return $res[0];
+	}
+	
+	public static function setPasswordResetToken($userid, $token)
+	{
+		$db = new Database();
+		$db->query("UPDATE user SET pwresettoken = '$token' WHERE id = '$userid';");
 	}
 	
 	private function cleanupExpiredSessions()
