@@ -48,7 +48,7 @@ $matchdays = array(
 	array("Viertelfinale"),
 	array("Halbfinale"),
 	array("Spiel um Platz 3"),
-	array("Finale");
+	array("Finale"));
 	
 $adminusers = array(
 	array("admin1", "adminpw", "A. Admin", "adminA@admin.ah"),

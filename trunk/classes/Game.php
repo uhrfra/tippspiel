@@ -96,7 +96,7 @@ class Game
 				{
 					if ($_POST['tip1'][$k] != '' && $_POST['tip2'][$k] != '')
 					{
-						$this->insertTip($userid, $_POST['tipmatchid'][$k], $_POST['tip1'][$k], $_POST['tip2'][$k]);
+						Game::insertTip($userid, $_POST['tipmatchid'][$k], $_POST['tip1'][$k], $_POST['tip2'][$k]);
 					}
 				}
 				catch (LoggingException $e)
@@ -197,7 +197,7 @@ class Game
 		$ut->numTendencyRight = $row[2];
 		$ut->scoreTendencyRight = $row[2] * SCORE_TENDENCY;
 		
-		$ct = $this->getChamptip($userid);
+		$ct = Game::getChamptip($userid);
 		$ut->statusChamptip = $ct->instatus;
 		if ($ct->id == 0)
 		{
