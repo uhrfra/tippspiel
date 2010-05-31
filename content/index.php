@@ -15,10 +15,12 @@ Wenn Du schon ein registrierter Benutzer bist, kannst Du Dich hier einloggen:
 
 <form  id='Form' action='sign_in.php' method='post'>
 <table>
-<tr><td> Login: </t>
-<td> <input name='login' type='text' size='10' maxlength='32'></td></tr>
+<tr><td> Login: </td>
+<td> <input name='login' type='text' size='10' maxlength='32'></td>
+<td></td></tr>
 <tr><td> Passwort: </td>
-<td> <input name='passwort' type='password' size='10' maxlength='32'></td></tr>
+<td> <input name='passwort' type='password' size='10' maxlength='32'></td>
+<td><a href='../content/password_request.php'>Passwort vergessen?</a></td></tr>
 </table>
 <input id='Button' type='submit' name='submit' value='LOGIN'>
 </form>
