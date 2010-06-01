@@ -23,7 +23,7 @@ function request()
 {
 	echo "<h1> Passwort zurücksetzen </h1>";
 	echo "<p>";
-	echo "Falls Du Dein Passwort vergessen hast, kannst Du ein neues Passwort anforden. Dazu musst Du Dein Login und die E-Mail-Adresse, mit der Du Dich angemeldet hast angeben.";
+	echo "Falls Du Dein Passwort vergessen hast, kannst Du ein neues Passwort anforden. Dazu musst Du Dein Login und die E-Mail-Adresse, mit der Du Dich angemeldet hast, angeben.";
 	echo "<form  id='Form' action='password_request.php' method='post'>";
 	echo "<table>";
 	echo "<tr><td> Login: </td>";
@@ -52,20 +52,20 @@ function requested()
 	$token = md5(str_replace(".","",$REMOTE_ADDR) + mt_rand(100000, 999999));
 	
 	$link="http://tippspiel.kontextfrei.de/wm2010/content/password_reset.php?token=".$token;
-	echo "Ok, token ist:".$token.".";
 	
 	$mailtext = "Hallo,
-	Du hast beim Tippspiel eine Passwortänderung beantragt.
-	Bitte rufe zur Passwortänderung folgende Seite auf:
-	$link
-	Dort kannst Du Dir ein neues Passwort vergeben.
 
-	Grüße vom Tipper-Team!
-	
-	
-	
-	Diese Mail wurde automatisch generiert. Bitte antworte deshalb nicht
-	auf diese Mail.";
+Du hast beim Tippspiel eine Passwortänderung beantragt.
+Bitte rufe zur Passwortänderung folgende Seite auf:
+$link
+Dort kannst Du Dir ein neues Passwort vergeben.
+
+Grüße vom Tipper-Team!
+
+
+
+Diese Mail wurde automatisch generiert. Bitte antworte deshalb nicht
+auf diese Mail.";
 	
 	if (mail($usr->email, "Tippspiel Passwortänderung", $mailtext,"from:passwortaenderung@kontextfreitippspiel.de") == false)
 	{

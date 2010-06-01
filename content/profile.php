@@ -46,7 +46,7 @@
 			}
 			break;
 		case "change_champtip":
-			change_champtip();
+			change_champtip($userid);
 			break;
 		case "changed_champtip":
 			changed_champtip($userid);
@@ -236,13 +236,13 @@ echo "changed email";
 }
 
 
-function change_champtip()
+function change_champtip($userid)
 {
-	$gb = new GUIBuilder();
+	$ct = Game::getChamptip($userid);
 	echo "<form action='#' method='post'>";
 	echo "<table>";
 	echo "<tr><td>Meistertipp:</td><td>";
-	GUIBuilder::buildDropdownSelect('champtip', 'SELECT land, id FROM laender ORDER BY land;', $selecttip);
+	GUIBuilder::buildDropdownSelect('champtip', 'SELECT land, id FROM laender ORDER BY land;', $ct->id - 1);
 	echo "<input type='hidden' name='action' value = 'changed_champtip'>";
 	echo "<tr><td><input type='submit' name='submit' value = 'Meistertipp wählen'></td><td></td>";
 	echo "</table>";
@@ -252,10 +252,9 @@ function change_champtip()
 function changed_champtip($userid)
 {
 	$m = new Matches();
-	$game = new Game();
 	if (!$m->started())
 	{
-		$game->setChamptip($userid, $_POST['champtip']);
+		Game::setChamptip($userid, $_POST['champtip']);
 	}
 	return true;
 }

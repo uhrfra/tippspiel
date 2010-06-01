@@ -22,7 +22,7 @@ class Session
 
 	// Inserts a new user into the db. Checks if all user entries are valid.
 	// \throws ExceptionInvalidUser if the user entries are invalid.
-	public static function createUser($login, $password, $User)
+	public static function createUser($login, $password, $password_confirm, $User)
 	{
 
 		$db = new Database();
@@ -42,6 +42,12 @@ class Session
 		if (strlen(trim ($password)) < 5)
 		{
 			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
+		}
+		
+		// Check if both password strings are equal.
+		if ($password != $password_confirm)
+		{
+			throw new ExceptionInvalidUser("Die Eingaben für das Passwort unterscheiden sich.");
 		}
 
 		// Check user name
@@ -67,7 +73,8 @@ class Session
 		$pwmd5 = md5($password);
 		$db->query("INSERT INTO `user` (`login`, `passwort`,`name`, `email`, `adminlevel`, `wettbewerb`, `attr1`, `attr2`, `attr3`) VALUES " .
 				"('$login', '$pwmd5','$User->name', '$User->email', 0, $User->wettbewerb, $User->attr1, $User->attr2, $User->attr3);");
-
+				
+		return Session::getUserIdByLoginAndEmail($login, $User->email);
 	}
 	
 	public static function changeUserPassword($userid, $oldpassword, $newpassword, $newpassword2)
