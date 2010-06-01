@@ -349,27 +349,27 @@ echo "</tr>";
 
     // Berechnung der Farbe für den Tipp. ---- 
     if ($row[4] == '-:-'){
-      $ec = $this->col_notipp;
+      $ec = GUIBuilder::$col_notipp;
     }
     else if ($row[3] == '-:-'){
-      $ec = $this->col_notset;
+      $ec = GUIBuilder::$col_notset;
     }
     else if ($row[9] == $row[11] && $row[10] == $row[12]){
-      $ec = $this->col_er;
+      $ec = GUIBuilder::$col_er;
     }
     else{
       $ergebnisdiff = $row[9] - $row[10];
       $tippdiff = $row[11] - $row[12];
       if ($ergebnisdiff == $tippdiff && $tippdiff) {
-      	$ec = $this->col_tr;
+      	$ec = GUIBuilder::$col_tr;
       }
       else if (($ergebnisdiff > 0 && $tippdiff > 0)||
 	  ($ergebnisdiff == 0 && $tippdiff == 0)||
 	  ($ergebnisdiff < 0 && $tippdiff < 0)){
-	$ec = $this->col_sr;
+	$ec = GUIBuilder::$col_sr;
       }
       else{
-	$ec = $this->col_f;
+	$ec = GUIBuilder::$col_f;
       }
     }
 
@@ -489,11 +489,11 @@ ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipp
   }
   while ($row = mysql_fetch_row($query_result)){
     if ($row[2] == $cur_uid){
-      echo "<tr bgcolor=", $this->col_curusr, ">";
+      echo "<tr bgcolor=", GUIBuilder::$col_curusr, ">";
     }
     else{
       if ($row[3] > 0){
-	echo "<tr bgcolor=", $this->col_wett, ">";
+	echo "<tr bgcolor=", GUIBuilder::$col_wett, ">";
       }
       else{
 	echo "<tr>";
@@ -505,16 +505,16 @@ ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipp
      $ec = $col_notset;
     }
     else if ($row[5] == -3){
-      $ec = $this->col_er;
+      $ec = GUIBuilder::$col_er;
     }
     else if ($row[5] == -2){
-      $ec = $this->col_tr;
+      $ec = GUIBuilder::$col_tr;
     }
     else if ($row[5] == -1){
-      $ec = $this->col_sr;
+      $ec = GUIBuilder::$col_sr;
     }
     else{
-      $ec = $this->col_f;
+      $ec = GUIBuilder::$col_f;
       }
     // ----------------------------------------
     $retlink = "gametipps.php?spielid=".$matchid;
@@ -611,14 +611,14 @@ public static function buildNewsboardTable()
 
 
 	// Color definitions
-	private $col_er = "#61ff3c"; // In Tabelle: Ergebnis richtig
-	private $col_tr = "#66d1ff"; // In Tabelle: Tordifferenz richtig
-	private	$col_sr = "#ffff32"; // In Tabelle: Sieger richtig
-	private	$col_f  = "#ff6655"; // In Tabelle: Tipp falsch
-	private $col_notipp = "#e8e8e8"; // In Tabelle: Benutzer hat für dieses Spiel gar nicht getippt
-	private $col_wett = "#FFFFB5"; // In Tabelle: Benutzer, die beim Wettbewerb mitmachen.
-	private	$col_curusr = "#8BD084"; // In Tabelle: Aktueller Benutzer
-	private	$col_notset = "#AAAAAA"; // Spiel noch nicht eingegeben
+	private static $col_er = "#61ff3c"; // In Tabelle: Ergebnis richtig
+	private static $col_tr = "#66d1ff"; // In Tabelle: Tordifferenz richtig
+	private	static $col_sr = "#ffff32"; // In Tabelle: Sieger richtig
+	private	static $col_f  = "#ff6655"; // In Tabelle: Tipp falsch
+	private static $col_notipp = "#e8e8e8"; // In Tabelle: Benutzer hat für dieses Spiel gar nicht getippt
+	private static $col_wett = "#FFFFB5"; // In Tabelle: Benutzer, die beim Wettbewerb mitmachen.
+	private	static $col_curusr = "#8BD084"; // In Tabelle: Aktueller Benutzer
+	private	static $col_notset = "#AAAAAA"; // Spiel noch nicht eingegeben
 	
 }
 ?>

@@ -39,7 +39,6 @@ if (isset($_POST['action']))
 			$m->matchdayid = $_POST['matchday'];
 			$m->datetime = $_POST['datetime'];
 			$matches->addMatch($m);
-			echo "Spiel hinzugefügt.";
 		}
 		catch (ExceptionMatch $e)
 		{
@@ -49,9 +48,7 @@ if (isset($_POST['action']))
 	}
 	else if ($_POST['action'] == 'set_result')
 	{
-	echo "set result ", $_POST['matchid'];
 		$matches->setResult($_POST['matchid'], $_POST['goals1'], $_POST['goals2']);
-	
 	}
 	
 	else if ($_POST['action'] == 'set_teamstatus'){
@@ -74,7 +71,6 @@ if (isset($_POST['action']))
 		$statustxt = "Sieger";
 		break;
 		}
-	 echo "Neuer Status von ", $landname, ": ", $statustxt,"<br>";
   }
 }
 ?>
