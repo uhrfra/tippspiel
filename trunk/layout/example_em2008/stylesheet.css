@@ -1,0 +1,195 @@
+
+/******************************************/
+/* Allgemeine Eigenschaften für die Seite */
+/******************************************/
+
+body {
+    background-image:url(background.jpg);
+    background-color:#f8f8f8;
+    background-repeat:repeat-x;
+    font-family: Helvetica,Arial,sans-serif;	
+    margin: 0; padding: 1em 0;    text-align: center;  /* Zentrierung im Internet Explorer */}
+
+/*******************************************/
+/*   Eigenschaften fuer den Titel / Logo   */
+/*******************************************/
+
+div#Titel {
+    border: 1px grey solid;
+    width: 780px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+    background-image: url(Logo.jpg);  }
+
+/************************************************/
+/* Allg. Eigens. fuer die Seite (Navi + Inhalt) */
+/************************************************/
+div#Seite {    text-align: left;    /* Seiteninhalt wieder links ausrichten */    margin: 5 auto;      /* standardkonforme horizontale Zentrierung */    width: 1024px;    padding: 0;
+  }/***********************************************/
+/*    Eigenschaften fuer die Navigation 1      */
+/***********************************************/
+  ul#Navigation1 {
+    border: 1px solid grey;
+    font-size: 0.83em;    float: left;
+    width: 123px;    margin: 0 0 1.2em;
+    padding: 0;  }  ul#Navigation1 li {    background-image: url(bg_navi1.gif);
+    color: #D0D0D0;    list-style: none;    margin: 0;
+    padding: 0.5em;  }  ul#Navigation1 a {    display: block;
+    text-decoration:none;    /*padding: 0.2em;*/  }  ul#Navigation1 a:link {    color: white;  }  ul#Navigation1 a:visited {    color: white;  }  ul#Navigation1 a:hover {    color: yellow;
+  }
+
+/**********************************************/
+/*    Eigenschaften für die Navigation 2      */
+/**********************************************/
+
+  ul#Navigation2 {
+    font-size: .9em;    /*float: left;*/
+    width: 123px;    margin: 0 0;
+    padding: 0;  }  ul#Navigation2 li {    background-image: url(bg_navi2.gif);
+    list-style: none;    margin: 0;
+    padding: 0.5em 1em;
+/*    padding: 0 0.5em;*/  }  ul#Navigation2 a {    display: block;
+    text-decoration:none;
+/*    width: 100px; */    /*padding: 0.2em;*/  }  ul#Navigation2 a:link {    color: white;  }  ul#Navigation2 a:visited {    color: white;  }  ul#Navigation2 a:hover {    color: yellow;
+    /*background-color: red;*/  }
+
+/**********************************************/
+/*     Eigenschaften fuer den Seiteinhalt      */
+/**********************************************/
+  div#Inhalt {
+    font-size: 0.95em;    border: 1px solid silver;    margin: 0 0 1em 130px;
+    padding: 0 .2em 2em;
+    background-color: white;
+  }
+
+  div#Inhalt h2 {    font-size: 0.85em;    margin: 3.3px 0 1em;
+    padding: .4em .5em .2em .5em;
+    background-image: url(bg_h2.gif);
+    color: white;  }  div#Inhalt h3 {    font-size: 0.85em;    margin: 2em 0 1em;
+    padding: .4em .5em .2em .5em;
+    background-image: url(bg_h2.gif);    color: white;  }  div#Inhalt p {    font-size: .9em;
+    padding: 0 .2em;    margin: .5em 0;
+  }
+
+  div#Inhalt Form {    font-size: .5em;
+    padding: 0 .2em;    margin: .5em 0;
+  }
+
+  div#Inhalt ul {
+    font-size: 0.9em;
+    margin: 0 1em 0 -1em;
+  }
+  div#Inhalt ul li {
+    margin: 1em 0 0.5em 0; padding: 0 0em;
+  }
+  div#Inhalt ul li ul {
+    margin: 0 1em; padding: 0;
+  }
+
+  div#Inhalt ul li ul li {    margin: 0.25em 0; padding: 0;
+  }
+
+
+/**********************************************/
+/*  Eigenschaften für die Highscore-Tabelle   */
+/**********************************************/
+
+  table#Highscore {
+    border-color: grey;
+    border-style: ridge;
+    margin-left: auto;
+    margin-right: auto;
+    border: none; /*1px ridge silver;*/  }
+  table#Highscore th{
+    padding: 3px 3px 1px 3px;
+    background-color: #EEAAAA;
+    font-size: 0.8em;
+  }
+  table#Highscore td{
+    padding: 2px 5px 1px 5px;
+    font-size: 0.8em;
+    text-align: right; 
+    background-color: #E8E8E8;
+  }
+  table#Highscore td pre{
+    font-family:Fixedsys,Courier,monospace;
+    text-align:left;
+  }
+
+/**********************************************/
+/*  Eigenschaften für die Forms-Tabelle   */
+/**********************************************/
+
+  table#Form {
+    text-align: left;
+    font-size: 1.8em;
+  }
+
+
+/**********************************************/
+/* Eigenschaften für die Tabelle der Legende  */
+/**********************************************/
+
+  table#Legende{
+    margin-left: auto;
+    margin-right: auto;
+    border none;
+    text-align: center;
+    font-size: 0.85em;
+  }
+
+/**********************************************/
+/* Eigens. für die User-Links in der Tabelle  */
+/**********************************************/
+
+  /*-------------- User -------------- */
+  a#User{
+    color: #DD0000;
+    text-decoration:none;
+  }
+  a:hover#User {
+    text-decoration: underline;
+  }
+
+  /*------------- Party -------------- */
+  a#Party {
+    color: #000099;
+    text-decoration:none;
+  }
+  a:hover#Party {
+    text-decoration: underline;
+  }
+
+  /*-------------- Gast -------------- */
+  a#Gast {
+    color: black;
+    text-decoration:none;
+  }
+  a:hover#Gast {
+    text-decoration: underline;
+  }
+
+
+/**********************************************/
+/*             Todo/Ideen-Style               */
+/**********************************************/
+
+  li#Idee {
+    font-weight: bold;
+    padding: 3em 5em 0.5em 0em;
+
+  }
+  
+  li#Freddie {
+    color: red;
+  }
+
+  li#Franz {
+    color: green;
+  }
+
+  li#Roland {
+    color: blue;
+  }   
+</style>
