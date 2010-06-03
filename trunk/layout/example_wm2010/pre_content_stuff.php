@@ -21,23 +21,8 @@
 <div id="Seite">
 
 
-<?php 
-  if ($user == null)
-  {
- 	include("../layout/navi_login.html");
-  }
-  else if ($user->adminlevel == 2)
-  {
-	include("../layout/navi_superadmin.html");
-  }
-  else if ($user->adminlevel == 1)
-  {
-	include("../layout/navi_admin.html");
-  }
-  else
-  {
-	 include("../layout/navi.html");
-  }
+<?php
+  include("../layout/navi.php");
 ?>
 
 <div id="Inhalt">
