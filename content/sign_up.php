@@ -25,7 +25,7 @@ function show_form()
 
 
   echo "<form id='Form' action='sign_up.php' method='post'>";
-  echo " <table>";
+  echo " <table id='Form'>";
 
   echo " <tr>";
   echo "  <td> Login: </td>";

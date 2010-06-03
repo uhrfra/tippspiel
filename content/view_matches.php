@@ -36,7 +36,7 @@
 	if ($show == MATCHSTATUS_OPEN)
 	{
 		echo "<h1>Ausstehende Tipps</h1>";
-		echo "Hier werden alle Spiele angezeigt, auf die Du tippen kannst.<br><br>";
+		echo "<p>Hier werden alle Spiele angezeigt, auf die Du tippen kannst.<br></p>";
 		// Insert tips into db
 		$game->insertPostedTipps($userid);
 	
@@ -47,7 +47,7 @@
 	else if ($show == MATCHSTATUS_CLOSED)
 	{
 		echo "<h1>Abgelaufene Tipps</h1>";
-		echo "Hier werden alle Spiele angezeigt, die bereits beendet sind.<br><br>";
+		echo "<p>Hier werden alle Spiele angezeigt, die bereits beendet sind.<br></p>";
 		$gb->buildClosedGamesTable($userid, null, false);
 		define("HINWEIS_SPIEL_LINK", 1);
 		define("HINWEIS_ETSF_PROZENT", 1);
