@@ -7,7 +7,7 @@
 <p>
 <ul>
 <li> Mitmachen kann im Prinzip jeder. Jedoch ist das Ganze als kleineres Projekt geplant und wird diesen Rahmen hoffentlich nicht verlassen.</li>
-<li>Bei dier Anmeldung muss Vor- und Nachname sowie eine g&uuml;ltige e-Mail-Adresse angeben werden.</li>
+<li>Bei der Anmeldung muss Vor- und Nachname sowie eine g&uuml;ltige e-Mail-Adresse angeben werden.</li>
 </ul>
 </p>
 
@@ -24,29 +24,29 @@
      <table id="Highscore">
          <tr>
            <th></th>
-           <th style="text-align:center" width="100">Sieger richtig</th>
-           <th style="text-align:center" width="100">Tordifferenz richtig</th>
            <th style="text-align:center" width="100">Ergebnis richtig</th>
+           <th style="text-align:center" width="100">Tordifferenz richtig</th>
+           <th style="text-align:center" width="100">Sieger richtig</th>
          </tr>
          <tr>
 
 <?php
 echo "  <th align='left'>Tipp auf Sieg Mannschaft A</th>";
-echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
-echo "           <td style='text-align:center'>", SCORE_DIFF, "</td>";
 echo "           <td style='text-align:center'>", SCORE_RESULT, "</td>";
+echo "           <td style='text-align:center'>", SCORE_DIFF, "</td>";
+echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
 echo "         </tr>";
 echo "         <tr>";
 echo "           <th align='left'>Tipp auf Unentschieden</th>";
-echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
-echo "           <td style='text-align:center'>-</td>";
 echo "           <td style='text-align:center'>", SCORE_RESULT, "</td>";
+echo "           <td style='text-align:center'>-</td>";
+echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
 echo "         </tr>";
 echo "         <tr>";
 echo "           <th align='left'>Tipp auf Sieg Mannschaft B</th>";
-echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
-echo "           <td style='text-align:center'>", SCORE_DIFF, "</td>";
 echo "           <td style='text-align:center'>", SCORE_RESULT, "</td>";
+echo "           <td style='text-align:center'>", SCORE_DIFF, "</td>";
+echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
 echo "         </tr>";
 echo "     </table>";
 echo "</p>";

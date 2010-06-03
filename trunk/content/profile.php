@@ -148,7 +148,7 @@ function show_profile($userid)
 	echo "<p style='clear:right; margin:0'>&nbsp; </p>";
 	echo "<div style='width: 370px; float:right; margin: 0 0 1.5em 0'>";
 	echo "<h1>E-Mail-Adresse &auml;ndern</h1>";
-	echo "<form id='Form' action='#' method='post'>";
+	echo "<form action='#' method='post'>";
 	echo "<p style='text-align:center'>";
 	echo "<input id='Button' type='submit' name='submit' value='E-Mail-Adresse ändern'>";
 	echo "<input type = 'hidden' name = 'action' value = 'change_email'>";
@@ -157,7 +157,7 @@ function show_profile($userid)
 	echo "</div>";
 	echo "<div style='margin: 0 380px 0 0;'>";
 	echo "<h1>Passwort &auml;ndern </h1>";
-	echo "<form  id='Form' action='#' method='post'>";
+	echo "<form  action='#' method='post'>";
 	echo "<p style='text-align:center'>";
 	echo "<input id='Button' type='submit' name='submit' value='Passwort ändern''>";
 	echo "<input type = 'hidden' name = 'action' value = 'change_pw'>";
@@ -172,7 +172,7 @@ function change_pw()
 {
 	echo "<h1> Passwort &auml;ndern </h1>";
 	echo "<form action='#' method='post'>";
-	echo " <table style='margin-left:auto; margin-right:auto'>";
+	echo " <table id='Form' style='margin-left:auto; margin-right:auto'>";
 	echo " <tr><td> Altes Passwort: </td>";
 	echo " <td> <input name='oldpassword' type='password' size='30' maxlength='32'></td></tr>";
 	echo " <tr><td> Neues Passwort: </td>";
@@ -207,7 +207,7 @@ function change_email()
 {
 	echo "<h1> E-Mail-Adresse &auml;ndern </h1>";
 	echo "<form action='#' method='post'>";
-	echo " <table style='margin-left:auto; margin-right:auto'>";
+	echo " <table id='Form' style='margin-left:auto; margin-right:auto'>";
 	echo " <tr><td> Neue E-Mail-Adresse: </td>";
 	echo " <td> <input name='newemail' type='text' size='30' maxlength='50'></td></tr>";
 	echo "</table>";

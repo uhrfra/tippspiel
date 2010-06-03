@@ -43,23 +43,21 @@ von <?php echo Game::getNumUsers(0); ?>.<br>
 	$m = new Matches();
 	if (!$m->started())
 	{
-		echo "Bis zum Beginn des ersten Spiels kannst Du Deinen Meistertipp noch ändern.<br>";
+		echo "<p>Bis zum Beginn des ersten Spiels kannst Du Deinen Meistertipp noch ändern.</p>";
 	}
 
-	echo "<br>";
 
 ?>
 
-<div style="width:400px; float:right; margin: 0 0 1.5em 0">
+<div style="margin-top: 1.5em; overflow:auto;";>
 
-
-
-<h2> Vergangene und aktuelle Spiele</h2>
+<div style="width:400px; float:right; margin: 0;">
+<h2 style="margin-top:0"> Vergangene und aktuelle Spiele</h2>
 <?php
 $prevMatchday = $m->getPreviousMatchday();
 if ($prevMatchday == null)
 {
-	echo "<it>(keine Spiele vorhanden)</it>";
+	echo "<p><it>(keine Spiele vorhanden)</it>";
 }
 else
 {
@@ -79,7 +77,7 @@ GUIBuilder::buildTippForm($userid, null, "../content/main.php");
 
 <div style="margin: 0em 410px 0 0;">
 
-<h2>Die aktuelle Top-Ten-Liste:</h2>
+<h2 style="margin-top:0">Die aktuelle Top-Ten-Liste:</h2>
 
 
 <?php
@@ -91,9 +89,11 @@ GUIBuilder::buildHighscoreTable($userid,0, 1, 0, 1, "")
 
 </div>
 
+<div style="clear:left; height:0"></div>
 
 </div>
 
+</div>
 
 <?php 
 	define("HINWEIS_SPIELER_FARBE", 1);

@@ -69,10 +69,12 @@ class GUIBuilder
 		}
 		if ($openmatches == null)
 		{
-			echo "<it>(keine offenen Spiele)</it>";
+			echo "<p><it>(keine offenen Spiele)</it></p>";
 			return;
 		}
-		echo "<form action='$sitelink' method='post'><table id=\"Highscore\">";
+		echo "<form action='$sitelink' method='post'>";
+		echo "<div style='text-align:center'>"; // table centering for IEs
+		echo "<table id=\"Highscore\">";
 
 		if ($sitelink == "../content/main.php")
 			echo "<tr><th>Datum</th><th>Spiel</th><th>Dein Tipp</th><tr>";
@@ -104,6 +106,7 @@ class GUIBuilder
 		echo "<input type='submit' name='submit' value = 'TIPPEN'> ";
 		echo "</td>";
 		echo "</table>";
+		echo "</div>";
 		echo "</form>";
 	}
 	
@@ -192,6 +195,7 @@ HAVING platz <= $maxplace OR u1.id = $cur_uid
 ORDER BY punkte DESC, pkt_o_mt DESC, u1.anz_er DESC, u1.anz_tr DESC, u1.anz_sr DESC;";
 
  $query_result = $db->query($sqlH1);
+  echo "<div style='text-align:center'>"; // table centering for IEs
   echo"<table id=\"Highscore\">
 <tr>
 <th>Pl.</th>
@@ -276,6 +280,7 @@ echo "
   echo "    <td style='width:5px'></td>"; 
   echo "    <td style='text-align:left'>F = falsch getippt</td></tr>";
   echo "</table>";
+  echo "</div>";
 
  }
  
@@ -317,6 +322,7 @@ FROM (((spiele LEFT JOIN tipps ON spiele.id = tipps.spielid AND tipps.userid = $
 
 $db = new Database();
  $query_result = $db->query($sqlS2);
+  echo "  <div style='text-align:center'>"; // table centering for IEs
   echo "  <table id=\"Highscore\">
 <tr>
 <th>Datum</th>";
@@ -394,6 +400,7 @@ echo "</tr>";
     echo "</tr>";
   }
   echo" </table><br>";
+  echo" </div>";
 }
 
 function buildChamptipTable(){
@@ -402,6 +409,7 @@ function buildChamptipTable(){
   laender.meisterstatus as status, laender.id
 FROM laender LEFT JOIN user ON laender.id = user.meistertip
 GROUP BY `land`, status;";
+  echo "<div style='text-align:center'>"; // table centering for IEs
   echo"  <table id=\"Highscore\">
 <tr>
 <th>Land</th>
@@ -447,6 +455,7 @@ GROUP BY `land`, status;";
     
   }
   echo "</table>";
+  echo "</div>";
 }
 
 // Erstellt eine Tabelle mit den Tipps aller User zu einem Spiel
@@ -476,6 +485,7 @@ FROM (user JOIN tipps ON user.id = tipps.userid)
 WHERE spiele.id = '$matchid' AND spiele.datum < addtime(NOW(), SEC_TO_TIME(". TIMESHIFT ."))
 ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipps.tore2, tipps.id;";
 
+  echo "<div style='text-align:center'>"; // table centering for IEs
   echo"  <table id=\"Highscore\">
 <tr>
 <th>Name</th>
@@ -525,6 +535,7 @@ ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipp
     echo "</tr>";
   }
   echo" </table><br>";
+  echo" </div>";
 }
 
 public static function buildNewsboardTable()
@@ -539,6 +550,7 @@ public static function buildNewsboardTable()
 	$query_result = $db->query($sql);
 
 	$fid = 0;
+	echo "<div style='text-align:center'>"; // table centering for IEs
 	echo "<table id=\"Highscore\">";
 	while ($row = mysql_fetch_row($query_result))
 	{
@@ -552,6 +564,7 @@ public static function buildNewsboardTable()
 	}
 
 	echo "</table>";
+	echo "</div>";
 	
 	}
 
@@ -586,7 +599,7 @@ public static function buildNewsboardTable()
 
 	        echo "<p><br></p>";
 
-	        echo "<img src='../layout/bg_h2.gif' width='100%' height='2px'>";
+	        echo "<img src='../layout/bg_navi2.gif' width='100%' height='2px'>";
 
 	        echo "<div style='font-size:0.8em'>";
 
