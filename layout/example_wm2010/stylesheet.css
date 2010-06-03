@@ -1,6 +1,6 @@
 
 /******************************************/
-/* Allgemeine Eigenschaften für die Seite */
+/* General properties for the whole body  */
 /******************************************/
 
 body {
@@ -12,47 +12,59 @@ body {
     margin: 0; padding: 1em 0;    text-align: center;  /* Zentrierung im Internet Explorer */}
 
 /*******************************************/
-/*   Eigenschaften fuer den Titel / Logo   */
+/*  Properties for the title / logo        */
 /*******************************************/
 
 div#Titel {
-//    border: 6px white solid;
     width: 868px;
     height: 145px;
     display: block;
     margin: 6 auto;
     background-color: none;
     border: none;
-//    background-image: url(invisible.gif);  }
+  }
 
 /************************************************/
-/* Allg. Eigens. fuer die Seite (Navi + Inhalt) */
+/* Properties for the page (navi + content)     */
 /************************************************/
-div#Seite {    text-align: left;    /* Seiteninhalt wieder links ausrichten
-*/    margin: 10 auto;      /* standardkonforme horizontale Zentrierung */
+div#Seite {    text-align: left;    margin: 10 auto;
     width: 880px;    padding: 0px;
-
     background: white;
-  }/***********************************************/
-/*    Eigenschaften fuer die Navigation 1      */
+  }
+/***********************************************/
+/* Properties for the general navigation block */
+/***********************************************/
+
+div#Navigation{
+  float: left;
+  border: 5px solid white;
+}  
+
+/***********************************************/
+/*           Properties for Forms              */
+/***********************************************/
+
+table#Form {
+  font-size:0.9em;
+}
+
+/***********************************************/
+/*    Properties for the navigation level 1    */
 /***********************************************/
 
 ul#Navigation1 {
-    border: 5px solid white;
     font-size: 0.83em;
-    float: left;
     width: 123px;
     margin: 0;
     padding: 0;
  }
 
-
   ul#Navigation1 li {
     background-image: url(bg_navi1.gif);
-    color: #FFFF00;
+    color: #ffe20a;
     list-style: none;
     margin: 0;
-    padding: 0.5em 0.5em 0.5em 0.5em;
+    padding: 0.5em;
   }
   ul#Navigation1 a {
     display: block;
@@ -70,14 +82,13 @@ ul#Navigation1 {
   }
 
 /**********************************************/
-/*    Eigenschaften für die Navigation 2      */
+/*    Properties for the navigation level 1   */
 /**********************************************/
 
   ul#Navigation2 {
-    font-size: .9em;
-    /*float: left;*/
+    font-size: .75em;
     width: 123px;
-    margin: 0 0;
+    margin: 0;
     padding: 0;
   }
 
@@ -86,7 +97,6 @@ ul#Navigation1 {
     list-style: none;
     margin: 0;
     padding: 0.5em 1em;
-/*    padding: 0 0.5em;*/
   }
   ul#Navigation2 a {
     display: block;
@@ -124,22 +134,30 @@ ul#Navigation1 {
     padding: 0 .2em;    margin: .5em 0;
   }
 
-  div#Inhalt Form {    font-size: .5em;
-    padding: 0 .2em;    margin: .5em 0;
-  }
-
   div#Inhalt ul {
+    list-style.position:outside;
     font-size: 0.9em;
-    margin: 0 1em 0 -1em;
+    margin: 0 1em 0 0em;
+    padding-left: 1.5em;
   }
   div#Inhalt ul li {
-    margin: 1em 0 0.5em 0; padding: 0 0em;
+    margin: 0.5em 0 0.5em 0;
+    padding: 0 0em;
   }
   div#Inhalt ul li ul {
-    margin: 0 1em; padding: 0;
+    font-size: 0.95em;
+    margin: 0 1.5em; padding: 0;
+  }
+  div#Inhalt ul li ul li {
+    margin: 0.25em 0; padding: 0;
   }
 
-  div#Inhalt ul li ul li {    margin: 0.25em 0; padding: 0;
+  div#Inhalt ul li ol {
+    font-size: 0.95em;
+    margin: 0 1.5em; padding: 0;
+  }
+  div#Inhalt ul li ol li {
+    margin: 0.25em 0; padding: 0;
   }
 
 
@@ -177,7 +195,6 @@ ul#Navigation1 {
 
   table#Form {
     text-align: left;
-    font-size: 1.8em;
   }
 
 
