@@ -29,7 +29,7 @@ Wenn Du schon ein registrierter Benutzer bist, kannst Du Dich hier einloggen:
 
 <p>
 Falls Du noch nicht angemeldet bist, wird es höchste Zeit! <a
-href='../content/sign_up.php5'>Hier</a> gehts zur Anmeldung. <br> 
+href='../content/sign_up.php'>Hier</a> gehts zur Anmeldung. <br> 
 Vorher kannst Du <a href='../content/rules.php?svr=1'>hier</a> die 
 <a href='../content/rules.php?svr=1'>Spielregeln</a> lesen.
 <br><br>

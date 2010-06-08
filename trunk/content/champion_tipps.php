@@ -60,12 +60,12 @@
 		$selecttip = 0;
 		if ($champtip == null)
 		{
-			echo "<p>Du hast noch keinen Tipp für den EM-Sieger abgegeben. Solange die EM noch nicht begonnen hat kannst Du ihn unter 
+			echo "<p>Du hast noch keinen Meistertipp abgegeben. Solange das Turnier noch nicht begonnen hat kannst Du ihn unter 
 					<a href='../content/profile.php'>Deine Daten</a> ändern.</p>";
 		}
 		else
 		{
-			echo "<p>Dein Meisteripp ist ", $champtip->name,". Bis zu Beginn der EM kannst Du diesen noch unter <a href='../content/profile.php'>Deine Daten</a> ändern.</p>";
+			echo "<p>Dein Meistertipp ist ", $champtip->name,". Bis zu Beginn des Turniers kannst Du diesen noch unter <a href='../content/profile.php'>Deine Daten</a> ändern.</p>";
 			$selecttip = $champtip->id;
 		}
 	}

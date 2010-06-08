@@ -69,7 +69,7 @@ class GUIBuilder
 		}
 		if ($openmatches == null)
 		{
-			echo "<p><it>(keine offenen Spiele)</it></p>";
+			echo "<p style='text-align:center'><it>(keine offenen Spiele)</it></p>";
 			return;
 		}
 		echo "<form action='$sitelink' method='post'>";
@@ -123,7 +123,7 @@ class GUIBuilder
 		}
 		if ($openmatches == null)
 		{
-			echo "<it>(keine offenen Spiele)</it>";
+			echo "<p style='text-align:center'><it>(keine offenen Spiele)</it></p>";
 			return;
 		}
 

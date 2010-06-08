@@ -57,7 +57,7 @@ von <?php echo Game::getNumUsers(0); ?>.<br>
 $prevMatchday = $m->getPreviousMatchday();
 if ($prevMatchday == null)
 {
-	echo "<p><it>(keine Spiele vorhanden)</it>";
+	echo "<p style='text-align:center'><it>(keine Spiele vorhanden)</it></p>";
 }
 else
 {

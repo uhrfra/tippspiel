@@ -63,7 +63,7 @@ echo "<li>     Spieler B bekommt 0 + ", SCORE_RESULT, " + ", SCORE_RESULT, " = "
 echo "</ul>";
 echo "    </li>";
 echo "<li> Ein richtiger Meistertipp ist zus&auml;tzlich ", SCORE_CHAMPTIP ," Punkte wert. </li>";
-echo "<li> Haben am Ende mehrere Spieler dieselbe Punktzahl, wird der Sieger nach folgenden Kritierien ermittelt:";
+echo "<li> Haben am Ende mehrere Spieler dieselbe Punktzahl, wird der Sieger nach folgenden Kriterien ermittelt:";
 echo " <ol>";
 echo " <li> Anzahl der Punkte ohne Meistertipp </li>";
 echo " <li> Anzahl der richtig getippten Ergebnisse </li>";
