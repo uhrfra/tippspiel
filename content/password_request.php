@@ -54,7 +54,7 @@ function requested()
 	$link="http://tippspiel.kontextfrei.de/wm2010/content/password_reset.php?token=".$token;
 	
 	$mailtext = "Hallo,
-
+	
 Du hast beim Tippspiel eine Passwortänderung beantragt.
 Bitte rufe zur Passwortänderung folgende Seite auf:
 $link

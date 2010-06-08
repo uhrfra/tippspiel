@@ -87,12 +87,12 @@ function show_profile($userid)
 	{
 		if ($ct == null)
 		{
-			echo "Du hast noch keinen Tipp für den EM-Sieger abgegeben! Hier kannst Du Deinen Tipp wählen:<br>";
+			echo "Du hast noch keinen Meistertipp abgegeben! Hier kannst Du Deinen Tipp wählen:<br>";
 		}
 		else
 		{
 			echo "Dein Meistertipp ist <b>". $ct->name."</b>.<br>";
-			echo "Solange die EM noch nicht begonnen hat, kannst Du den Meistertipp noch ändern.<br>";
+			echo "Bis zum Anpfiff des Er&ouml;ffungsspieles, kannst Du den Meistertipp noch ändern.<br>";
 		}
 		echo "<form action='#' method='post'>";
 		echo "<input type='submit' name='submit' value='Meistertipp ändern'>";
