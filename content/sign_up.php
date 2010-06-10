@@ -29,30 +29,30 @@ function show_form()
 
   echo " <tr>";
   echo "  <td> Login: </td>";
-  echo "  <td> <input name='login' type='text' size='10' maxlength='10'></td>";
+  echo "  <td> <input name='login' type='text' size='10' maxlength='30'></td>";
   echo "<td></td>";
   echo " </tr>";
   
   echo " <tr>";
   echo "  <td> Passwort: </td>";
-  echo "  <td> <input name='passwort' type='password' size='20' maxlength='32'></td>";
+  echo "  <td> <input name='passwort' type='password' size='20' maxlength='33'></td>";
   echo "<td></td>";
   echo " </tr>";
   
   echo " <tr>";
   echo "  <td> Passwort wiederholen: </td>";
-  echo "  <td> <input name='passwort_confirm' type='password' size='20' maxlength='32'></td>";
+  echo "  <td> <input name='passwort_confirm' type='password' size='20' maxlength='33'></td>";
   echo "<td></td>";
   echo " </tr>";
 
   echo " <tr>";
   echo "  <td> Name: </td>";
-  echo "  <td> <input name='name' type='text' size='20' maxlength='32'></td><td>(Bitte Vor- und Nachname)</td>";
+  echo "  <td> <input name='name' type='text' size='20' maxlength='50'></td><td>(Bitte Vor- und Nachname)</td>";
   echo " </tr>";
 
   echo " <tr>";
   echo "  <td> E-Mail: </td>";
-  echo "  <td> <input name='email' type='text' size='20' maxlength='32'></td>";
+  echo "  <td> <input name='email' type='text' size='20' maxlength='50'></td>";
   echo "<td></td>";
   echo " </tr>";
   

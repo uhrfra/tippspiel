@@ -27,10 +27,25 @@ class Session
 
 		$db = new Database();
 
-		// Check login
-		if (strlen(trim($login)) < 3)
+		// Check lengths
+		if (strlen($login) < 3 || strlen($login) > 30)
 		{
-			throw new ExceptionInvalidUser("Login muss mindestens drei Zeichen lang sein.");
+			throw new ExceptionInvalidUser("Login zwischen 3 und 30 Zeichen lang sein.");
+		}
+		
+		if (strlen($password) < 5 || strlen($password) > 50)
+		{
+			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
+		}
+		
+		if (trim ($User->name) < 5 || strlen($User->name) > 50)
+		{
+			throw new ExceptionInvalidUser("Name muss zwischen 5 und 32 Zeichen lang sein.");
+		}
+		
+		if (strlen($User->email) > 50)
+		{
+			throw new ExceptionInvalidUser("E-Mail zu lang (maximal 50 Zeichen.");
 		}
 		
 		if ($db->QueryResult("SELECT * FROM user WHERE login = '$login';") != null)
@@ -38,11 +53,7 @@ class Session
 			throw new ExceptionInvalidUser("Login ungültig.");
 		}
 
-		// Check password
-		if (strlen(trim ($password)) < 5)
-		{
-			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
-		}
+		
 		
 		// Check if both password strings are equal.
 		if ($password != $password_confirm)
@@ -51,10 +62,6 @@ class Session
 		}
 
 		// Check user name
-		if (strlen(trim($User->name)) < 0)
-		{
-			throw new ExceptionInvalidUser("Bitte Name angeben.");
-		}
 		
 		if ($db->QueryResult("SELECT * FROM user WHERE name = '$User->name';") != null)
 		{
@@ -82,7 +89,7 @@ class Session
 		$db = new Database();
 
 		// Check password
-		if (strlen(trim ($newpassword)) < 5)
+		if (strlen($newpassword) < 5 || strlen($newpassword) > 50)
 		{
 			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
 		}
@@ -108,9 +115,9 @@ class Session
 		$db = new Database();
 
 		// Check password
-		if (strlen(trim ($newpassword)) < 5)
+		if (strlen(trim ($newpassword)) < 5 || strlen($newpassword) > 50)
 		{
-			throw new ExceptionInvalidUser("Passwort muss mindesten fünf Zeichen lang sein.");
+			throw new ExceptionInvalidUser("Passwort muss zwischen 5 und 50 Zeichen lang sein.");
 		}
 
 		if ($newpassword != $newpassword2)

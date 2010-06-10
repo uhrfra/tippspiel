@@ -59,12 +59,12 @@ CREATE TABLE tipps (
 
 CREATE TABLE user (
   id int(11) NOT NULL auto_increment,
-  login varchar(10) default NULL,
-  name varchar(30) NOT NULL default '',
+  login varchar(30) default NULL,
+  name varchar(50) NOT NULL default '',
   passwort varchar(32) NOT NULL,
   salt varchar(32) default NULL,
   pwresettoken varchar(32) default NULL,
-  email varchar(30) default NULL,
+  email varchar(50) default NULL,
   adminlevel tinyint(4) NOT NULL default '0',
   meistertip int(11) NOT NULL default '0',
   wettbewerb tinyint(4) default '0',
