@@ -38,7 +38,7 @@ class Session
 			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
 		}
 		
-		if (trim ($User->name) < 5 || strlen($User->name) > 50)
+		if (strlen($User->name) < 5 || strlen($User->name) > 50)
 		{
 			throw new ExceptionInvalidUser("Name muss zwischen 5 und 32 Zeichen lang sein.");
 		}
