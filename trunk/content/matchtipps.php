@@ -14,7 +14,7 @@
 
 	if ($userid == null)
 	{
-		$gb->showNoAccessPage();
+		GUIBuilder::showNoAccessPage();
 		include ("../layout/post_content_stuff.php");
 		exit();
 	}
