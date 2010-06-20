@@ -16,6 +16,13 @@ class Newsboard
 		$db->query($sql);
 	
 	}
+	
+	public static function getNumEntriesSince($datetime)
+	{
+		$sql = "SELECT COUNT(*) FROM newsboard WHERE datum > '$datetime';";
+	    $db = new Database();
+		return $db->queryResult($sql);
+	}
 }
 
 ?>
