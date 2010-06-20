@@ -12,6 +12,8 @@ class User
 	public $attr1 = 0;
 	public $attr2 = 0;
 	public $attr3 = 0;
+	public $logintime = '';
+	public $prevlogintime = '';
 }
 
 class Session
@@ -167,7 +169,7 @@ class Session
 		
 		// Check if user exists in database.
 		$db = new Database();
-		$res = $db->queryRow("SELECT login, passwort, id, name FROM user WHERE login = '$login';");
+		$res = $db->queryRow("SELECT login, passwort, id, name, logintime FROM user WHERE login = '$login';");
 		if ($res == null || $res[0] != $login)
 		{
 			throw new ExceptionInvalidUser("Falscher Benutzername.");
@@ -185,9 +187,6 @@ class Session
 		$sessiontime = MAX_SESSION_TIME;
 		// Write session id into the database
 		$db->query("INSERT INTO sessions(sessionid,validstamp,userid) VALUES('$sessionid',CURRENT_TIMESTAMP + INTERVAL $sessiontime MINUTE, '$res[2]');");
-		
-		// Reset password reset token (it it not needed any more, if the user knows his password).
-		$db->query("UPDATE user SET pwresettoken = '' WHERE id = '$res[2]';");
 			
 		// Create cookie with session id
 		if (!setcookie("tippersession", $sessionid))
@@ -196,6 +195,13 @@ class Session
 		}
 		
 		Session::$current_uid = $res[2];
+		
+		// Reset password reset token (it it not needed any more, if the user knows his password).
+		$db->query("UPDATE user SET pwresettoken = '' WHERE id = '$res[2]';");
+		
+		// Update values prevloginime and logintime of the user
+		$db->query("UPDATE user SET prevlogintime = '$res[4]' WHERE id = '$res[2]';");
+		$db->query("UPDATE user SET logintime = CURRENT_TIMESTAMP WHERE id = '$res[2]';");
 		
 		// Finally...
 		$this->cleanupExpiredSessions();
@@ -265,7 +271,7 @@ class Session
 	
 		$user = new User();
 		$db = new Database();
-		$res = $db->queryRow("SELECT name, email, adminlevel, wettbewerb, attr1, attr2, attr3 FROM user WHERE id = '$userid';");
+		$res = $db->queryRow("SELECT name, email, adminlevel, wettbewerb, attr1, attr2, attr3, logintime, prevlogintime FROM user WHERE id = '$userid';");
 		$user->name = $res[0];
 		$user->email = $res[1];
 		$user->adminlevel = $res[2];
@@ -273,19 +279,21 @@ class Session
 		$user->attr1 = $res[4];
 		$user->attr2 = $res[5];
 		$user->attr3 = $res[6];
+		$user->logintime = $res[7];
+		$user->prevlogintime = $res[8];
 		return $user;
 	}
 	
-       public function getCurrentUserLogin()
-       {
-               $userid = $this->getCurrentUserId();
-               if ($userid == null)
-               {
-                       return null;
-               }
-               $db = new Database();
-               return $res = $db->queryResult("SELECT login FROM user WHERE id = '$userid';");
-       }
+	   public function getCurrentUserLogin()
+	   {
+			   $userid = $this->getCurrentUserId();
+			   if ($userid == null)
+			   {
+					   return null;
+			   }
+			   $db = new Database();
+			   return $res = $db->queryResult("SELECT login FROM user WHERE id = '$userid';");
+	   }
 
 	public function getUser($userid)
 	{
@@ -297,7 +305,7 @@ class Session
 	
 		$user = new User();
 		$db = new Database();
-		$res = $db->queryRow("SELECT name, email, adminlevel, wettbewerb, attr1, attr2, attr3 FROM user WHERE id = '$userid';");
+		$res = $db->queryRow("SELECT name, email, adminlevel, wettbewerb, attr1, attr2, attr3, logintime, prevlogintime FROM user WHERE id = '$userid';");
 		$user->name = $res[0];
 		$user->email = $res[1];
 		$user->adminlevel = $res[2];
@@ -305,6 +313,8 @@ class Session
 		$user->attr1 = $res[4];
 		$user->attr2 = $res[5];
 		$user->attr3 = $res[6];
+		$user->logintime = $res[7];
+		$user->prevlogintime = $res[8];
 		return $user;
 	}
 	

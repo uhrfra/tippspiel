@@ -566,7 +566,38 @@ public static function buildNewsboardTable()
 	echo "</table>";
 	echo "</div>";
 	
+}
+
+public static function buildNewsboardTableSince($datetime)
+{
+	$sql = "SELECT user.name, 
+	DATE_FORMAT(newsboard.datum, '%d.%m.%y um %H:%i') AS datum, 
+	newsboard.text, newsboard.id
+	FROM user, newsboard
+	WHERE user.id = newsboard.userid AND 
+	newsboard.datum > '$datetime'
+	ORDER BY newsboard.datum DESC;";
+	$db = new Database();
+	$query_result = $db->query($sql);
+
+	$fid = 0;
+	echo "<div style='text-align:center'>"; // table centering for IEs
+	echo "<table id=\"Highscore\">";
+	while ($row = mysql_fetch_row($query_result))
+	{
+	  if ($fid == 0){
+			$fid = $row[3];
+	  }
+	  $row[2] = str_replace("<","&lt;", $row[2]);
+	  $row[2] = str_replace(">","&gt;", $row[2]);
+	  echo "<tr> <th><b> ", $row[0], " schrieb am ", $row[1], " : </b></th></tr>";
+	  echo "<tr><td style='width:600px'><pre width=80>", $row[2], "</pre></td></tr>";
 	}
+
+	echo "</table>";
+	echo "</div>";
+	
+}
 
 	public static function buildMailToAllUsersLink()
 	{

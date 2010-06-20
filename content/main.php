@@ -3,6 +3,7 @@
 	include_once("../classes/Matches.php");
 	include_once("../classes/GUIBuilder.php");
 	include_once("../classes/Game.php");
+	include_once("../classes/Newsboard.php");
 
 	include ("../layout/pre_content_stuff.php");
 
@@ -94,6 +95,16 @@ GUIBuilder::buildHighscoreTable($userid,0, 1, 0, 1, "")
 </div>
 
 </div>
+
+<p>
+<?php
+if (Newsboard::getNumEntriesSince($user->prevlogintime) > 0)
+{
+	echo "<h2>Neue Einträge im Newsboard</h2>";
+	GUIBuilder::buildNewsboardTableSince($user->prevlogintime);
+}
+?>
+</p>
 
 <?php 
 	define("HINWEIS_SPIELER_FARBE", 1);
