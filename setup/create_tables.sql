@@ -75,6 +75,8 @@ CREATE TABLE user (
   anz_tr smallint(5) unsigned default '0',
   anz_sr smallint(5) unsigned default '0',
   anz_f smallint(5) unsigned default '0',
+  logintime datetime NOT NULL default '0000-00-00 00:00:00',
+  prevlogintime datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id),
   UNIQUE KEY login (login)
 ) TYPE=MyISAM;
