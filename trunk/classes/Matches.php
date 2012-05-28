@@ -44,10 +44,9 @@ class Matches
 	
 	public function started()
 	{
-		$stampsplit = split('[:,.]', GAMESTART);
-		
+		$stampsplit = preg_split("/[\.]|[:]|[,]/", GAMESTART);
 		$stamp = mktime((int) $stampsplit[3], (int)  $stampsplit[4], 0, (int) $stampsplit[1], (int) $stampsplit[0], (int) $stampsplit[2]);
-		
+			
 		if ($stamp > time())
 		{
 			return false;
@@ -174,8 +173,9 @@ ORDER BY spiele.id DESC;";
 		}
 	
 		echo $m->datetime;
-		$reg_exp="([0-9]{2,4})-([0-1][0-9])-([0-3][0-9]) ([0-2][0-9]):([0-5][0-9])";
-		if(!eregi ($reg_exp, $m->datetime ))
+		// TODO: This regexp is not perfect and should be improved.
+		$reg_exp="/\d{4}-\d{2}-\d{2} \d{2}:\d{2}/";
+		if(!preg_match ($reg_exp, $m->datetime ))
 		{
 			throw new ExceptionMatch("Ungültige Eingabe für Datum/Uhrzeit.");
 			}
