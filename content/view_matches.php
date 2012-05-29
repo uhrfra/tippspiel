@@ -6,6 +6,8 @@
 
 	include ("../layout/pre_content_stuff.php");
 
+	GUIBuilder::buildBackgroundChangeScript();
+	
 	$session = new Session();
 	$matches = new Matches();
 	$gb = new GUIBuilder();
