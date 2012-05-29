@@ -88,9 +88,9 @@ class GUIBuilder
 				echo "<td style='text-align:center'>", $match->matchdayname, "</td>";
 			echo "<td style='text-align:center'>", $match->teamname1, " - ", $match->teamname2, "</td>";
 			echo "<td style='text-align:center'>";
-			echo "<input type ='text' size='2' name='tip1[]' value ='$match->tippgoals1' style='text-align:center;font-size:0.8em'>";
+			echo "<input type ='text' size='2' name='tip1[]' value ='$match->tippgoals1' style='text-align:center;font-size:0.8em' onkeypress='setColor(this);'>";
 			echo " : ";
-			echo "<input type ='text' size='2' name='tip2[]' value ='$match->tippgoals2' style='text-align:center;font-size:0.8em'>";
+			echo "<input type ='text' size='2' name='tip2[]' value ='$match->tippgoals2' style='text-align:center;font-size:0.8em' onkeypress='setColor(this);'>";
 			echo "<input type ='hidden' name='tipmatchid[]' value='$match->id'>";
 			echo "</td>";
 			echo "</tr>";
@@ -653,6 +653,25 @@ public static function buildNewsboardTableSince($datetime)
 	        echo "</div>";
 	}
 
+	public static function buildBackgroundChangeScript()
+	{
+		echo "<script type='text/javascript'>
+			function setColor (control) 
+			{
+				if (control.style) 
+				{
+					if (control.value != control.defaultValue) 
+					{
+						control.style.backgroundColor = '#F5A9A9';
+					}
+					else 
+					{
+						control.style.backgroundColor = '';
+					}
+				}
+			}
+			</script>";
+	}
 
 	// Color definitions
 	private static $col_er = "#61ff3c"; // In Tabelle: Ergebnis richtig

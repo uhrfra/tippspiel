@@ -7,6 +7,7 @@
 
 	include ("../layout/pre_content_stuff.php");
 
+	GUIBuilder::buildBackgroundChangeScript();
 	$session = new Session();
 
 	$user = $session->getCurrentUser();
