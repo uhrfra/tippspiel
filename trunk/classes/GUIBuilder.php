@@ -88,9 +88,9 @@ class GUIBuilder
 				echo "<td style='text-align:center'>", $match->matchdayname, "</td>";
 			echo "<td style='text-align:center'>", $match->teamname1, " - ", $match->teamname2, "</td>";
 			echo "<td style='text-align:center'>";
-			echo "<input type ='text' size='2' name='tip1[]' value ='$match->tippgoals1' style='text-align:center;font-size:0.8em' onkeypress='setColor(this);'>";
+			echo "<input type ='text' size='2' name='tip1[]' value ='$match->tippgoals1' style='text-align:center;font-size:0.8em' onkeydown='setColor(this);'>";
 			echo " : ";
-			echo "<input type ='text' size='2' name='tip2[]' value ='$match->tippgoals2' style='text-align:center;font-size:0.8em' onkeypress='setColor(this);'>";
+			echo "<input type ='text' size='2' name='tip2[]' value ='$match->tippgoals2' style='text-align:center;font-size:0.8em' onkeydown='setColor(this);'>";
 			echo "<input type ='hidden' name='tipmatchid[]' value='$match->id'>";
 			echo "</td>";
 			echo "</tr>";
