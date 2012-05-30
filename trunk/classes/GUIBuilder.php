@@ -561,7 +561,7 @@ public static function buildNewsboardTable()
 	  $row[2] = str_replace(">","&gt;", $row[2]);
 	  echo "<tr> <th><b> ", $row[0], " schrieb am ", $row[1], " : </b></th></tr>";
 	  $wrappedText = wordwrap($row[2], 90);
-	  echo "<tr><td style='width:600px'><pre width=80>", $wrappedText, "</pre></td></tr>";
+	  echo "<tr><td style='width:600px'><pre width=90>", $wrappedText, "</pre></td></tr>";
 	}
 
 	echo "</table>";
@@ -593,7 +593,7 @@ public static function buildNewsboardTableSince($datetime)
 	  $row[2] = str_replace(">","&gt;", $row[2]);
 	  $wrappedText = wordwrap($row[2], 90);
 	  echo "<tr> <th><b> ", $row[0], " schrieb am ", $row[1], " : </b></th></tr>";
-	  echo "<tr><td style='width:600px'><pre width=80>", $wrappedText, "</pre></td></tr>";
+	  echo "<tr><td style='width:600px'><pre width=90>", $wrappedText, "</pre></td></tr>";
 	}
 
 	echo "</table>";
