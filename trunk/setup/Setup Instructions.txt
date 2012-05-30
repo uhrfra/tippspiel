@@ -1,0 +1,18 @@
+Setup instructions for a new tipping game
+
+1. Setup the configuration
+In the config folder rename config_template.php to config.php and adjust the following settings: 
+- Database connection credentials
+- Startdate of the matches
+- Scores for the tipps
+- If required a time shift.
+
+2. Create the logfiles at the location which is mentioned in the config.php file. Normally, this is log/exceptions.log and log/debug.log, if debugging should be enabled.
+
+3. Create a layout
+As a starting point an example layout can be copied from it's subfolder to the layout directory.
+
+4. Enter the fields in setup/data.php. 
+These data are automatically written to the database on startup: List of countries, description of the match days and admin users that are created as default.
+
+5. Now visit URL setup/setup_new_game.php to start the setup wizard.
