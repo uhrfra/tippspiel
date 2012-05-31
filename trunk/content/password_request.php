@@ -3,6 +3,7 @@
 	$session = new Session();
 	$session->logout();
 
+	include_once("../config/config.php");
 	include("../layout/pre_content_stuff.php");
 	
 	
@@ -51,7 +52,7 @@ function requested()
 	mt_srand((double) microtime()*1000000);
 	$token = md5(str_replace(".","",$REMOTE_ADDR) + mt_rand(100000, 999999));
 	
-	$link="http://tippspiel.kontextfrei.de/wm2010/content/password_reset.php?token=".$token;
+	$link=PASSWORD_RESET_URL."?token=".$token;
 	
 	$mailtext = "Hallo,
 	

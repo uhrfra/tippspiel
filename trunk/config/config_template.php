@@ -28,4 +28,5 @@ define("SCORE_CHAMPTIP", 8);
 define("MAX_SESSION_TIME", 100); // in minutes
 define("TIMESHIFT", 0); // in seconds, this value is added to the system clock to compensate a timeshift
 
+define("PASSWORD_RESET_URL", "http://tippspiel.kontextfrei.de/wm2010/content/password_reset.php"
 ?>
