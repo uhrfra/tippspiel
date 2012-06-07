@@ -43,15 +43,21 @@
 		{
 			$state = $_POST['state'];
 			$id = $_POST['id'];
-			 $db->query("UPDATE `user` SET attr2 = '$state' WHERE id = '$id';");
+			$db->query("UPDATE `user` SET attr2 = '$state' WHERE id = '$id';");
 				
 		}
 		else if ($_POST['action'] == 'change_adminstate')
 		{
-		$state = $_POST['state'];
+			$state = $_POST['state'];
 			$id = $_POST['id'];
-			 $db->query("UPDATE `user` SET adminlevel = '$state' WHERE id = '$id';");
-		
+			$db->query("UPDATE `user` SET adminlevel = '$state' WHERE id = '$id';");
+		}
+		else if ($_POST['action'] == 'set_stars')
+		{
+			$id = $_POST['id'];
+			$starcount = $_POST['starcount'];
+			$starmessage = $_POST['starmessage'];
+			$db->query("UPDATE `user` SET starcount = '$starcount', starmessage = '$starmessage' WHERE id = '$id';");
 		}
 	
 }
@@ -87,6 +93,41 @@
 <input type='hidden' name='action' value = 'change_wettstate'>
 <input id='Button' type='submit' name='submit' value = 'Wettbewerbsstatus setzen'>
 </form>
+</p>
+
+<h1> Meistersterne setzen </h1>
+<p>
+<?php
+	$db = new Database();
+	$sql = "SELECT id, name, starcount, starmessage FROM user";
+	$la = $db->query($sql);
+	
+	echo "Folgende Meistersterne sind gesetzt:<br>";
+	while($row = mysql_fetch_row($la))
+    {
+    	if ($row[2] > 0)
+    	{
+    		echo $row[1], "(", $row[2], ") : ", $row[3], "<br>";
+    	}
+    }
+    
+    echo "<form id='Form' action='#' method='post'>";
+    echo "<select name='id' size='1'>";
+    $la = $db->query($sql);
+    while($row = mysql_fetch_row($la))
+	{
+		echo "<option value='",$row[0], "'>",  $row[1], " (", $row[2], ")</option>'";
+	}
+	echo "</select>";
+	echo " Anzahl: ";
+	echo "<input type ='text' size='2' name='starcount'>";
+	echo " Text: ";
+	echo "<input type ='text' size='25' name='starmessage'>";
+	echo "<input type='hidden' name='action' value = 'set_stars'>";
+	echo "<input id='Button' type='submit' name='submit' value = 'Meistersterne setzen'>";
+	echo "</form>";
+?>
+	
 </p>
 
 <p>
