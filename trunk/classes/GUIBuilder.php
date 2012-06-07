@@ -167,8 +167,9 @@ class GUIBuilder
 		$cur_uid = Session::getCurrentUserId();
 			
 		// H1) Top-Ten
-//     | Platz | Name | Punkte | E | T | S | F | (Meistertip bzw. "noch drin" |
-//       Spieler macht beim Wettbewerb mit (=1) oder nicht (=0) | Userid |
+//     | 0. Platz | 1. Name | 2. Punkte | 3. E | 4. T | 5. S | 6. F | 7. (Meistertip bzw. "noch drin" |
+//       8. Spieler macht beim Wettbewerb mit (=1) oder nicht (=0) | 9. Userid | 10. Anzahl Tipps |
+//		 11. Status Meistertipp | 12. Punkte ohne Meistertipp | 13. Starcount | 14. Starmessage
 $sqlH1 = "SELECT COUNT(*) as platz,
 	   u1.name,
 	   (IF(laender.meisterstatus = 1, $score_champtip, 0) + u1.anz_er * $score_result + u1.anz_tr * $score_diff + u1.anz_sr * $score_tendency) AS punkte,
@@ -178,7 +179,9 @@ $sqlH1 = "SELECT COUNT(*) as platz,
 	   u1.id,
 	   (u1.anz_er + u1.anz_tr + u1.anz_sr + u1.anz_f) AS anz_tipps,
 	   laender.meisterstatus,
-	   (u1.anz_er * $score_result + u1.anz_tr * $score_diff + u1.anz_sr * $score_tendency) AS pkt_o_mt 
+	   (u1.anz_er * $score_result + u1.anz_tr * $score_diff + u1.anz_sr * $score_tendency) AS pkt_o_mt,
+	   u1.starcount,
+	   u1.starmessage
 FROM ((`user` AS u1 LEFT JOIN `laender` ON u1.meistertip = laender.id) JOIN `user` as u2)
 	     LEFT JOIN `laender` AS `l2` ON u2.meistertip = l2.id
 WHERE ";
@@ -240,7 +243,9 @@ echo "
 	    } else {
 	      echo "<a id='Gast' ";
 	    }
-	    echo "href='usertipps.php?ouid=", $row[9], "&retlink=",$link,"'>", $row[1], "</a></b></td>";
+	    echo "href='usertipps.php?ouid=", $row[9], "&retlink=",$link,"'>", $row[1];
+	    GUIBuilder::embedStars($row[13], $row[14]);
+	    echo "</a></b></td>";
 	  }
 	  else{
 	    echo "<td style='text-align:left'><b>", $row[1], "</b></td>";
@@ -282,6 +287,22 @@ echo "
   echo "</table>";
   echo "</div>";
 
+ }
+ 
+ public static function embedStars($starcount, $starmessage)
+ {
+ 	if ($starcount == 0)
+ 	{
+ 		return;
+ 	}
+ 	
+ 	$starstring = " ";
+ 	for ($i = 0; $i < $starcount; $i++)
+ 	{
+ 		$starstring .= "<img src='../layout/star.png' style='width:13' alt='*' title='$starmessage'>";
+ 		#$starstring .= "*";
+ 	}
+ 	echo $starstring;
  }
  
  function buildClosedGamesTable($userid, $matchday, $small){ 
@@ -644,7 +665,10 @@ public static function buildNewsboardTableSince($datetime)
 	        if (defined("HINWEIS_SPIELER_FARBE"))
 	                echo "<li style='margin:0.3em'> In der Highscore wird der eigene Name rot hervorgehoben und die Namen der Wettbewerbs-Teilnehmer sind blau eingef&auml;rbt. </li>";
 	        if (defined("HINWEIS_SPIELER_LINK"))
+	        {
 	                echo "<li style='margin:0.3em'> Auf den Namen eines Spielers klicken, um dessen Tipps f&uuml;r die abgelaufenen Spiele zu sehen. </li>";
+	                echo "<li style='margin:0.3em'> Gesamtsieger von vergangenen Tippspielen sind mit einem Meisterstern gekennzeichnet. </li>";
+	        }
 	        if (defined("HINWEIS_SPIEL_LINK"))
 	                echo "<li style='margin:0.3em'> Auf eine laufende oder beendete Spielbegegnung klicken, um sich alle Tipps zu diesem Spiel anzeigen zu lassen. </li>";
 	        if (defined("HINWEIS_ETSF_PROZENT"))
