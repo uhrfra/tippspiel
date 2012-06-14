@@ -399,11 +399,11 @@ ORDER BY spiele.datum;";
 		$db->query("COMMIT;");
 	}
 	
-	// public funciton getMatchTippsOfDay($dayid, $userid)
-	// {
-	// //     | Datum | Info | Spiel | Tipp ("" falls noch nicht getippt) | Spielid | Tipptore1 |
-// //     | Tipptore2 |
-	
-	// }
+	public function getNumberOfRemainingMatches()
+	{
+		$db = new Database;
+		$result = $db->queryResult("SELECT COUNT(*) FROM `spiele` WHERE status > 0;");
+		return TOTAL_MATCHES - $result;
+	}
 }
 ?>
