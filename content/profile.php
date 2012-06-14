@@ -143,6 +143,10 @@ function show_profile($userid)
 		{
 			echo "<p>Beim Wettbewerb stehst du auf Platz ", $game->getHighscorePosition($userid, 1), " von ", $game->getNumUsers(1), ".</p>";
 		}
+		
+		$numRemainingMatches = $m->getNumberOfRemainingMatches();
+		echo "<p>Es stehen noch ", $numRemainingMatches , " von ", TOTAL_MATCHES, " Spielen aus, in denen du noch maximal ", 
+			$numRemainingMatches * SCORE_RESULT, " Punkte holen kannst.</p>";
 	}
 	echo "</div>";
 	echo "<p style='clear:right; margin:0'>&nbsp; </p>";
