@@ -35,13 +35,13 @@ function show_form()
   
   echo " <tr>";
   echo "  <td> Passwort: </td>";
-  echo "  <td> <input name='passwort' type='password' size='20' maxlength='33'></td>";
+  echo "  <td> <input name='passwort' type='password' size='20' maxlength='32'></td>";
   echo "<td></td>";
   echo " </tr>";
   
   echo " <tr>";
   echo "  <td> Passwort wiederholen: </td>";
-  echo "  <td> <input name='passwort_confirm' type='password' size='20' maxlength='33'></td>";
+  echo "  <td> <input name='passwort_confirm' type='password' size='20' maxlength='32'></td>";
   echo "<td></td>";
   echo " </tr>";
 

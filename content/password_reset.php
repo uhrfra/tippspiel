@@ -28,7 +28,7 @@ function reset_pw($message)
 	echo "<form  id='Form' action='password_reset.php?token=".$_GET['token']."' method='post'>";
 	echo "<table>";
 	echo "<tr><td> Login: </td>";
-	echo "<td> <input name='login' type='text' size='10' maxlength='10'></td></tr>";
+	echo "<td> <input name='login' type='text' size='10' maxlength='30'></td></tr>";
 	echo "<tr><td> Neues Passwort: </td>";
 	echo "<td> <input name='new_pw' type='password' size='10' maxlength='32'></td></tr>";
 	echo "<tr><td> Passwort wiederholden: </td>";
