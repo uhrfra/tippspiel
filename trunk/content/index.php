@@ -16,7 +16,7 @@ Wenn Du schon ein registrierter Benutzer bist, kannst Du Dich hier einloggen:
 <form action='sign_in.php' method='post'>
 <table id='Form'>
 <tr><td> Login: </td>
-<td> <input name='login' type='text' size='10' maxlength='32'></td>
+<td> <input name='login' type='text' size='10' maxlength='30'></td>
 <td></td></tr>
 <tr><td> Passwort: </td>
 <td> <input name='passwort' type='password' size='10' maxlength='32'></td>

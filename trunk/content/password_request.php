@@ -28,9 +28,9 @@ function request()
 	echo "<form  id='Form' action='password_request.php' method='post'>";
 	echo "<table>";
 	echo "<tr><td> Login: </td>";
-	echo "<td> <input name='login' type='text' size='10' maxlength='10'></td></tr>";
+	echo "<td> <input name='login' type='text' size='10' maxlength='30'></td></tr>";
 	echo "<tr><td> E-Mail: </td>";
-	echo "<td> <input name='email' type='text' size='10' maxlength='30'></td></tr>";
+	echo "<td> <input name='email' type='text' size='10' maxlength='50'></td></tr>";
 	echo "</table>";
 	echo "<input id='Button' type='submit' name='submit' value='NEUES PASSWORT ANFORDERN'>";
 	echo "<input type = 'hidden' name = 'aktion' value = 'requested'>";
