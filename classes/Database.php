@@ -16,7 +16,7 @@ class Database
 		$result = mysql_query($query);
 		if ($result == null)
 		{
-			throw new ExceptionDatabase("Query failed: ".$query);
+			throw new ExceptionDatabase("Query failed: ".$query." ".mysql_error());
 		}
 		return $result;
 	}
@@ -26,7 +26,7 @@ class Database
 		$result = mysql_query($query);
 		if ($result == null)
 		{
-			throw new ExceptionDatabase("Query failed: ".$query);
+			throw new ExceptionDatabase("Query failed: ".$query." ".mysql_error());
 		}
 		return mysql_fetch_row($result);
 	}
@@ -36,7 +36,7 @@ class Database
 		$result = mysql_query($query);
 		if (!$result)
 		{
-			throw new ExceptionDatabase("Query failed: ".$query);
+			throw new ExceptionDatabase("Query failed: ".$query." ".mysql_error());
 		}
 		$row = mysql_fetch_row($result);
 		return $row[0];
