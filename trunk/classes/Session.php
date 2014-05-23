@@ -230,7 +230,7 @@ class Session
 	// This function can be used to identifiy the user of the current session after login.
 	// It also resets the session timer to 2 hours.
 	// \returns The user id of the current session or null if the user could not be logged in.
-	public function getCurrentUserId()
+	public static function getCurrentUserId()
 	{
 	
 	
@@ -295,7 +295,7 @@ class Session
 			   return $res = $db->queryResult("SELECT login FROM user WHERE id = '$userid';");
 	   }
 
-	public function getUser($userid)
+	public static function getUser($userid)
 	{
 		
 		if ($userid == null)
@@ -338,7 +338,7 @@ class Session
 		$db->query("UPDATE user SET pwresettoken = '$token' WHERE id = '$userid';");
 	}
 	
-	private function cleanupExpiredSessions()
+	private static function cleanupExpiredSessions()
 	{
 		$db = new Database();
 		$db->query("DELETE FROM sessions WHERE validstamp < NOW();");
@@ -347,7 +347,7 @@ class Session
 	private static $current_uid = -1;
 
 
-	public function showNoAccessPage()
+	public static function showNoAccessPage()
 	{
 		echo "<h1>Fehler</h1>";
 
