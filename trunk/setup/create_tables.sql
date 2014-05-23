@@ -8,7 +8,7 @@ define("CREATE_TABLE_QUERY",
   feedname varchar(15) default NULL,
   meisterstatus tinyint(4) default '0',
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE newsboard (
   id int(10) unsigned NOT NULL auto_increment,
@@ -16,7 +16,7 @@ CREATE TABLE newsboard (
   datum datetime default NULL,
   text text NOT NULL,
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE sessions (
   id int(10) unsigned NOT NULL auto_increment,
@@ -24,13 +24,13 @@ CREATE TABLE sessions (
   userid int(10) unsigned NOT NULL default '0',
   validstamp datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE spielkategorien (
   id int(10) unsigned NOT NULL auto_increment,
   bezeichnung varchar(36) NOT NULL default '',
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE spiele (
   id int(10) unsigned NOT NULL auto_increment,
@@ -46,7 +46,7 @@ CREATE TABLE spiele (
   anz_sr smallint(5) unsigned default '0',
   anz_f smallint(5) unsigned default '0',
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE tipps (
   id int(10) unsigned NOT NULL auto_increment,
@@ -55,7 +55,7 @@ CREATE TABLE tipps (
   tore1 tinyint(3) unsigned NOT NULL default '0',
   tore2 tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE user (
   id int(11) NOT NULL auto_increment,
@@ -81,13 +81,13 @@ CREATE TABLE user (
   starmessage varchar(50) default NULL,
   PRIMARY KEY  (id),
   UNIQUE KEY login (login)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE matchdays (
 	id int(10) unsigned NOT NULL auto_increment,
 	name varchar(32) NOT NULL default '',
 	PRIMARY KEY (id)
-) TYPE=MyISAM;"
+)"
 );
 
 
