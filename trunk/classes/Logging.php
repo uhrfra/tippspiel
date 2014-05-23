@@ -17,11 +17,11 @@ class Logging
 			if (strlen($logmessage) == 0)
 			{
 				// If no logmessage is set, write exception message to logfile.
-				fputs($fp, date("d.m.Y h:i:s", time())." : Excetion ".$message.", ".$code." at ".$file.", Line ".$line."\n");
+				fputs($fp, date("d.m.Y h:i:s", time())." : Exception ".$message.", ".$code." at ".$file.", Line ".$line."\n");
 			}
 			else
 			{
-				fputs($fp, date("d.m.Y h:i:s", time())." : Excetion ".$message.", ".$code." at ".$file.", Line ".$line."\n");
+				fputs($fp, date("d.m.Y h:i:s", time())." : Exception ".$message.", ".$code." at ".$file.", Line ".$line."\n");
 			}
 			fclose($fp);
 		}
