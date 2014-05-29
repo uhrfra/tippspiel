@@ -4,8 +4,8 @@ define("CREATE_TABLE_QUERY",
 
 "CREATE TABLE laender (
   id int(11) unsigned NOT NULL auto_increment,
-  land varchar(15) default NULL,
-  feedname varchar(15) default NULL,
+  land varchar(32) default NULL,
+  feedname varchar(32) default NULL,
   meisterstatus tinyint(4) default '0',
   PRIMARY KEY  (id)
 );
