@@ -34,8 +34,8 @@ if (isset($_POST['action']))
 		try
 		{
 			$m = new Match();
-			$m->team1 = $_POST['team1'];
-			$m->team2 = $_POST['team2'];
+			$m->teamid1 = $_POST['team1'];
+			$m->teamid2 = $_POST['team2'];
 			$m->matchdayid = $_POST['matchday'];
 			$m->datetime = $_POST['datetime'];
 			$matches->addMatch($m);
