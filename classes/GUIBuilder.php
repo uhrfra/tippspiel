@@ -424,7 +424,7 @@ echo "</tr>";
   echo" </div>";
 }
 
-function buildChamptipTable(){
+public static function buildChamptipTable(){
   $sqlH4 = "SELECT `land`,
   COUNT(user.id) AS tipps,
   laender.meisterstatus as status, laender.id
