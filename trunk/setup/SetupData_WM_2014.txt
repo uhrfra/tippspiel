@@ -1,0 +1,100 @@
+LÄNDER:
+Algerien
+Argentinien
+Australien
+Belgien
+Bosnien-Herzegowina
+Brasilien
+Chile
+Costa Rica
+Deutschland
+Ecuador
+Elfenbeinküste
+England
+Frankreich
+Ghana
+Griechenland
+Honduras
+Iran
+Italien
+Japan
+Kamerun
+Kolumbien
+Kroatien
+Mexiko
+Niederlande
+Nigeria
+Portugal
+Russland
+Schweiz
+Spanien
+Südkorea
+Uruguay
+USA
+
+GRUPPEN:
+Gruppe A
+Gruppe B
+Gruppe C
+Gruppe D
+Gruppe E
+Gruppe F
+Gruppe G
+Gruppe H
+Achtelfinale
+Viertelfinale
+Halbfinale
+Spiel um Platz 3
+Finale
+
+
+
+SPIELE:
+2014-06-12 22:00; Gruppe A; Brasilien; Kroatien
+2014-06-13 18:00; Gruppe A; Mexiko; Kamerun
+2014-06-13 21:00; Gruppe B; Spanien; Niederlande
+2014-06-14 00:00; Gruppe B; Chile; Australien
+2014-06-14 18:00; Gruppe C; Kolumbien; Griechenland
+2014-06-14 21:00; Gruppe D; Uruguay; Costa Rica
+2014-06-15 00:00; Gruppe D; England; Italien
+2014-06-15 03:00; Gruppe C; Elfenbeinküste; Japan
+2014-06-15 18:00; Gruppe E; Schweiz; Ecuador
+2014-06-15 21:00; Gruppe E; Frankreich; Honduras
+2014-06-16 00:00; Gruppe F; Argentinien; Bosnien-Herzegowina
+2014-06-16 18:00; Gruppe G; Deutschland; Portugal
+2014-06-16 21:00; Gruppe F; Iran; Nigeria
+2014-06-17 00:00; Gruppe G; Ghana; USA
+2014-06-17 18:00; Gruppe H; Belgien; Algerien
+2014-06-17 21:00; Gruppe A; Brasilien; Mexiko
+2014-06-18 00:00; Gruppe H; Russland; Südkorea
+2014-06-18 18:00; Gruppe B; Australien; Niederlande
+2014-06-18 21:00; Gruppe B; Spanien; Chile
+2014-06-19 00:00; Gruppe A; Kamerun; Kroatien
+2014-06-19 18:00; Gruppe C; Kolumbien; Elfenbeinküste
+2014-06-19 21:00; Gruppe D; Uruguay; England
+2014-06-20 00:00; Gruppe C; Japan; Griechenland
+2014-06-20 18:00; Gruppe D; Italien; Costa Rica
+2014-06-20 21:00; Gruppe E; Schweiz; Frankreich
+2014-06-21 00:00; Gruppe E; Honduras; Ecuador
+2014-06-21 18:00; Gruppe F; Argentinien; Iran
+2014-06-21 21:00; Gruppe G; Deutschland; Ghana
+2014-06-22 00:00; Gruppe F; Nigeria; Bosnien-Herzegowina
+2014-06-22 18:00; Gruppe H; Belgien; Russland
+2014-06-22 21:00; Gruppe H; Südkorea; Algerien
+2014-06-23 00:00; Gruppe G; USA; Portugal
+2014-06-23 18:00; Gruppe B; Niederlande; Chile
+2014-06-23 18:00; Gruppe B; Australien; Spanien
+2014-06-23 22:00; Gruppe A; Kroatien; Mexiko
+2014-06-23 22:00; Gruppe A; Kamerun; Brasilien
+2014-06-24 18:00; Gruppe D; Italien; Uruguay
+2014-06-24 18:00; Gruppe D; Costa Rica; England
+2014-06-24 22:00; Gruppe C; Griechenland; Elfenbeinküste
+2014-06-24 22:00; Gruppe C; Japan; Kolumbien
+2014-06-25 18:00; Gruppe F; Bosnien-Herzegowina; Iran
+2014-06-25 18:00; Gruppe F; Nigeria; Argentinien
+2014-06-25 22:00; Gruppe E; Ecuador; Frankreich
+2014-06-25 22:00; Gruppe E; Honduras; Schweiz
+2014-06-26 18:00; Gruppe G; USA; Deutschland
+2014-06-26 18:00; Gruppe G; Portugal; Ghana
+2014-06-26 22:00; Gruppe H; Südkorea; Belgien
+2014-06-26 22:00; Gruppe H; Algerien; Russland
