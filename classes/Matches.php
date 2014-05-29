@@ -167,22 +167,37 @@ ORDER BY spiele.id DESC;";
 	{
 		$db = new Database();
 		//Add only if not exists!!!
-		if ($db->queryRow("SELECT * FROM spiele WHERE ms1 = '$m->team1' AND ms2 = '$m->team2' AND datum = '$m->datetime';"))
+		if ($db->queryRow("SELECT * FROM spiele WHERE ms1 = '$m->teamid1' AND ms2 = '$m->teamid2' AND datum = '$m->datetime';"))
 		{
 			throw new ExceptionMatch("Das Spiel wurde bereits eingetragen!");
 		}
 	
-		echo $m->datetime;
 		// TODO: This regexp is not perfect and should be improved.
 		$reg_exp="/\d{4}-\d{2}-\d{2} \d{2}:\d{2}/";
 		if(!preg_match ($reg_exp, $m->datetime ))
 		{
 			throw new ExceptionMatch("Ungültige Eingabe für Datum/Uhrzeit.");
-			}
+		}
 			
-		$query = "INSERT INTO spiele(ms1, ms2, datum, matchday) VALUES ('$m->team1', '$m->team2', '$m->datetime' , '$m->matchdayid')"; 
-		
+		$query = "INSERT INTO spiele(ms1, ms2, datum, matchday) VALUES ('$m->teamid1', '$m->teamid2', '$m->datetime' , '$m->matchdayid')"; 
 		$db->query($query);
+	}
+
+	public function addMatchByNames(Match $m)
+	{
+		$db = new Database();
+		$m->teamid1 = $db->queryResult("SELECT id FROM laender WHERE land = '$m->teamname1';");
+		if ($m->teamid1 == 0)
+		{
+			throw new ExceptionMatch("Unknown team name ".$m->teamname1.".");
+		}
+
+		$m->teamid2 = $db->queryResult("SELECT id FROM laender WHERE land = '$m->teamname2';");
+		if ($m->teamid2 == 0)
+		{
+			throw new ExceptionMatch("Unknown team name ".$m->teamname2.".");
+		}
+		$this->addMatch($m);
 	}
 	
 	public function getAllOpenMatches($userid)
