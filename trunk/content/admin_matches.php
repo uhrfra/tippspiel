@@ -165,4 +165,10 @@ Land:
 </p>
 <br>
 
+<h2> Die Zeit </h2>
+Es ist 
+<?php 
+echo $db->queryResult('SELECT (NOW() + INTERVAL '. TIMESHIFT . ' SECOND);'); 
+?>.
+<br>
 <?php include ("../layout/post_content_stuff.php"); ?>
