@@ -26,7 +26,7 @@
            <th></th>
            <th style="text-align:center" width="100">Ergebnis richtig</th>
            <th style="text-align:center" width="100">Tordifferenz richtig</th>
-           <th style="text-align:center" width="100">Sieger richtig</th>
+           <th style="text-align:center" width="100">Sieger/Unentschieden richtig</th>
          </tr>
          <tr>
 
@@ -38,9 +38,8 @@ echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
 echo "         </tr>";
 echo "         <tr>";
 echo "           <th align='left'>Tipp auf Unentschieden</th>";
-echo "           <td style='text-align:center'>", SCORE_RESULT, "</td>";
-echo "           <td style='text-align:center'>-</td>";
-echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
+echo "           <td style='text-align:center'>", SCORE_DRAW_RESULT, "</td>";
+echo "           <td colspan='2' style='text-align:center'>", SCORE_DRAW_TENDENCY, "</td>";
 echo "         </tr>";
 echo "         <tr>";
 echo "           <th align='left'>Tipp auf Sieg Mannschaft B</th>";
