@@ -5,10 +5,6 @@ define("DB_USER", "user");
 define("DB_PASSWORD", "password");
 define("DB_DBNAME", "dbname");
 
-
-// Admin
-define("ADMIN_PW", "adminpassword");
-
 // Logfiles
 define("LOGFILE_EXCEPTION", "../log/exceptions.log");
 define("LOGFILE_DEBUG", "../log/debug.log"); // Comment this line out to disable debug logging.
