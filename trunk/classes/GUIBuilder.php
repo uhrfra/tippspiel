@@ -305,7 +305,7 @@ echo "
  	echo $starstring;
  }
  
- function buildClosedGamesTable($userid, $matchday, $small){ 
+ public static function buildClosedGamesTable($userid, $matchday, $small){ 
  
  
 // S2) Alle vergangenen Spiele.$userid ist der aktuelle Benutzer.
