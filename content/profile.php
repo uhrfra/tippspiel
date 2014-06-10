@@ -224,7 +224,6 @@ function change_email()
 
 function changed_email($userid)
 {
-echo "changed email";
 	try
 	{
 		Session::changeUserEmail($userid, $_POST['newemail']);
