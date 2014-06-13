@@ -7,7 +7,7 @@
 <p>
 <ul>
 <li> Mitmachen kann im Prinzip jeder. Jedoch ist das Ganze als kleineres Projekt geplant und wird diesen Rahmen hoffentlich nicht verlassen.</li>
-<li>Bei der Anmeldung muss Vor- und Nachname sowie eine g&uuml;ltige e-Mail-Adresse angeben werden.</li>
+<li>Bei der Anmeldung muss Vor- und Nachname sowie eine g&uuml;ltige E-Mail-Adresse angeben werden.</li>
 </ul>
 </p>
 
@@ -73,11 +73,13 @@ echo " </ol>";
 echo "</li>";
 echo "</ul>";
 ?>
-<h2>Wettbewerb</h2>
-<ul>
-<li>Am <b>Wettbewerb</b> nehmen alle Tipper teil, die auf dem Party-Verteiler stehen. Der Sieger erh&auml;lt den offiziellen Wanderpokal der zur WM 2006 eingef&uuml;hrt wurde.</li>
 
-</ul>
+<h2>Preise</h2>
+... gibt es nat&uuml;rlich auch: Ruhm, Ehre - und einen Meisterstern für den Sieger. Dieser wird bei allen weiteren Tippspielen direkt beim Namen angezeigt!
+
+<h2>Wettbewerb</h2>
+Am <b>Wettbewerb</b> nehmen alle Tipper teil, die auf dem Party-Verteiler stehen. Der Sieger erh&auml;lt den offiziellen Wanderpokal, der zur WM 2006 eingef&uuml;hrt wurde.
+
 
 
 <?php
