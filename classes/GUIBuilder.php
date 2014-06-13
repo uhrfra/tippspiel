@@ -495,7 +495,7 @@ static public function buildMatchtipps($matchid, $userid)
 $sqlS9 = "SELECT user.name, CONCAT(tipps.tore1, ':', tipps.tore2) AS ergebnis,
  user.id, user.wettbewerb, spiele.status,
  IF(spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2, -3,
-    (IF(spiele.tore1 - spiele.tore2 = tipps.tore1 - tipps.tore2
+    (IF(CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) = CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed)
           AND spiele.tore1 <> spiele.tore2, -2,
         IF(((spiele.tore1 > spiele.tore2 AND tipps.tore1 > tipps.tore2)
              OR (spiele.tore1 = spiele.tore2 AND tipps.tore1 = tipps.tore2)
@@ -504,7 +504,7 @@ $sqlS9 = "SELECT user.name, CONCAT(tipps.tore1, ':', tipps.tore2) AS ergebnis,
  ABS(CAST(spiele.tore1 as signed) + CAST(spiele.tore2 as signed) - cast(tipps.tore1 as signed) - cast(tipps.tore2 as signed)) AS anzToreDiff
 FROM (user JOIN tipps ON user.id = tipps.userid)
  JOIN spiele ON tipps.spielid = spiele.id
-WHERE spiele.id = '1' AND spiele.datum < addtime(NOW(), SEC_TO_TIME(0))
+WHERE spiele.id = '$matchid' AND spiele.datum < addtime(NOW(), SEC_TO_TIME(0))
 ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipps.tore2, tipps.id;";
 
   echo "<div style='text-align:center'>"; // table centering for IEs
