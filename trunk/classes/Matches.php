@@ -318,7 +318,7 @@ ORDER BY spiele.datum;";
 	
 	// Updates the statistics in the users and matches tables after a new result has been committed.
 	// Uses a sql-transaction.
-	private function updateDB()
+	public function updateDB()
 	{
 		$db = new Database();
 		
@@ -330,7 +330,7 @@ ORDER BY spiele.datum;";
 		$sqlD2 ="SELECT tipps.userid,
 		  COUNT(IF(spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2,
 		           spiele.id, null)) AS anz_er,
-		  COUNT(IF((spiele.tore1 - spiele.tore2 = tipps.tore1 - tipps.tore2)
+		  COUNT(IF((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) = CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
 		            AND NOT (spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2)
 		            AND NOT spiele.tore1 = spiele.tore2,
 		           spiele.id, null)) AS anz_tr,
@@ -338,7 +338,7 @@ ORDER BY spiele.datum;";
 		             OR (spiele.tore1 = spiele.tore2 AND tipps.tore1 = tipps.tore2)
 		             OR (spiele.tore1 < spiele.tore2 AND tipps.tore1 < tipps.tore2))
 		            AND NOT (spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2) 
-		            AND ((spiele.tore1 - spiele.tore2 != tipps.tore1 - tipps.tore2)
+		            AND ((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) != CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
 		                 OR (spiele.tore1 = spiele.tore2)),
 		           spiele.id, null)) AS anz_sr,
 		  COUNT(IF((spiele.tore1 > spiele.tore2 AND tipps.tore1 <= tipps.tore2)
@@ -375,7 +375,7 @@ ORDER BY spiele.datum;";
 		$sqlD4 = "SELECT spiele.id,
 		  COUNT(IF(spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2,
 		           spiele.id, null)) AS anz_er,
-		  COUNT(IF((spiele.tore1 - spiele.tore2 = tipps.tore1 - tipps.tore2)
+		  COUNT(IF((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) = CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
 		            AND NOT (spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2)
 		            AND NOT spiele.tore1 = spiele.tore2,
 		           spiele.id, null)) AS anz_tr,
@@ -383,7 +383,7 @@ ORDER BY spiele.datum;";
 		             OR (spiele.tore1 = spiele.tore2 AND tipps.tore1 = tipps.tore2)
 		             OR (spiele.tore1 < spiele.tore2 AND tipps.tore1 < tipps.tore2))
 		            AND NOT (spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2) 
-		            AND ((spiele.tore1 - spiele.tore2 != tipps.tore1 - tipps.tore2)
+		            AND ((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) != CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
 		                 OR (spiele.tore1 = spiele.tore2)),
 		           spiele.id, null)) AS anz_sr,
 		  COUNT(IF((spiele.tore1 > spiele.tore2 AND tipps.tore1 <= tipps.tore2)

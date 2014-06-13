@@ -72,6 +72,10 @@ if (isset($_POST['action']))
 		break;
 		}
   }
+
+  else if ($_POST['action'] == 'updateDB'){
+  	$matches->updateDB();
+  }
 }
 ?>
 
@@ -170,5 +174,13 @@ Es ist
 <?php 
 echo $db->queryResult('SELECT (NOW() + INTERVAL '. TIMESHIFT . ' SECOND);'); 
 ?>.
+<br>
+
+<h2> Update DB </h2>
+Datenbank-Update zur Neuberechnung der Punkte (Normalerweise nicht notwendig, da automatisch ausgeführt). 
+<form id='Form' action='#' method='post'>
+<input type='hidden' name='action' value = 'updateDB'>
+<input id='Button' type='submit' name='submit' value = 'Update DB'>
+</form>
 <br>
 <?php include ("../layout/post_content_stuff.php"); ?>
