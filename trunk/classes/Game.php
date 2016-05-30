@@ -37,8 +37,6 @@ class Game
 		$score_result = SCORE_RESULT; // Result is tipped right.
 		$score_diff = SCORE_DIFF; // Difference is tipped right.
 		$score_tendency = SCORE_TENDENCY; // Tendency is tipped right.
-		$score_draw_result = SCORE_DRAW_RESULT; // Game ended draw and result is tipped right.
-		$score_draw_tendency = SCORE_DRAW_TENDENCY; // Game ended draw and tendency is right.
 		$sqlU1 = "SELECT (anz_er * $score_result + anz_tr * $score_diff + anz_sr * $score_tendency) as punkte
 			FROM `user`
 			WHERE user.id = '$userid';";
@@ -53,8 +51,6 @@ class Game
 		$score_result = SCORE_RESULT; // Result is tipped right.
 		$score_diff = SCORE_DIFF; // Difference is tipped right.
 		$score_tendency = SCORE_TENDENCY; // Tendency is tipped right.
-		$score_draw_result = SCORE_DRAW_RESULT; // Game ended draw and result is tipped right.
-		$score_draw_tendency = SCORE_DRAW_TENDENCY; // Game ended draw and tendency is right.
 		$sqlU2 = "SELECT COUNT(*) as platz
 			FROM ((`user` AS u1 LEFT JOIN `laender` ON u1.meistertip = laender.id) JOIN `user` as u2)
 			LEFT JOIN `laender` AS l2 ON u2.meistertip = l2.id

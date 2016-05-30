@@ -161,8 +161,6 @@ class GUIBuilder
 		$score_result = SCORE_RESULT; // Result is tipped right.
 		$score_diff = SCORE_DIFF; // Difference is tipped right.
 		$score_tendency = SCORE_TENDENCY; // Tendency is tipped right.
-		$score_draw_result = SCORE_DRAW_RESULT; // Game ended draw and result is tipped right.
-		$score_draw_tendency = SCORE_DRAW_TENDENCY; // Game ended draw and tendency is right.
 		
 		$cur_uid = Session::getCurrentUserId();
 			
@@ -382,21 +380,38 @@ echo "</tr>";
       $ec = GUIBuilder::$col_notset;
     }
     else if ($row[9] == $row[11] && $row[10] == $row[12]){
-      $ec = GUIBuilder::$col_er;
+    	// Result correct.
+      $ec = GUIBuilder::$col_result_correct;
     }
     else{
       $ergebnisdiff = $row[9] - $row[10];
       $tippdiff = $row[11] - $row[12];
-      if ($ergebnisdiff == $tippdiff && $tippdiff) {
-      	$ec = GUIBuilder::$col_tr;
+      if ($ergebnisdiff == $tippdiff) {
+      	// Result not correct but result difference is equal
+      	if ($tippdiff == 0)
+      	{
+      		// Draw is tipped => Is draw only tendency or diff?
+      		if (DRAW_IS_TENDENCY)
+      		{
+      			$ec = GUIBuilder::$col_tendency_correct;
+      		}
+      		else
+      		{
+      			$ec = GUIBuilder::$col_diff_correct;
+      		}
+      	}
+      	else
+      	{
+      		$ec = GUIBuilder::$col_diff_correct;
+      	}
       }
-      else if (($ergebnisdiff > 0 && $tippdiff > 0)||
-	  ($ergebnisdiff == 0 && $tippdiff == 0)||
-	  ($ergebnisdiff < 0 && $tippdiff < 0)){
-	$ec = GUIBuilder::$col_sr;
+      else if (($ergebnisdiff > 0 && $tippdiff > 0) || ($ergebnisdiff < 0 && $tippdiff < 0))
+      {
+		$ec = GUIBuilder::$col_tendency_correct;
       }
-      else{
-	$ec = GUIBuilder::$col_f;
+      else
+      {
+		$ec = GUIBuilder::$col_wrong;
       }
     }
 
@@ -492,6 +507,8 @@ static public function buildMatchtipps($matchid, $userid)
 //     (Tor-Diff-Diff: Differenz der Tordifferenzen von Tipp und Ergebnis)
 //     (Tor-Anz-Diff: Differenz der geschossenen Tore von Tipp und Ergebnis)
 
+if (DRAW_IS_TENDENCY)
+{
 $sqlS9 = "SELECT user.name, CONCAT(tipps.tore1, ':', tipps.tore2) AS ergebnis,
  user.id, user.wettbewerb, spiele.status,
  IF(spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2, -3,
@@ -506,6 +523,22 @@ FROM (user JOIN tipps ON user.id = tipps.userid)
  JOIN spiele ON tipps.spielid = spiele.id
 WHERE spiele.id = '$matchid' AND spiele.datum < addtime(NOW(), SEC_TO_TIME(0))
 ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipps.tore2, tipps.id;";
+}
+else
+{
+$sqlS9 = "SELECT user.name, CONCAT(tipps.tore1, ':', tipps.tore2) AS ergebnis,
+ user.id, user.wettbewerb, spiele.status,
+ IF(spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2, -3,
+    (IF(CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) = CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed), -2,
+        IF(((spiele.tore1 > spiele.tore2 AND tipps.tore1 > tipps.tore2)
+             OR (spiele.tore1 < spiele.tore2 AND tipps.tore1 < tipps.tore2)), -1, 0)))) AS tippRichtig,
+ ABS(CAST(spiele.tore1 as signed) - CAST(tipps.tore1 as signed) - CAST(spiele.tore2 as signed) + CAST(tipps.tore2 as signed)) AS torDiff,
+ ABS(CAST(spiele.tore1 as signed) + CAST(spiele.tore2 as signed) - cast(tipps.tore1 as signed) - cast(tipps.tore2 as signed)) AS anzToreDiff
+FROM (user JOIN tipps ON user.id = tipps.userid)
+ JOIN spiele ON tipps.spielid = spiele.id
+WHERE spiele.id = '$matchid' AND spiele.datum < addtime(NOW(), SEC_TO_TIME(0))
+ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipps.tore2, tipps.id;";
+}
 
   echo "<div style='text-align:center'>"; // table centering for IEs
   echo"  <table id=\"Highscore\">
@@ -537,16 +570,16 @@ ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipp
      $ec = $col_notset;
     }
     else if ($row[5] == -3){
-      $ec = GUIBuilder::$col_er;
+      $ec = GUIBuilder::$col_result_correct;
     }
     else if ($row[5] == -2){
-      $ec = GUIBuilder::$col_tr;
+      $ec = GUIBuilder::$col_diff_correct;
     }
     else if ($row[5] == -1){
-      $ec = GUIBuilder::$col_sr;
+      $ec = GUIBuilder::$col_tendency_correct;
     }
     else{
-      $ec = GUIBuilder::$col_f;
+      $ec = GUIBuilder::$col_wrong;
       }
     // ----------------------------------------
     $retlink = "gametipps.php?spielid=".$matchid;
@@ -701,10 +734,10 @@ public static function buildNewsboardTableSince($datetime)
 	}
 
 	// Color definitions
-	private static $col_er = "#61ff3c"; // In Tabelle: Ergebnis richtig
-	private static $col_tr = "#66d1ff"; // In Tabelle: Tordifferenz richtig
-	private	static $col_sr = "#ffff32"; // In Tabelle: Sieger richtig
-	private	static $col_f  = "#ff6655"; // In Tabelle: Tipp falsch
+	private static $col_result_correct = "#61ff3c"; // In Tabelle: Ergebnis richtig
+	private static $col_diff_correct = "#66d1ff"; // In Tabelle: Tordifferenz richtig
+	private	static $col_tendency_correct = "#ffff32"; // In Tabelle: Sieger richtig
+	private	static $col_wrong  = "#ff6655"; // In Tabelle: Tipp falsch
 	private static $col_notipp = "#e8e8e8"; // In Tabelle: Benutzer hat für dieses Spiel gar nicht getippt
 	private static $col_wett = "#FFFFB5"; // In Tabelle: Benutzer, die beim Wettbewerb mitmachen.
 	private	static $col_curusr = "#8BD084"; // In Tabelle: Aktueller Benutzer

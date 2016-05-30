@@ -327,7 +327,9 @@ ORDER BY spiele.datum;";
 		
 		// D2) Anzahl richtiger Ergebnisse, richtiger Tendenzen und falscher Tipps pro User:
 		//     | userid | anz_er | anz_tr | anz_f |
-		$sqlD2 ="SELECT tipps.userid,
+		if (DRAW_IS_TENDENCY)
+		{
+			$sqlD2 ="SELECT tipps.userid,
 		  COUNT(IF(spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2,
 		           spiele.id, null)) AS anz_er,
 		  COUNT(IF((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) = CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
@@ -347,6 +349,30 @@ ORDER BY spiele.datum;";
 		          spiele.id, null)) AS anz_f
 		FROM `spiele` INNER JOIN `tipps` ON spiele.id = tipps.spielid AND spiele.status > 0
 		GROUP BY tipps.userid;";
+		}
+		else
+		{
+			$sqlD2 ="SELECT tipps.userid,
+		  COUNT(IF(spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2,
+		           spiele.id, null)) AS anz_er,
+		  COUNT(IF((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) = CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
+		            AND NOT (spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2),
+		           spiele.id, null)) AS anz_tr,
+		  COUNT(IF(((spiele.tore1 > spiele.tore2 AND tipps.tore1 > tipps.tore2)
+		             OR (spiele.tore1 = spiele.tore2 AND tipps.tore1 = tipps.tore2)
+		             OR (spiele.tore1 < spiele.tore2 AND tipps.tore1 < tipps.tore2))
+		            AND NOT (spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2) 
+		            AND (CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) != CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
+					AND NOT spiele.tore1 = spiele.tore2,
+		           spiele.id, null)) AS anz_sr,
+		  COUNT(IF((spiele.tore1 > spiele.tore2 AND tipps.tore1 <= tipps.tore2)
+		            OR (spiele.tore1 = spiele.tore2 AND tipps.tore1 != tipps.tore2)
+		            OR (spiele.tore1 < spiele.tore2 AND tipps.tore1 >= tipps.tore2),
+		          spiele.id, null)) AS anz_f
+		FROM `spiele` INNER JOIN `tipps` ON spiele.id = tipps.spielid AND spiele.status > 0
+		GROUP BY tipps.userid;";
+
+		}
 
 		$query_result = $db->query($sqlD2);
 

@@ -16,8 +16,7 @@ define("GAMESTART", "07.06.2008, 18:00");
 define("SCORE_RESULT", 4); // Result is tipped right.
 define("SCORE_DIFF", 3); // Difference is tipped right.
 define("SCORE_TENDENCY", 2); // Tendency is tipped right.
-define("SCORE_DRAW_RESULT", 4); // Game ended draw and result is tipped right.
-define("SCORE_DRAW_TENDENCY", 2); // Game ended draw and tendency is right.
+define("DRAW_IS_TENDENCY", 1); // Select 1 if a tip on draw should count as right tendency if match was draw but different as tip.  
 define("SCORE_CHAMPTIP", 8);
 
 //Session
