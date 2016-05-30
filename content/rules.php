@@ -38,8 +38,17 @@ echo "           <td style='text-align:center'>", SCORE_TENDENCY, "</td>";
 echo "         </tr>";
 echo "         <tr>";
 echo "           <th align='left'>Tipp auf Unentschieden</th>";
-echo "           <td style='text-align:center'>", SCORE_DRAW_RESULT, "</td>";
-echo "           <td colspan='2' style='text-align:center'>", SCORE_DRAW_TENDENCY, "</td>";
+echo "           <td style='text-align:center'>", SCORE_RESULT, "</td>";
+
+if (DRAW_IS_TENDENCY)
+{
+  echo "           <td colspan='2' style='text-align:center'>", SCORE_TENDENCY, "</td>";
+}
+else
+{
+  echo "           <td colspan='2' style='text-align:center'>", SCORE_DIFF, "</td>";
+}
+
 echo "         </tr>";
 echo "         <tr>";
 echo "           <th align='left'>Tipp auf Sieg Mannschaft B</th>";
@@ -55,8 +64,22 @@ echo "<li>Ein Beispiel:";
 echo "<ul>";
 echo "<li>     Spieler A tippt bei drei Spielen 3:2, 1:1 und 3:0, Spieler B 0:0, 2:2 und 2:3.</li>";
 echo "<li>     Ergebnis der Spiele nach regul&auml;rer Spielzeit: 1:0, 2:2 und 2:3.</li>";
-$example = SCORE_DIFF + SCORE_TENDENCY;
-echo "<li>     Spieler A bekommt ", SCORE_DIFF, " + ", SCORE_TENDENCY, " + 0 = ", $example, " Punkte. </li>";
+
+$example = 0;
+
+if (DRAW_IS_TENDENCY > 0)
+{
+  $example = SCORE_DIFF + SCORE_TENDENCY;
+  echo "<li>     Spieler A bekommt ", SCORE_DIFF, " + ", SCORE_TENDENCY, " + 0 = ", $example, " Punkte. </li>";
+
+}
+else
+{
+  $example = SCORE_DIFF + SCORE_DIFF;
+  echo "<li>     Spieler A bekommt ", SCORE_DIFF, " + ", SCORE_DIFF, " + 0 = ", $example, " Punkte. </li>";
+  
+}
+
 $example = SCORE_RESULT + SCORE_RESULT;
 echo "<li>     Spieler B bekommt 0 + ", SCORE_RESULT, " + ", SCORE_RESULT, " = ", $example, " Punkte. </li>";
 echo "</ul>";
