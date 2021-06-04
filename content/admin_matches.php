@@ -42,7 +42,7 @@ if (isset($_POST['action']))
 		}
 		catch (ExceptionMatch $e)
 		{
-			echo "Spiel nicht hinzugefügt: ", $e->getMessage(), "<br>";
+			echo "Spiel nicht hinzugefï¿½gt: ", $e->getMessage(), "<br>";
 			}
 			
 	}
@@ -75,13 +75,23 @@ if (isset($_POST['action']))
 
   else if ($_POST['action'] == 'updateDB'){
   	$matches->updateDB();
-  }
+	}
+	
+	else if ($_POST['action'] == 'update_matchday'){
+		$matchday = $_POST['matchday'];
+		$matchid = $_POST['matchid'];
+		echo "Update matchday";
+		$sql = "UPDATE spiele SET matchday ='$matchday' WHERE id='$matchid';";
+    
+		$db->query($sql);
+		echo "Query ausgefÃ¼hrt: ". $sql."<br>";
+	}
 }
 ?>
 
 
 <p>
-<h1> Spiel hinzufügen </h1>
+<h1> Spiel hinzufï¿½gen </h1>
 
 <form id='Form' action='#' method='post'>
 <table>
@@ -107,7 +117,7 @@ echo "<td><input type ='text' name='datetime' value ='$lasttime'></td></tr>";
 echo "<input type='hidden' name='action' value = 'add_game'>";
 echo "<input type='hidden' name='newmatchid' value = '$newid'>";
 ?>
-<tr><td><input id='Button' type='submit' name='submit' value = 'Spiel hinzufügen'></td><td></td>
+<tr><td><input id='Button' type='submit' name='submit' value = 'Spiel hinzufï¿½gen'></td><td></td>
 </table>
 </form>
 
@@ -138,15 +148,60 @@ echo "<input type='hidden' name='newmatchid' value = '$newid'>";
 
 </p>
 
-
 <p>
-<h2> Spieldaten ändern </h2>
-(TODO)
+<h2> Ergebnis korrigieren </h2>
+
+<form id='Form' action='#' method='post'>
+<select name='matchid'>
+	<?php 	
+		$ms = $matches->getAllClosedMatches();
+		foreach ( $ms as $m)
+		{
+			echo "<option value='$m->id'> $m->teamname1 - $m->teamname2, $m->datetime ($m->tore1 : $m->tore2)</option>";
+		}	
+		?>
+		</select>;
+		<input type ='text' size='2' name='goals1'>
+		 : 
+		<input type ='text' size='2' name='goals2'>
+		
+
+<input type='hidden' name='action' value = 'set_result'>
+<input id='Button' type='submit' name='submit' value = 'Ergebnis korrigieren'>
+</form>
+
 </p>
 
 
 <p>
-<h2> Landstatus ändern </h2>
+<h2> Spielgruppe &auml;ndern </h2>
+
+<form id='Form' action='#' method='post'>
+<select name='matchid'>
+	<?php 	
+		$ms = $matches->getAllMatches();
+		
+		foreach ( $ms as $m)
+		{
+			echo "<option value='$m->id'> $m->teamname1 - $m->teamname2, $m->datetime</option>";
+		}	
+
+
+		?>
+		</select>;
+
+<?php 
+GUIBuilder::buildDropdownSelect('matchday', 'SELECT name, id FROM matchdays;', 0);
+?>
+<input type='hidden' name='action' value = 'update_matchday'>
+<input id='Button' type='submit' name='submit' value = 'Spielgruppe &auml;ndern'>
+</form>
+
+</p>
+
+
+<p>
+<h2> Landstatus ï¿½ndern </h2>
 
 
 <form id='Form' action='#' method='post'>
@@ -162,7 +217,7 @@ Land:
 <option value='1'>Sieger </option>
 </select>
 <input type='hidden' name='action' value = 'set_teamstatus'>
-<input id='Button' type='submit' name='submit' value = 'Landstatus ändern'>
+<input id='Button' type='submit' name='submit' value = 'Landstatus ï¿½ndern'>
 
 </form>
 
@@ -177,7 +232,7 @@ echo $db->queryResult('SELECT (NOW() + INTERVAL '. TIMESHIFT . ' SECOND);');
 <br>
 
 <h2> Update DB </h2>
-Datenbank-Update zur Neuberechnung der Punkte (Normalerweise nicht notwendig, da automatisch ausgeführt). 
+Datenbank-Update zur Neuberechnung der Punkte (Normalerweise nicht notwendig, da automatisch ausgefï¿½hrt). 
 <form id='Form' action='#' method='post'>
 <input type='hidden' name='action' value = 'updateDB'>
 <input id='Button' type='submit' name='submit' value = 'Update DB'>
