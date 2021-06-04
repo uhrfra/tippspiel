@@ -20,7 +20,7 @@ function show_form()
 {
   echo "<h1>Neu Anmelden</h1>";
   echo "<p>";
-  echo "Um am Tippspiel teilzunehmen, muss folgendes Formular ausgefüllt werden:";
+  echo "Hier kannst Du Dich zum Tippspiel anmelden:";
   echo "</p>";
 
 
@@ -61,7 +61,7 @@ function show_form()
   {
 	  echo "<tr><td>Meistertipp:</td><td>";
 	  GUIBuilder::buildDropdownSelect('champtip', 'SELECT land, id FROM laender ORDER BY land;', 0);
-	  echo "</td><td>(Der Meistertipp kann noch bis zum Beginn des ersten Spiels geändert werden.)</td></tr>";
+	  echo "</td><td>(Der Meistertipp kann noch bis zum Beginn des ersten Spiels ge&auml;ndert werden.)</td></tr>";
   
   }
   echo "</table>";
@@ -93,7 +93,7 @@ function sign_up()
 			Game::setChamptip($uid, $_POST['champtip']);
 		}
 
-		echo "Du bist angemeldet, herzlich willkommen beim Tippspiel. Viel Glück beim Tippen!";
+		echo "Du bist angemeldet, herzlich willkommen beim Tippspiel. Viel Gl&uuml;ck beim Tippen!";
 		echo "<form action='index.php' method='post'>";
 		echo "<input type='submit' name='submit' value='JETZT EINLOGGEN''>";
 		echo "</form>";

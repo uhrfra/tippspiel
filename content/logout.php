@@ -9,8 +9,8 @@
 <h1> Logout </h1>
 
 <p>
-Du bist ausgeloggt. Bis zum nächsten Mal!<br><br>
-Zurück zur <a href='../content/index.php'>Startseite</a>.
+Du bist ausgeloggt. Bis zum n&auml;chsten Mal!<br><br>
+Zur&uuml;ck zur <a href='../content/index.php'>Startseite</a>.
 </p>
 
 <?php 
