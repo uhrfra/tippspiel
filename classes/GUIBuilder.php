@@ -73,7 +73,7 @@ class GUIBuilder
 		}
 		echo "<form action='$sitelink' method='post'>";
 		echo "<div style='text-align:center'>"; // table centering for IEs
-		echo "<table id=\"Highscore\">";
+		echo "<table id=\"Highscore\" class=\"table table-striped table-hover\">";
 
 		if ($sitelink == "../content/main.php")
 			echo "<tr><th>Datum</th><th>Spiel</th><th>Dein Tipp</th><tr>";
@@ -102,7 +102,7 @@ class GUIBuilder
 			echo "<td style='background-color:transparent'></td>";
 		echo "<td style='background-color:transparent; text-align:center'>";
 		echo "<input type ='hidden' name='md' value='$matchday'>";
-		echo "<input type='submit' name='submit' value = 'TIPPEN'> ";
+		echo "<input type='submit' class='btn btn-default btn-sm btn-block' name='submit' value = 'Tippen'> ";
 		echo "</td>";
 		echo "</table>";
 		echo "</div>";
@@ -196,7 +196,7 @@ ORDER BY punkte DESC, pkt_o_mt DESC, u1.anz_er DESC, u1.anz_tr DESC, u1.anz_sr D
 
  $query_result = $db->query($sqlH1);
   echo "<div style='text-align:center'>"; // table centering for IEs
-  echo"<table id=\"Highscore\">
+  echo"<table id=\"Highscore\" class=\"table table-striped table-hover\">
 <tr>
 <th>Pl.</th>
 <th align='left'>Name</th>";
@@ -232,7 +232,7 @@ echo "
       else{
 	if ($i == 1){
 	  if ($user_link == 1){
-		echo "<td style='text-align:left'><b>";
+	    echo "<td style='text-align:left'>";
 	    if ($row[9] == $cur_uid) {
 	      echo "<a id='User' ";
 	    } else if ($row[8] > 0) {
@@ -242,10 +242,10 @@ echo "
 	    }
 	    echo "href='usertipps.php?ouid=", $row[9], "&retlink=",$link,"'>", $row[1];
 	    GUIBuilder::embedStars($row[13], $row[14]);
-	    echo "</a></b></td>";
+	    echo "</a></td>";
 	  }
 	  else{
-	    echo "<td style='text-align:left'><b>", $row[1], "</b></td>";
+	    echo "<td style='text-align:left'>", $row[1], "</td>";
 	  }
 	}
 	else{
@@ -271,6 +271,121 @@ echo "
 	echo "<td style='text-align:center'>", $row[7], "</td>";
       }
     }
+    echo "</tr>";
+  }
+  echo" </table><br>";
+  echo "<table id='Legende'>";
+  echo "<tr><td style='text-align:right'>E = Ergebnis richtig</td>";
+  echo "    <td style='width:5px'></td>"; 
+  echo "    <td style='text-align:left'>  T = Tordifferenz richtig</td></tr>";
+  echo "<tr><td style='text-align:right'>S = Sieger richtig</td>";
+  echo "    <td style='width:5px'></td>"; 
+  echo "    <td style='text-align:left'>F = falsch getippt</td></tr>";
+  echo "</table>";
+  echo "</div>";
+
+ }
+ 
+	// \param userid Current userid.
+	// 5.6.2021 Achtung: Muss noch angepasst werden! Die Parameter SCORE_DRAW_RESULT und
+	// SCORE_DRAW_TENDENCY wurden durch DRAW_IS_TENDENCY ersetzt.
+	public static function buildAlltimeHighscoreTable($userid, $link)
+	{
+		$db = new Database();
+			
+		$score_champtip = SCORE_CHAMPTIP; // Champion tip is right.
+		$score_result = SCORE_RESULT; // Result is tipped right.
+		$score_diff = SCORE_DIFF; // Difference is tipped right.
+		$score_tendency = SCORE_TENDENCY; // Tendency is tipped right.
+		$score_draw_result = SCORE_DRAW_RESULT; // Game ended draw and result is tipped right.
+		$score_draw_tendency = SCORE_DRAW_TENDENCY; // Game ended draw and tendency is right.
+		
+		$cur_uid = Session::getCurrentUserId();
+			
+		// H1) Top-Ten
+//     | 0. Platz | 1. Name | 2. Punkte | 3. E | 4. T | 5. S | 6. F | 7. (Meistertip bzw. "noch drin" |
+//       8. Spieler macht beim Wettbewerb mit (=1) oder nicht (=0) | 9. Userid | 10. Anzahl Tipps |
+//		 11. Starcount | 12. Starmessage
+$sqlH1 = "SELECT ah.user_id,
+	   IF(ah.user_id > 0, u1.name, ah.name),
+	   (IF(ah.user_id = 0, 0, u1.anz_er * $score_result + u1.anz_tr * $score_diff + u1.anz_sr * $score_tendency) + (ah.anz_er * $score_result + ah.anz_tr * $score_diff + ah.anz_sr * $score_tendency)) AS punkte,
+	   IF(ah.user_id = 0, 0, u1.anz_er) + ah.anz_er AS anz_e,
+	   IF(ah.user_id = 0, 0, u1.anz_tr) + ah.anz_tr AS anz_t,
+	   IF(ah.user_id = 0, 0, u1.anz_sr) + ah.anz_sr AS anz_s,
+	   IF(ah.user_id = 0, 0, u1.anz_f) + ah.anz_f AS anz_f, 
+	   'old stuff' AS meistertipp,
+	   u1.wettbewerb,
+	   u1.id,
+	   (u1.anz_er + u1.anz_tr + u1.anz_sr + u1.anz_f) AS anz_tipps,
+	   u1.name,
+	   (u1.anz_er * $score_result + u1.anz_tr * $score_diff + u1.anz_sr * $score_tendency) AS pkt_o_mt,
+	   u1.starcount,
+	   u1.starmessage,
+	   (IF(ah.user_id = 0, 0, u1.anz_er + u1.anz_tr + u1.anz_sr + u1.anz_f) + (ah.anz_er + ah.anz_tr + ah.anz_sr + ah.anz_f)) AS anz_tipps,
+	   ah.anz_teilnahmen + if(ah.user_id, 1, 0)
+FROM (`user` AS u1 RIGHT JOIN alltime_highscore AS ah ON u1.id = ah.user_id)
+ORDER BY punkte DESC, anz_e DESC, anz_t DESC, anz_s DESC;";
+
+ $query_result = $db->query($sqlH1);
+  echo "<div style='text-align:center'>"; // table centering for IEs
+  echo"<table id=\"Highscore\" class=\"table table-striped table-hover\">
+<tr>
+<th>Pl.</th>
+<th align='left'>Name</th>";
+echo "<th>Punkte</th>";
+echo "<th>E</th>
+<th>T</th>
+<th>S</th>
+<th>F</th>
+<th>Tipps</th>
+<th>Turniere</th>";
+  echo "</tr>";
+
+  $place = 1;
+  $count = 1;
+  $points_prev_place = 0;
+ 
+  while ($row = mysqli_fetch_row($query_result)){
+    if ($row[2] <> $points_prev_place) {
+      $place = $count;
+      $points_prev_place = $row[2];
+    }
+    $count++;
+    
+
+    echo "<tr>";
+    for ($i = 0; $i < 7; $i++){
+      if ($i == 0) {
+	echo "<td align = 'right'><b>", $place, "</b></td>";
+      }
+      else if ($i == 2) {
+	echo "<td align = 'right'><b>", $row[$i], "</b></td>";	
+      }
+      else{
+	if ($i == 1){
+            if ($row[0] > 0) {
+	      echo "<td style='text-align:left'>";
+	      if ($row[9] == $cur_uid) {
+	        echo "<a id='User' ";
+	      } else if ($row[8] > 0) {
+	        echo "<a id='Party' ";
+	      } else {
+	        echo "<a id='Gast' ";
+	      }
+	      echo "href='usertipps.php?ouid=", $row[9], "&retlink=",$link,"'>", $row[1];
+	      GUIBuilder::embedStars($row[13], $row[14]);
+	      echo "</a></td>";
+            } else {
+	      echo "<td style='text-align: left;'><i> ", $row[1] , " </i></td>";
+            }
+	}
+	else{
+	  echo "<td>", $row[$i], "</td>";
+	}
+      }
+    }
+    echo "<td>", $row[15], "</td>";
+    echo "<td>", $row[16], "</td>";
     echo "</tr>";
   }
   echo" </table><br>";
@@ -341,7 +456,7 @@ FROM (((spiele LEFT JOIN tipps ON spiele.id = tipps.spielid AND tipps.userid = $
 $db = new Database();
  $query_result = $db->query($sqlS2);
   echo "  <div style='text-align:center'>"; // table centering for IEs
-  echo "  <table id=\"Highscore\">
+  echo "  <table id=\"Highscore\" class=\"table table-striped table-hover\">
 <tr>
 <th>Datum</th>";
   if ($small == false)
@@ -420,18 +535,155 @@ echo "</tr>";
       else if ($i == 1 && $small == false)
       	echo "<td style='text-align:center'>", $row[$i], "</td>";
       else if ($i == 2){
-		echo "<td style='text-align:center; font-size:0.77em'><b><a style='color:#000066' href = 'matchtipps.php?spielid=", $row[13],"'> ", $row[$i], "</a></b></td>";
-	}
-	else if ($i ==3){
-  echo "<td style='text-align:center'><b>", $row[$i], "</b></td>";
-	}
-	else if ($i == 4){
-  echo "<td style='text-align:center; background-color:", $ec, "'><b>", $row[$i], "</b></td>";
-	}
+        echo "<td style='text-align:center;'><a style='color:#000066' href = 'matchtipps.php?spielid=", $row[13],"'> ", $row[$i], "</a></td>";
+      }
+      else if ($i ==3){
+	echo "<td style='text-align:center'>", $row[$i], "</td>";
+      }
+      else if ($i == 4){
+	echo "<td style='text-align:center; background-color:", $ec, "'>", $row[$i], "</td>";
+      }
       else{
 	echo "<td>", $row[$i], "</td>";
       }
     }
+    echo "</tr>";
+  }
+  echo" </table><br>";
+  echo" </div>";
+}
+
+
+static function getTippColor($resultstring, $tippstring, $tore1, $tore2, $tipptore1, $tipptore2) {
+    // Berechnung der Farbe f�r den Tipp. ---- 
+    if ($tippstring == '-:-'){
+      $ec = GUIBuilder::$col_notipp;
+    }
+    else if ($resultstring == '-:-'){
+      $ec = GUIBuilder::$col_notset;
+    }
+    else if ($tore1 == $tipptore1 && $tore2 == $tipptore2){
+      $ec = GUIBuilder::$col_er;
+    }
+    else{
+      $ergebnisdiff = $tore1 - $tore2;
+      $tippdiff = $tipptore1 - $tipptore2;
+      if ($ergebnisdiff == $tippdiff) {
+      	$ec = GUIBuilder::$col_tr;
+      }
+      else if (($ergebnisdiff > 0 && $tippdiff > 0)||
+	  ($ergebnisdiff == 0 && $tippdiff == 0)||
+	  ($ergebnisdiff < 0 && $tippdiff < 0)){
+	$ec = GUIBuilder::$col_sr;
+      }
+      else{
+	$ec = GUIBuilder::$col_f;
+      }
+    }
+
+  return $ec;
+}
+
+static function getPointsFromColor($color) {
+  if ($color == GUIBuilder::$col_er) {
+      return 4;
+   } else if ($color == GUIBuilder::$col_tr) {
+      return 3;
+   } else if ($color == GUIBuilder::$col_sr) {
+      return 2;
+   } else {
+      return 0;
+   }
+}
+
+ 
+ public static function buildComparisonTable($userid, $userid2, $initial1, $initial2){ 
+ 
+ 
+// S2) Alle vergangenen Spiele.$userid ist der aktuelle Benutzer.
+//     | Datum | Info | Spiel | Ergebnis | Tipp | Tipp2 | Tore1 | Tore2 | TipTore1 |
+//     | TipTore2 | Spielid
+$sqlS2 ="SELECT DATE_FORMAT(spiele.datum, '%d.%m. - %H:%i') AS datum,
+  md.name,
+  CONCAT(l1.land, ' - ', l2.land) AS begegnung,
+  IF(tipps.id IS NULL, '-:-',
+    CONCAT(tipps.tore1, ':', tipps.tore2)) AS tipp,
+  IF(spiele.status = 0, '-:-',
+    CONCAT(spiele.tore1, ':', spiele.tore2)) AS ergebnis,
+  IF(tipps2.id IS NULL, '-:-',
+    CONCAT(tipps2.tore1, ':', tipps2.tore2)) AS tipp2,
+   spiele.tore1,
+   spiele.tore2,
+   tipps.tore1,
+   tipps.tore2,
+   tipps2.tore1,
+   tipps2.tore2,
+   spiele.id
+FROM ((((spiele LEFT JOIN tipps ON spiele.id = tipps.spielid AND tipps.userid = $userid)
+  LEFT JOIN `tipps` AS tipps2 ON spiele.id = tipps2.spielid AND tipps2.userid = $userid2)
+  LEFT JOIN `laender` AS l1 ON spiele.ms1 = l1.id) LEFT JOIN `laender` AS l2 ON spiele.ms2 = l2.id)
+  LEFT JOIN `matchdays` AS md ON spiele.matchday = md.id
+  WHERE (spiele.datum < addtime(NOW(), SEC_TO_TIME(". TIMESHIFT ."))";
+  $sqlS2 = $sqlS2 . ") ORDER BY spiele.datum;";
+
+$db = new Database();
+ $query_result = $db->query($sqlS2);
+  echo "  <div style='text-align:center'>"; // table centering for IEs
+  echo "  <table id=\"Highscore\" class=\"table table-striped table-hover\">
+<tr>
+<th>Datum</th>";
+	echo "<th>Info</th>";
+  echo "<th>Spiel</th>
+<th>".  $initial1 ."</th>
+<th>Erg.</th>
+<th>". $initial2 ."</th>
+<th> Pkt. Diff. </th>";
+echo "</tr>";
+ 
+  $numRows = mysqli_num_rows($query_result);
+
+  if ($numRows == 0){
+    echo "<tr> <td colspan = 9><i> (keine) </i></td> <tr>";
+  }
+
+  $points1 = 0;
+  $points2 = 0;
+
+  while ($row = mysqli_fetch_row($query_result)){
+    echo "<tr>";
+
+    $ec1 = GUIBuilder::getTippColor($row[4], $row[3], $row[6], $row[7], $row[8], $row[9]);
+    $ec2 = GUIBuilder::getTippColor($row[4], $row[5], $row[6], $row[7], $row[10], $row[11]);
+
+    $points1 += GUIBuilder::getPointsFromColor($ec1);
+    $points2 += GUIBuilder::getPointsFromColor($ec2);
+
+    for ($i = 0; $i < 6; $i++){
+      if($i == 1 && $small == false)
+      	echo "<td style='text-align:center'>", $row[$i], "</td>";
+      else if ($i == 2){
+        echo "<td style='text-align:center;'><a style='color:#000066' href = 'matchtipps.php?spielid=", $row[13],"'> ", $row[$i], "</a></td>";
+      }
+      else if ($i == 4){
+	echo "<td style='text-align:center'>", $row[$i], "</td>";
+      }
+      else if ($i == 3) {
+	echo "<td style='text-align:center; background-color:", $ec1, "'>", $row[$i], "</td>";
+      }
+      else if ($i == 5){
+	echo "<td style='text-align:center; background-color:", $ec2, "'>", $row[$i], "</td>";
+      } else {
+	echo "<td>", $row[$i], "</td>";
+      }
+    }
+
+    echo "<td style='text-align:center;";
+    if ($points1 > $points2) {
+       echo "color:#4b9816'";
+    } else if ($points1 < $points2) {
+       echo "color:#dd0d0d'";
+    }
+    echo "'>(" . $points1 . ") " . ($points1 - $points2) . " (" . $points2 . ")</td>";
     echo "</tr>";
   }
   echo" </table><br>";
@@ -499,6 +751,7 @@ static public function buildMatchtipps($matchid, $userid)
   
   $game = new Game();
   $db = new Database();
+  $cur_uid = Session::getCurrentUserId();
 
   // S9) Tipps aller User zum Spiel $spielid
 //     | Name | Tipp | UserID | Wettb.? | SpielStatus | Richtig? | Tor-Diff-Diff | Tor-Anz-Diff |
@@ -541,7 +794,9 @@ ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipp
 }
 
   echo "<div style='text-align:center'>"; // table centering for IEs
-  echo"  <table id=\"Highscore\">
+  echo "<div class='row'>";
+  echo "<div class='col-lg-6 col-md-8 col-sm-10 col-xs-12' style='margin: auto'>";
+  echo"  <table id=\"Highscore\" class=\"table table-striped table-hover\">
 <tr>
 <th>Name</th>
 <th>Tipp</th>
@@ -583,13 +838,27 @@ ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipp
 		}
     // ----------------------------------------
     $retlink = "gametipps.php?spielid=".$matchid;
-	echo "<td style='text-align: left'><b><a style='color:#000066' href = 'usertipps.php?ouid=", $row[2], "&retlink=",$retlink,"'>", $row[0], "</a></b></td>";
+    echo "<td style='text-align: left'><a ";
+    if ($row[2] == $cur_uid){
+      echo "id='User' ";
+    }
+    else{
+      if ($row[3] > 0){
+	echo "id='Party' ";
+      }
+      else{
+	echo "id='Gast' ";
+      }
+    }
+
+    echo "href = 'usertipps.php?ouid=", $row[2], "&retlink=",$retlink,"'>", $row[0], "</a></td>";
     //echo "<td>", $row[0], "</td>";
-    echo "<td style='text-align: center; background-color:", $ec, "'><b>", $row[1], "</b></td>";
-    echo "<td style='text-align: center'><b>", $game->getHighscorePosition($row[2], 0), "</b></td>";
+    echo "<td style='text-align: center; background-color:", $ec, "'>", $row[1], "</td>";
+    echo "<td style='text-align: center'>", $game->getHighscorePosition($row[2], 0), "</td>";
     echo "</tr>";
   }
   echo" </table><br>";
+  echo" </div>";
   echo" </div>";
 }
 
@@ -615,7 +884,7 @@ public static function buildNewsboardTable()
 	  $row[2] = str_replace("<","&lt;", $row[2]);
 	  $row[2] = str_replace(">","&gt;", $row[2]);
 	  echo "<tr> <th><b> ", $row[0], " schrieb am ", $row[1], " : </b></th></tr>";
-	  $wrappedText = wordwrap($row[2], 90);
+	  $wrappedText = wordwrap($row[2], 70);
 	  echo "<tr><td style='width:600px'><pre width=90>", $wrappedText, "</pre></td></tr>";
 	}
 
@@ -646,7 +915,7 @@ public static function buildNewsboardTableSince($datetime)
 	  }
 	  $row[2] = str_replace("<","&lt;", $row[2]);
 	  $row[2] = str_replace(">","&gt;", $row[2]);
-	  $wrappedText = wordwrap($row[2], 90);
+	  $wrappedText = wordwrap($row[2], 70);
 	  echo "<tr> <th><b> ", $row[0], " schrieb am ", $row[1], " : </b></th></tr>";
 	  echo "<tr><td style='width:600px'><pre width=90>", $wrappedText, "</pre></td></tr>";
 	}
@@ -677,7 +946,7 @@ public static function buildNewsboardTableSince($datetime)
 		echo "<h1>Fehler</h1>";
 
 		echo "<p>Du bist zur Zeit nicht eingeloggt und hast keinen Zugriff auf diese Seite.</p>";
-		echo "<p><a href='index.php'>Zur&uuml;ck zur Startseite</a>.</p>";
+		echo "<p><a id='link'; href='index.php'>Zur&uuml;ck zur Startseite</a>.</p>";
 	}
 
 
@@ -694,7 +963,7 @@ public static function buildNewsboardTableSince($datetime)
 	        echo "<p>";
 	        echo "Hinweise:";
 	        echo "</p>";
-			echo "<ul>";
+	        echo "<ul id='list'>";
 
 	        if (defined("HINWEIS_SPIELER_FARBE"))
 	                echo "<li style='margin:0.3em'> In der Highscore wird der eigene Name rot hervorgehoben. </li>";

@@ -25,87 +25,80 @@
 
 ?>
 
- 
-<h1> &Uuml;bersicht</h1>
-
-<div>
-
-<p>
-Hallo <?php echo $user->name ?>, willkommen beim Tippspiel.
-</p>
-<p style="margin:0em">
-Dein derzeitiger Punktestand ist
-<?php $score = Game::getScore($userid, 0); echo $score; ?> 
-Punkt<?php if( $score!=1)echo "e"?> 
-und Du stehst auf Platz <?php echo Game::getHighscorePosition($userid, 0); ?> 
-von <?php echo Game::getNumUsers(0); ?>.<br>
-</p>
-
+    <section id="main-slider" class="no-margin">
+        <div class="carousel slide wet-asphalt">
+            <div class="carousel-inner">
+                <div class="item active" style="background-image: url(../layout/images/bg_slider.jpg)">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="carousel-content" style="padding: 65px 0px 50px 35px;">
+                                    <h2 class="animation animated-item-1"><?php echo TITLE;?></h2>
+                                    <p class="animation animated-item-2"><?php echo TITLE_SECOND ?></p>
+                            	</div>
+                                <div class="carousel-content">
+                            	<h3>Herzlich Willkommen</h3>
+                                <div style="margin-bottom:6px">Hallo <?php echo $user->name ?> willkommen beim Tippspiel.</div>
+                                <div style="margin-bottom:6px">Dein derzeitiger Punktestand ist <?php $score = Game::getScore($userid, 0); echo $score; ?> Punkt<?php if( $score!=1)echo "e"?> und Du stehst auf Platz <?php echo Game::getHighscorePosition($userid, 0); ?> von <?php echo Game::getNumUsers(0); ?>.</div>
 <?php
 	$m = new Matches();
 	if (!$m->started())
 	{
-		echo "<p>Bis zum Beginn des ersten Spiels kannst Du Deinen Meistertipp noch ändern.</p>";
+		echo "<p>Bis zum Beginn des ersten Spiels kannst Du Deinen Meistertipp noch &auml;ndern.</p>";
 	}
-
-
 ?>
 
-<div style="margin-top: 1.5em; overflow:auto;";>
 
-<div style="width:400px; float:right; margin: 0;">
-<h2 style="margin-top:0"> Vergangene und aktuelle Spiele</h2>
+
+                        </div><!--/.col-->
+                    </div><!--/.row-->
+                </div><!--/.item-->
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+    </section><!--/#main-slider-->
+
+ 
+
+<div class="row">
+
+<div class="col-md-6 col-sm-12">
+    <h2>Die Top Ten</h2>
 <?php
-$prevMatchday = $m->getPreviousMatchday();
-if ($prevMatchday == null)
-{
+    GUIBuilder::buildHighscoreTable($userid,0, 1, 0, 1, "")
+?>
+</div>
+
+
+<div class="col-md-6 col-sm-12">
+  <h2> Vergangene und aktuelle Spiele</h2>
+<?php
+    $prevMatchday = $m->getPreviousMatchday();
+    if ($prevMatchday == null)
+    {
 	echo "<p style='text-align:center'><it>(keine Spiele vorhanden)</it></p>";
-}
-else
-{
+    }
+    else
+    {
 	GUIBuilder::buildClosedGamesTable($userid, null, true);
-}
+    }
+
+    echo "<h2>Kommende Spiele</h2>";
+    GUIBuilder::buildTippForm($userid, null, "../content/main.php");
 ?>
-
-
-<?php
-echo "<h2>Kommende Spiele</h2>";
-GUIBuilder::buildTippForm($userid, null, "../content/main.php");
-
-
-?>
-
+</div>
 </div>
 
-<div style="margin: 0em 410px 0 0;">
-
-<h2 style="margin-top:0">Die aktuelle Top-Ten-Liste:</h2>
-
-
-<?php
-GUIBuilder::buildHighscoreTable($userid,0, 1, 0, 1, "")
-?>
-
-<br>
-
-
-</div>
-
-<div style="clear:left; height:0"></div>
-
-</div>
-
-</div>
-
-<p>
+<div class="row">
+<div class="col-sm-12">
 <?php
 if (Newsboard::getNumEntriesSince($user->prevlogintime) > 0)
 {
-	echo "<h2>Neue Einträge im Newsboard</h2>";
+	echo "<h2>Neue Eintr&aumlge im Newsboard</h2>";
 	GUIBuilder::buildNewsboardTableSince($user->prevlogintime);
 }
 ?>
-</p>
+</div>
+</div>
 
 <?php 
 	define("HINWEIS_SPIELER_FARBE", 1);

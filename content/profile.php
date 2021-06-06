@@ -67,18 +67,12 @@ function show_profile($userid)
 	$game = new Game();
 	$login = $session->getCurrentUserLogin();
 	
-	echo "<div style='width: 370px; float:right; margin: 0 0 1.5em 0'>";
-	echo "<h1> Deine Benutzerdaten </h1>";
-	echo "<p>";
-	echo "<table id='Highscore'>";
-	echo "<tr><th>Login: </th><td style='text-align:left'>", $login, "</td></tr>";
-	echo "<tr><th>Name: </th><td style='text-align:left'>", $user->name, "</td></tr>";
-	echo "<tr><th>E-Mail: </th><td style='text-align:left'>", $user->email, "</td></tr>";
-	echo "</table>";
-	echo "</p>";
-	echo "</div>";
-	echo "<div style='margin: 0 380px 0 0;'>";
-	echo "<h1> Deine Punkte </h1>";
+	echo "<h1> Dein Profil </h1>";
+
+	
+	echo "<div class='row'>";
+	echo "<div class='col-md-6 col-sm-12'>";
+	echo "<h2> Deine Punkte </h2>";
 	echo "<p>";
 
 	$m = new Matches();
@@ -87,15 +81,15 @@ function show_profile($userid)
 	{
 		if ($ct == null)
 		{
-			echo "Du hast noch keinen Meistertipp abgegeben! Hier kannst Du Deinen Tipp wählen:<br>";
+			echo "Du hast noch keinen Meistertipp abgegeben! Hier kannst Du Deinen Tipp w&auml;hlen:<br>";
 		}
 		else
 		{
 			echo "Dein Meistertipp ist <b>". $ct->name."</b>.<br>";
-			echo "Bis zum Anpfiff des Er&ouml;ffungsspieles, kannst Du den Meistertipp noch ändern.<br>";
+			echo "Bis zum Anpfiff des Er&ouml;ffungsspieles, kannst Du den Meistertipp noch &aumlndern.<br>";
 		}
 		echo "<form action='#' method='post'>";
-		echo "<input type='submit' name='submit' value='Meistertipp ändern'>";
+		echo "<input type='submit' name='submit' value='Meistertipp &auml;ndern'>";
 		echo "<input type = 'hidden' name = 'action' value = 'change_champtip'>";
 		echo "</form>";
 	}
@@ -103,7 +97,7 @@ function show_profile($userid)
 	{
 		$score = $game->getScore($userid);
 		$ts = $game->getTipStats($userid);
-		echo "<table id='Highscore'>";
+		echo "<table id='Highscore' class='table table-spriped table-hover'>";
 		echo "<tr>";
 		echo " <th>Was?</th>";
 		echo " <th>Wie oft?</th>";
@@ -111,18 +105,18 @@ function show_profile($userid)
 		echo "</tr>";
 		echo "<tr>";
 		echo " <td style='text-align:left'><b>richtiges Ergebnis</b></td>";
-		echo " <td style='text-align:center'>", $ts->numResultRight," </td><td style='text-align:right'>", $ts->scoreResultRight, "</td></tr>";
+		echo " <td style='text-align:center'>", $ts->numResultRight," </td><td>", $ts->scoreResultRight, "</td></tr>";
 		echo "<tr>";
 		echo " <td style='text-align:left'><b>richtige Tordifferenz</b></td>";
-		echo " <td style='text-align:center'>", $ts->numDiffRight,"</td><td style='text-align:right'>", $ts->scoreDiffRight, "</td>";
+		echo " <td style='text-align:center'>", $ts->numDiffRight,"</td><td>", $ts->scoreDiffRight, "</td>";
 		echo "</tr>";
 		echo "<tr>";
 		echo " <td style='text-align:left'><b>richtiger Sieger</b></td>";
-		echo " <td style='text-align:center'>", $ts->numTendencyRight, "</td><td style='text-align:right'>", $ts->scoreTendencyRight, "</td>";
+		echo " <td style='text-align:center'>", $ts->numTendencyRight, "</td><td>", $ts->scoreTendencyRight, "</td>";
 		echo "</tr>";
 		echo "<tr>";
 		echo " <td style='text-align:left'><b>Meistertipp</b></td>";
-		echo " <td style='text-align:center'>", $ts->champtip, "</td><td align='right'>";
+		echo " <td style='text-align:center'>", $ts->champtip, "</td><td>";
 		if ($ts->statusChamptip == 0)
 		    echo "(+ ", SCORE_CHAMPTIP, "?)";
 		else if ($ts->statusChamptip == -1)
@@ -149,27 +143,34 @@ function show_profile($userid)
 			$numRemainingMatches * SCORE_RESULT, " Punkte holen kannst.</p>";
 	}
 	echo "</div>";
+	echo "<div class='col-md-6 col-sm-12'>";
+	echo "<h2> Deine Benutzerdaten </h2>";
+	echo "<p>";
+	echo "<table id='Highscore' class='table table-spriped table-hover'>";
+	echo "<tr><th>Login </th><td>", $login, "</td></tr>";
+	echo "<tr><th>Name </th><td>", $user->name, "</td></tr>";
+	echo "<tr><th>E-Mail </th><td>", $user->email, "</td></tr>";
+	echo "</table>";
+	echo "</p>";
 	echo "<p style='clear:right; margin:0'>&nbsp; </p>";
-	echo "<div style='width: 370px; float:right; margin: 0 0 1.5em 0'>";
-	echo "<h1>E-Mail-Adresse &auml;ndern</h1>";
+	echo "<h2>E-Mail-Adresse &auml;ndern</h2>";
 	echo "<form action='#' method='post'>";
 	echo "<p style='text-align:center'>";
-	echo "<input id='Button' type='submit' name='submit' value='E-Mail-Adresse ändern'>";
+	echo "<input id='Button' class='btn btn-default btn-sm btn-block' type='submit' name='submit' value='E-Mail-Adresse &auml;ndern'>";
 	echo "<input type = 'hidden' name = 'action' value = 'change_email'>";
 	echo "</p>";
 	echo "</form>";
-	echo "</div>";
-	echo "<div style='margin: 0 380px 0 0;'>";
-	echo "<h1>Passwort &auml;ndern </h1>";
+	echo "<h2>Passwort &auml;ndern </h2>";
 	echo "<form  action='#' method='post'>";
 	echo "<p style='text-align:center'>";
-	echo "<input id='Button' type='submit' name='submit' value='Passwort ändern''>";
+	echo "<input id='Button' class='btn btn-default btn-sm btn-block' type='submit' name='submit' value='Passwort &auml;ndern''>";
 	echo "<input type = 'hidden' name = 'action' value = 'change_pw'>";
 	echo "</p>";
 
 echo "</form>";
 
-echo "</div>";
+echo "</div>";	echo "</div>";
+
 }
 
 function change_pw()
@@ -185,7 +186,7 @@ function change_pw()
 	echo " <td> <input name='newpassword2' type='password' size='30' maxlength='32'></td></tr>";
 	echo "</table>";
 	echo "<p style='text-align:center'>";
-	echo "<input type='submit' name='submit' value='Passwort ändern'>";
+	echo "<input type='submit' name='submit' value='Passwort &auml;ndern'>";
 	echo "<input type = 'hidden' name = 'action' value = 'changed_pw'>";
 	echo "</p>";
 	echo "</form>";
@@ -200,7 +201,7 @@ function changed_pw($userid)
 	catch(ExceptionInvalidUser $e)
 	{
 		echo "Fehler: ", $e->getMessage(), "<br>";
-		echo "Das Passwort wurde nicht geändert!<br>";
+		echo "Das Passwort wurde nicht ge&auml;ndert!<br>";
 		echo "Bitte erneut versuchen: <br><br>";
 		return false;
 	}
@@ -216,7 +217,7 @@ function change_email()
 	echo " <td> <input name='newemail' type='text' size='30' maxlength='50'></td></tr>";
 	echo "</table>";
 	echo "<p style='text-align:center'>";
-	echo "<input type='submit' name='submit' value='E-Mail-Adresse ändern''>";
+	echo "<input type='submit' name='submit' value='E-Mail-Adresse &auml;ndern''>";
 	echo "<input type = 'hidden' name = 'action' value = 'changed_email'>";
 	echo "</p>";
 	echo "</form>";
@@ -231,7 +232,7 @@ function changed_email($userid)
 	catch(ExceptionInvalidUser $e)
 	{
 		echo "Fehler: ", $e->getMessage(), "<br>";
-		echo "Die E-Mail-Adresse wurde nicht geändert!<br>";
+		echo "Die E-Mail-Adresse wurde nicht ge&auml;ndert!<br>";
 		echo "Bitte erneut versuchen: <br><br>";
 		return false;
 	}
@@ -242,12 +243,13 @@ function changed_email($userid)
 function change_champtip($userid)
 {
 	$ct = Game::getChamptip($userid);
+	echo "<br><br><br><br><br><br>";
 	echo "<form action='#' method='post'>";
 	echo "<table>";
 	echo "<tr><td>Meistertipp:</td><td>";
 	GUIBuilder::buildDropdownSelect('champtip', 'SELECT land, id FROM laender ORDER BY land;', $ct->id - 1);
 	echo "<input type='hidden' name='action' value = 'changed_champtip'>";
-	echo "<tr><td><input type='submit' name='submit' value = 'Meistertipp wählen'></td><td></td>";
+	echo "<tr><td><input type='submit' name='submit' value = 'Meistertipp w&auml;hlen'></td><td></td>";
 	echo "</table>";
 	echo "</form>";
 }

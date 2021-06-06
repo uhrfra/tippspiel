@@ -26,4 +26,8 @@ define("TIMESHIFT", 0); // in seconds, this value is added to the system clock t
 define("PASSWORD_RESET_URL", "http://tippspiel.kontextfrei.de/wm2010/content/password_reset.php");
 
 define("TOTAL_MATCHES", 31);
+
+//GUI text
+define("TITLE", "Tippspiel");
+define("TITLE_SECOND", "zur Europameisterschaft 2020");
 ?>
