@@ -45,7 +45,7 @@
 			}
 			else if ($champtip->instatus == 1)
 			{
-				echo " und ist der Sieger des Wettbewerbs. Herzlichen Glückwunsch!";
+				echo " und ist der Sieger des Wettbewerbs. Herzlichen Gl&uumlckwunsch!";
 			}
 			echo "</p>";	
 		}
@@ -56,16 +56,16 @@
 		GUIBuilder::buildChamptipTable();
 	}
 	else{
-		echo "<p>Hier werden später die Meistertipps aller ausgeschiedenen Mannschaften angezeigt.</p>";
+		echo "<p>Hier werden sp&aumlter die Meistertipps aller ausgeschiedenen Mannschaften angezeigt.</p>";
 		$selecttip = 0;
 		if ($champtip == null)
 		{
 			echo "<p>Du hast noch keinen Meistertipp abgegeben. Solange das Turnier noch nicht begonnen hat kannst Du ihn unter 
-					<a href='../content/profile.php'>Deine Daten</a> ändern.</p>";
+					<a href='../content/profile.php'>Deine Daten</a> &aumlndern.</p>";
 		}
 		else
 		{
-			echo "<p>Dein Meistertipp ist ", $champtip->name,". Bis zu Beginn des Turniers kannst Du diesen noch unter <a href='../content/profile.php'>Deine Daten</a> ändern.</p>";
+			echo "<p>Dein Meistertipp ist ", $champtip->name,". Bis zu Beginn des Turniers kannst Du diesen noch unter <a href='../content/profile.php'>Deine Daten</a> &aumlndern.</p>";
 			$selecttip = $champtip->id;
 		}
 	}

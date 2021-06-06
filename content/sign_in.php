@@ -13,7 +13,7 @@
 		include ("../layout/pre_content_stuff.php");
 		echo "<h1>Fehler</h1>";
 		echo "Login fehlgeschlagen: ", $e->getMessage(), "\n";
-		echo "<a href='index.php'> Zurück zur Startseite </a>";
+		echo "<a id='link' href='index.php'> Zur&uumlck zur Startseite </a>";
 		include ("../layout/post_content_stuff.php");
 		exit;
 	}
@@ -22,7 +22,7 @@
 		include ("../layout/pre_content_stuff.php");
 		echo "<h1>Fehler</h1>";
 		echo "Fehler:", $e->getMessage(), "\n";
-		echo "<a href='index.php'> Zurück zur Startseite </a>";
+		echo "<a id='link' href='index.php'> Zur&uumlck zur Startseite </a>";
 		include ("../layout/post_content_stuff.php");
 		exit;
 	}

@@ -42,7 +42,7 @@ if (isset($_POST['action']))
 		}
 		catch (ExceptionMatch $e)
 		{
-			echo "Spiel nicht hinzugef�gt: ", $e->getMessage(), "<br>";
+			echo "Spiel nicht hinzugef&uumlgt: ", $e->getMessage(), "<br>";
 			}
 			
 	}
@@ -91,7 +91,7 @@ if (isset($_POST['action']))
 
 
 <p>
-<h1> Spiel hinzuf�gen </h1>
+<h1> Spiel hinzuf&uumlgen </h1>
 
 <form id='Form' action='#' method='post'>
 <table>
@@ -117,7 +117,7 @@ echo "<td><input type ='text' name='datetime' value ='$lasttime'></td></tr>";
 echo "<input type='hidden' name='action' value = 'add_game'>";
 echo "<input type='hidden' name='newmatchid' value = '$newid'>";
 ?>
-<tr><td><input id='Button' type='submit' name='submit' value = 'Spiel hinzuf�gen'></td><td></td>
+<tr><td><input id='Button' type='submit' name='submit' value = 'Spiel hinzuf&uumlgen'></td><td></td>
 </table>
 </form>
 
@@ -201,7 +201,7 @@ GUIBuilder::buildDropdownSelect('matchday', 'SELECT name, id FROM matchdays;', 0
 
 
 <p>
-<h2> Landstatus �ndern </h2>
+<h2> Landstatus &aumlndern </h2>
 
 
 <form id='Form' action='#' method='post'>
@@ -217,7 +217,7 @@ Land:
 <option value='1'>Sieger </option>
 </select>
 <input type='hidden' name='action' value = 'set_teamstatus'>
-<input id='Button' type='submit' name='submit' value = 'Landstatus �ndern'>
+<input id='Button' type='submit' name='submit' value = 'Landstatus &aumlndern'>
 
 </form>
 
@@ -232,7 +232,7 @@ echo $db->queryResult('SELECT (NOW() + INTERVAL '. TIMESHIFT . ' SECOND);');
 <br>
 
 <h2> Update DB </h2>
-Datenbank-Update zur Neuberechnung der Punkte (Normalerweise nicht notwendig, da automatisch ausgef�hrt). 
+Datenbank-Update zur Neuberechnung der Punkte (Normalerweise nicht notwendig, da automatisch ausgef&uumlhrt). 
 <form id='Form' action='#' method='post'>
 <input type='hidden' name='action' value = 'updateDB'>
 <input id='Button' type='submit' name='submit' value = 'Update DB'>
