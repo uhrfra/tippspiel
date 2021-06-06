@@ -73,7 +73,7 @@
 	$la = $db->query($sql);
 	
 	echo "<select name='id' size='1'>";
-	while($row = mysql_fetch_row($la))
+	while($row = mysqli_fetch_row($la))
     {
 	
 	$ws = "";
@@ -103,7 +103,7 @@
 	$la = $db->query($sql);
 	
 	echo "Folgende Meistersterne sind gesetzt:<br>";
-	while($row = mysql_fetch_row($la))
+	while($row = mysqli_fetch_row($la))
     {
     	if ($row[2] > 0)
     	{
@@ -114,7 +114,7 @@
     echo "<form id='Form' action='#' method='post'>";
     echo "<select name='id' size='1'>";
     $la = $db->query($sql);
-    while($row = mysql_fetch_row($la))
+    while($row = mysqli_fetch_row($la))
 	{
 		echo "<option value='",$row[0], "'>",  $row[1], " (", $row[2], ")</option>'";
 	}
@@ -139,7 +139,7 @@
 	$la = $db->query($sql);
 	
 	echo "<select name='id' size='1'>";
-	while($row = mysql_fetch_row($la))
+	while($row = mysqli_fetch_row($la))
 		{
 		
 		$payed = 0;
@@ -175,7 +175,7 @@
 	$la = $db->query($sql);
 	
 	echo "<select name='id' size='1'>";
-	while($row = mysql_fetch_row($la))
+	while($row = mysqli_fetch_row($la))
 		{
 		
 		$payed = 0;
@@ -206,7 +206,7 @@
 if ($user->adminlevel == 2)
 {
 
-echo "<h2> Adminstatus ändern </h2>";
+echo "<h2> Adminstatus ï¿½ndern </h2>";
 echo "<p>";
 echo "<form id='Form' action='#' method='post'>";
 
@@ -214,7 +214,7 @@ $db = new Database();
 $sql = 'SELECT id, name, adminlevel FROM user';
 $la = $db->query($sql);
 echo "	<select name='id' size='1'>";
-while($row = mysql_fetch_row($la))
+while($row = mysqli_fetch_row($la))
  {
   echo " <option value='",$row[0], "'>",  $row[0], ": ", $row[1], " (", $row[2], ") </option>'";
 }
@@ -239,13 +239,13 @@ GUIBuilder::buildMailToAllUsersLink();
 echo "</p>";
 
 
-echo "<h2> Benutzerpasswort ändern </h2>";
+echo "<h2> Benutzerpasswort ï¿½ndern </h2>";
 echo "<p>";
 echo "(TODO)";
 echo "</p>";
 
 
-echo "<h2> Benutzer löschen </h2>";
+echo "<h2> Benutzer lï¿½schen </h2>";
 echo "<p>";
 echo "(TODO)";
 echo "</p>";

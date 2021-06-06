@@ -13,32 +13,32 @@ class Database
 	
 	public function query($query)
 	{
-		$result = mysql_query($query);
+		$result = mysqli_query($this->$dbcon, $query);
 		if ($result == null)
 		{
-			throw new ExceptionDatabase("Query failed: ".$query." ".mysql_error());
+			throw new ExceptionDatabase("Query failed: ".$query." ".mysqli_error($this->$dbcon));
 		}
 		return $result;
 	}
 	
 	public function queryRow($query)
 	{
-		$result = mysql_query($query);
+		$result = mysqli_query($this->$dbcon, $query);
 		if ($result == null)
 		{
-			throw new ExceptionDatabase("Query failed: ".$query." ".mysql_error());
+			throw new ExceptionDatabase("Query failed: ".$query." ".mysqli_error($this->$dbcon));
 		}
-		return mysql_fetch_row($result);
+		return mysqli_fetch_row($result);
 	}
 	
 	public function queryResult($query)
 	{
-		$result = mysql_query($query);
+		$result = mysqli_query($this->$dbcon, $query);
 		if (!$result)
 		{
-			throw new ExceptionDatabase("Query failed: ".$query." ".mysql_error());
+			throw new ExceptionDatabase("Query failed: ".$query." ".mysqli_error($this->$dbcon));
 		}
-		$row = mysql_fetch_row($result);
+		$row = mysqli_fetch_row($result);
 		return $row[0];
 	}
 	
@@ -55,40 +55,26 @@ class Database
 	
 	public static function createDatabase($name)
 	{
-		$db = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+		$db = @ mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
 		if (!$db)
 		{
 			throw new ExceptionDatabase("Cannot connect to database server.");
 		}
 
-		if (mysql_query('CREATE DATABASE IF NOT EXISTS '.$name, $db))
-		{
-			return;
-		}
-		else
-		{
-			throw new ExceptionDatabase('Database '.$name.' could not be created. Probably it already exists?');
-		}
+		mysqli_query($db, 'CREATE DATABASE IF NOT EXISTS '.$name);
 	}
+
 	// Connect to sql database. Database access parameters are defined in config file.
 	private function connect()
 	{
-		$db = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-		if (!$db)
+		$this->$dbcon = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DBNAME);
+		if (!$this->$dbcon)
 		{
 			throw new ExceptionDatabase("Cannot connect to database server.");
 		}
-		$dbcon = mysql_select_db(DB_DBNAME);
-		if (!$dbcon)
-		{
-			throw new ExceptionDatabase("Database could not be found.");
-		}	
 	}
 
 	 var $dbcon;
-
-
-
 }
 
 ?>

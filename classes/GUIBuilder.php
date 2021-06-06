@@ -21,7 +21,7 @@ class GUIBuilder
 			$db = new Database();
 			$result = $db->query($query);
 			$coUnter = 0;
-			while ($result != null && $row = mysql_fetch_row($result))
+			while ($result != null && $row = mysqli_fetch_row($result))
 			{
 				if (count($row) > 1)
 				{
@@ -214,7 +214,7 @@ echo "
   }
   echo "</tr>";
  
-  while ($row = mysql_fetch_row($query_result)){
+  while ($row = mysqli_fetch_row($query_result)){
     echo "<tr>";
     // insert "..." before user entry
     if ($maxplace < $row[0]) {
@@ -232,7 +232,7 @@ echo "
       else{
 	if ($i == 1){
 	  if ($user_link == 1){
-	    echo "<td style='text-align:left'><b>";
+		echo "<td style='text-align:left'><b>";
 	    if ($row[9] == $cur_uid) {
 	      echo "<a id='User' ";
 	    } else if ($row[8] > 0) {
@@ -356,7 +356,7 @@ $db = new Database();
 <th>F</th>";
 echo "</tr>";
  
-  $numRows = mysql_num_rows($query_result);
+  $numRows = mysqli_num_rows($query_result);
 
   if ($numRows == 0){
     echo "<tr> <td colspan = 9><i> (keine) </i></td> <tr>";
@@ -364,10 +364,10 @@ echo "</tr>";
 
   if ($small == true)
     for($i = 0; $i < $numRows - 4; $i++) {
-      $row = mysql_fetch_row($query_result); 
+      $row = mysqli_fetch_row($query_result); 
     }
 
-  while ($row = mysql_fetch_row($query_result)){
+  while ($row = mysqli_fetch_row($query_result)){
     echo "<tr>";
 
 
@@ -379,8 +379,8 @@ echo "</tr>";
       $ec = GUIBuilder::$col_notset;
     }
     else if ($row[9] == $row[11] && $row[10] == $row[12]){
-    	// Result correct.
-      $ec = GUIBuilder::$col_result_correct;
+      	// Result correct.
+		  $ec = GUIBuilder::$col_result_correct;
     }
     else{
       $ergebnisdiff = $row[9] - $row[10];
@@ -410,8 +410,8 @@ echo "</tr>";
       }
       else
       {
-		$ec = GUIBuilder::$col_wrong;
-      }
+		$ec = GUIBuilder::$col_wrong;  
+	  }
     }
 
     for ($i = 0; $i < 9; $i++){
@@ -420,14 +420,14 @@ echo "</tr>";
       else if ($i == 1 && $small == false)
       	echo "<td style='text-align:center'>", $row[$i], "</td>";
       else if ($i == 2){
-        echo "<td style='text-align:center; font-size:0.77em'><b><a style='color:#000066' href = 'matchtipps.php?spielid=", $row[13],"'> ", $row[$i], "</a></b></td>";
-      }
-      else if ($i ==3){
-	echo "<td style='text-align:center'><b>", $row[$i], "</b></td>";
-      }
-      else if ($i == 4){
-	echo "<td style='text-align:center; background-color:", $ec, "'><b>", $row[$i], "</b></td>";
-      }
+		echo "<td style='text-align:center; font-size:0.77em'><b><a style='color:#000066' href = 'matchtipps.php?spielid=", $row[13],"'> ", $row[$i], "</a></b></td>";
+	}
+	else if ($i ==3){
+  echo "<td style='text-align:center'><b>", $row[$i], "</b></td>";
+	}
+	else if ($i == 4){
+  echo "<td style='text-align:center; background-color:", $ec, "'><b>", $row[$i], "</b></td>";
+	}
       else{
 	echo "<td>", $row[$i], "</td>";
       }
@@ -445,7 +445,7 @@ public static function buildChamptipTable(){
 FROM laender LEFT JOIN user ON laender.id = user.meistertip
 GROUP BY `land`, status, laender.meisterstatus, laender.id;";
   echo "<div style='text-align:center'>"; // table centering for IEs
-  echo"  <table id=\"Highscore\">
+  echo"  <table id=\"Highscore\" class=\"table table-striped table-hover\">
 <tr>
 <th>Land</th>
 <th>Tipps</th>
@@ -454,7 +454,7 @@ GROUP BY `land`, status, laender.meisterstatus, laender.id;";
 	$db = new Database();
 	$query_result = $db->query($sqlH4);
 
-	while ($row = mysql_fetch_row($query_result)){
+	while ($row = mysqli_fetch_row($query_result)){
     if ($row[2] == 0){
       echo "<tr>";
       echo "<td style='text-align:left'>", $row[0], "</td>";
@@ -472,15 +472,15 @@ GROUP BY `land`, status, laender.meisterstatus, laender.id;";
       echo "<td style='text-align:left'>";
       $landid = $row[3];
       $qr2 = $db->query("SELECT user.name FROM user, laender WHERE user.meistertip = laender.id AND laender.id = '$landid';");
-      if (mysql_num_rows($qr2) == 0){
+      if (mysqli_num_rows($qr2) == 0){
 	echo "-";
       }
       else{
-	$row2 = mysql_fetch_row($qr2);
+	$row2 = mysqli_fetch_row($qr2);
 	if ($row2){
 	  echo $row2[0];
 	}
-	while ($row2 = mysql_fetch_row($qr2)){
+	while ($row2 = mysqli_fetch_row($qr2)){
 	  echo "<br>",$row2[0];
 	}
       }
@@ -499,6 +499,7 @@ static public function buildMatchtipps($matchid, $userid)
   
   $game = new Game();
   $db = new Database();
+
   // S9) Tipps aller User zum Spiel $spielid
 //     | Name | Tipp | UserID | Wettb.? | SpielStatus | Richtig? | Tor-Diff-Diff | Tor-Anz-Diff |
 //     (Wettb.?: macht_mit = 1, nicht = 0)
@@ -548,41 +549,41 @@ ORDER BY tippRichtig, torDiff, anzToreDiff, (tipps.tore1+tipps.tore2) DESC, tipp
 </tr>";
  
   $query_result = $db->query($sqlS9); 
-  if (mysql_num_rows($query_result) == 0){
+  if (mysqli_num_rows($query_result) == 0){
     echo "<tr> <td colspan = 8><i> (keine) </i></td> <tr>";
   }
-  while ($row = mysql_fetch_row($query_result)){
-    if ($row[2] == $cur_uid){
-      echo "<tr bgcolor=", GUIBuilder::$col_curusr, ">";
-    }
-    else{
-      if ($row[3] > 0){
-	echo "<tr bgcolor=", GUIBuilder::$col_wett, ">";
-      }
-      else{
-	echo "<tr>";
-      }
-    }
-
-    // Berechnung der Farbe für den Tipp. ---- 
-    if ($row[4] < 2){
-     $ec = $col_notset;
-    }
-    else if ($row[5] == -3){
-      $ec = GUIBuilder::$col_result_correct;
-    }
-    else if ($row[5] == -2){
-      $ec = GUIBuilder::$col_diff_correct;
-    }
-    else if ($row[5] == -1){
-      $ec = GUIBuilder::$col_tendency_correct;
-    }
-    else{
-      $ec = GUIBuilder::$col_wrong;
-      }
+  while ($row = mysqli_fetch_row($query_result)){
+	if ($row[2] == $cur_uid){
+		echo "<tr bgcolor=", GUIBuilder::$col_curusr, ">";
+	  }
+	  else{
+		if ($row[3] > 0){
+	  echo "<tr bgcolor=", GUIBuilder::$col_wett, ">";
+		}
+		else{
+	  echo "<tr>";
+		}
+	  }
+  
+	  // Berechnung der Farbe für den Tipp. ---- 
+	  if ($row[4] < 2){
+	   $ec = $col_notset;
+	  }
+	  else if ($row[5] == -3){
+		$ec = GUIBuilder::$col_result_correct;
+	  }
+	  else if ($row[5] == -2){
+		$ec = GUIBuilder::$col_diff_correct;
+	  }
+	  else if ($row[5] == -1){
+		$ec = GUIBuilder::$col_tendency_correct;
+	  }
+	  else{
+		$ec = GUIBuilder::$col_wrong;
+		}
     // ----------------------------------------
     $retlink = "gametipps.php?spielid=".$matchid;
-    echo "<td style='text-align: left'><b><a style='color:#000066' href = 'usertipps.php?ouid=", $row[2], "&retlink=",$retlink,"'>", $row[0], "</a></b></td>";
+	echo "<td style='text-align: left'><b><a style='color:#000066' href = 'usertipps.php?ouid=", $row[2], "&retlink=",$retlink,"'>", $row[0], "</a></b></td>";
     //echo "<td>", $row[0], "</td>";
     echo "<td style='text-align: center; background-color:", $ec, "'><b>", $row[1], "</b></td>";
     echo "<td style='text-align: center'><b>", $game->getHighscorePosition($row[2], 0), "</b></td>";
@@ -605,8 +606,8 @@ public static function buildNewsboardTable()
 
 	$fid = 0;
 	echo "<div style='text-align:center'>"; // table centering for IEs
-	echo "<table id=\"Highscore\">";
-	while ($row = mysql_fetch_row($query_result))
+	echo "<table id=\"Highscore\" class=\"table table-striped table-hover\">";
+	while ($row = mysqli_fetch_row($query_result))
 	{
 	  if ($fid == 0){
 			$fid = $row[3];
@@ -637,8 +638,8 @@ public static function buildNewsboardTableSince($datetime)
 
 	$fid = 0;
 	echo "<div style='text-align:center'>"; // table centering for IEs
-	echo "<table id=\"Highscore\">";
-	while ($row = mysql_fetch_row($query_result))
+	echo "<table id=\"Highscore\" class=\"table table-striped table-hover\">";
+	while ($row = mysqli_fetch_row($query_result))
 	{
 	  if ($fid == 0){
 			$fid = $row[3];
@@ -664,7 +665,7 @@ public static function buildNewsboardTableSince($datetime)
 
 		 echo "<a href='mailto:";
 			
-			while ($row = mysql_fetch_row($query_result))
+			while ($row = mysqli_fetch_row($query_result))
 			  echo $row[0], "; ";
 			
 		echo "'>hier klicken</a>";
@@ -693,7 +694,7 @@ public static function buildNewsboardTableSince($datetime)
 	        echo "<p>";
 	        echo "Hinweise:";
 	        echo "</p>";
-	        echo "<ul>";
+			echo "<ul>";
 
 	        if (defined("HINWEIS_SPIELER_FARBE"))
 	                echo "<li style='margin:0.3em'> In der Highscore wird der eigene Name rot hervorgehoben. </li>";

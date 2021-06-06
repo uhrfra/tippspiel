@@ -105,18 +105,16 @@ class Game
 	
 	public static function insertTip($userid, $matchid, $goals1, $goals2)
 	{
-	
-
 		$db = new Database();
 		$ts = TIMESHIFT;
 		//Check if tipping is still allowed.
 		if ($db->queryResult("SELECT COUNT(id) FROM spiele WHERE id = '$matchid' AND datum > (NOW() + INTERVAL '$ts' SECOND);") == 0)
 		{
-			throw new ExceptionTip("Das Spiel hat bereits begonnen. Tippen nicht mehr möglich!");
+			throw new ExceptionTip("Das Spiel hat bereits begonnen. Tippen nicht mehr mï¿½glich!");
 		}
 		//Check if a tip for this match already exists
 		$result = $db->query("SELECT id FROM tipps WHERE userid = '$userid' AND spielid = '$matchid';");
-		if ($row = mysql_fetch_row($result))
+		if ($row = mysqli_fetch_row($result))
 		{
 			$tipid = $row[0];
 			$db->query("UPDATE tipps SET tore1 = '$goals1', tore2 = '$goals2' WHERE id = '$tipid';");
@@ -155,7 +153,7 @@ class Game
 		{
 			return null;
 		}
-		if ($row = mysql_fetch_row($result))
+		if ($row = mysqli_fetch_row($result))
 		{
 			$ct = new Champtip;
 			$ct->name = $row[0];

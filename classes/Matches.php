@@ -71,7 +71,7 @@ class Matches
 		$db = new Database();
 		$result =  $db->query("SELECT matchdays.id FROM spiele, matchdays WHERE (spiele.matchday = matchdays.id AND spiele.datum > addtime(NOW(), SEC_TO_TIME(". TIMESHIFT. "))) ORDER BY spiele.datum ASC;");
 		$currentmd = $this->getCurrentMatchday();
-		while ($row = mysql_fetch_row($result))
+		while ($row = mysqli_fetch_row($result))
 		{
 			if ($row[0] != currentmd)
 			{
@@ -87,7 +87,7 @@ class Matches
 		$db = new Database();
 		$result =  $db->query("SELECT matchdays.id FROM spiele, matchdays WHERE (spiele.matchday = matchdays.id AND spiele.datum < addtime(NOW(), SEC_TO_TIME(". TIMESHIFT. "))) ORDER BY spiele.datum DESC;");
 		$currentmd = $this->getCurrentMatchday();
-		while ($row = mysql_fetch_row($result))
+		while ($row = mysqli_fetch_row($result))
 		{
 			if ($row[0] != currentmd)
 			{
@@ -97,6 +97,35 @@ class Matches
 		return null;
 	}
 	
+
+
+	public function getAllMatches()
+	{
+	$sql = "SELECT DATE_FORMAT(spiele.datum, '%d.%m.%y - %H:%i') AS datum,
+  l1.id,
+  l1.land,
+  l2.id,
+  l2.land,
+  spiele.id
+FROM (spiele LEFT JOIN `laender` AS l1 ON spiele.ms1 = l1.id) LEFT JOIN `laender` AS l2 ON spiele.ms2 = l2.id
+ORDER BY spiele.datum;";
+
+		$db = new Database;
+		$result = $db->query($sql);
+		$ret = array();
+		while($row = mysqli_fetch_row($result))
+		{
+			$m = new Match();
+			$m->datetime = $row[0];
+			$m->teamid1 = $row[1];
+			$m->teamname1 = $row[2];
+			$m->teamid2 = $row[3];
+			$m->teamname2 = $row[4];
+			$m->id = $row[5];
+			array_push($ret, $m);
+		}
+		return $ret;
+	}
 	
 	// Returns the match with the bigest timestamp.
 	public function getLastMatch()
@@ -122,7 +151,7 @@ ORDER BY spiele.datum DESC;";
 		$db = new Database;
 		$result = $db->query($sql);
 		$ret = array();
-		if($row = mysql_fetch_row($result))
+		if($row = mysqli_fetch_row($result))
 		{
 			$m = new Match();
 			$m->datetime = $row[0];
@@ -153,7 +182,7 @@ ORDER BY spiele.id DESC;";
 		$db = new Database;
 		$result = $db->query($sql);
 		$ret = array();
-		if($row = mysql_fetch_row($result))
+		if($row = mysqli_fetch_row($result))
 		{
 			return $row[5];
 		}
@@ -176,7 +205,7 @@ ORDER BY spiele.id DESC;";
 		$reg_exp="/\d{4}-\d{2}-\d{2} \d{2}:\d{2}/";
 		if(!preg_match ($reg_exp, $m->datetime ))
 		{
-			throw new ExceptionMatch("Ungültige Eingabe für Datum/Uhrzeit.");
+			throw new ExceptionMatch("Ungï¿½ltige Eingabe fï¿½r Datum/Uhrzeit.");
 		}
 			
 		$query = "INSERT INTO spiele(ms1, ms2, datum, matchday) VALUES ('$m->teamid1', '$m->teamid2', '$m->datetime' , '$m->matchdayid')"; 
@@ -220,7 +249,7 @@ ORDER BY spiele.id DESC;";
 		$db = new Database;
 		$result = $db->query($sqlS4);
 		$ret = array();
-		while($row = mysql_fetch_row($result))
+		while($row = mysqli_fetch_row($result))
 		{
 			$m = new Match();
 			$m->datetime = $row[0];
@@ -259,7 +288,7 @@ ORDER BY spiele.datum;";
 		$db = new Database;
 		$result = $db->query($sqlS4);
 		$ret = array();
-		while($row = mysql_fetch_row($result))
+		while($row = mysqli_fetch_row($result))
 		{
 			$m = new Match();
 			$m->datetime = $row[0];
@@ -291,7 +320,7 @@ ORDER BY spiele.datum;";
 		$db = new Database;
 		$result = $db->query($sql);
 		$ret = array();
-		while($row = mysql_fetch_row($result))
+		while($row = mysqli_fetch_row($result))
 		{
 			$m = new Match();
 			$m->datetime = $row[0];
@@ -377,7 +406,7 @@ ORDER BY spiele.datum;";
 		$query_result = $db->query($sqlD2);
 
 		// Update user statistics
-		 while ($row = mysql_fetch_row($query_result)){
+		 while ($row = mysqli_fetch_row($query_result)){
 		   $userid = $row[0];
 		   $anz_er = $row[1];
 		   $anz_tr = $row[2];
@@ -395,19 +424,19 @@ ORDER BY spiele.datum;";
 		 }
  
  
-		//D4) Anzahl richtiger Ergebnisse, richtiger Tendenzen und falscher Tipps für
+		//D4) Anzahl richtiger Ergebnisse, richtiger Tendenzen und falscher Tipps fï¿½r
 		//    alle Spiele mit dem Status = 1:
 		//     | spielid | anz_er | anz_tr | anz_f |
 		$sqlD4 = "SELECT spiele.id,
 		  COUNT(IF(spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2,
 		           spiele.id, null)) AS anz_er,
-		  COUNT(IF((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) = CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
+	  COUNT(IF((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) = CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
 		            AND NOT (spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2)
 		            AND NOT spiele.tore1 = spiele.tore2,
 		           spiele.id, null)) AS anz_tr,
 		  COUNT(IF(((spiele.tore1 > spiele.tore2 AND tipps.tore1 > tipps.tore2)
 		             OR (spiele.tore1 = spiele.tore2 AND tipps.tore1 = tipps.tore2)
-		             OR (spiele.tore1 < spiele.tore2 AND tipps.tore1 < tipps.tore2))
+		               OR (spiele.tore1 < spiele.tore2 AND tipps.tore1 < tipps.tore2))
 		            AND NOT (spiele.tore1 = tipps.tore1 AND spiele.tore2 = tipps.tore2) 
 		            AND ((CAST(spiele.tore1 as signed) - CAST(spiele.tore2 as signed) != CAST(tipps.tore1 as signed) - CAST(tipps.tore2 as signed))
 		                 OR (spiele.tore1 = spiele.tore2)),
@@ -420,7 +449,7 @@ ORDER BY spiele.datum;";
 		WHERE spiele.status = 1
 		GROUP BY spiele.id;";
 		$query_result = $db->query($sqlD4);
-		 while ($row = mysql_fetch_row($query_result)){
+		 while ($row = mysqli_fetch_row($query_result)){
 		   $spielid = $row[0];
 		   $anz_er = $row[1];
 		   $anz_tr = $row[2];
