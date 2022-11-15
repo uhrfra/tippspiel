@@ -96,8 +96,8 @@ class Matches
 		}
 		return null;
 	}
-	
 
+	
 
 	public function getAllMatches()
 	{
@@ -226,6 +226,13 @@ ORDER BY spiele.id DESC;";
 		{
 			throw new ExceptionMatch("Unknown team name ".$m->teamname2.".");
 		}
+
+		$m->matchdayid = $db->queryResult("SELECT id FROM matchdays WHERE name = '$m->matchdayname';");
+		if ($m->matchdayid == 0)
+		{
+			throw new ExceptionMatch("Unknown matchday name ".$m->matchdayname.".");
+		}
+
 		$this->addMatch($m);
 	}
 	
