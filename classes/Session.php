@@ -35,9 +35,9 @@ class Session
 			throw new ExceptionInvalidUser("Login zwischen 3 und 30 Zeichen lang sein.");
 		}
 		
-		if (strlen($password) < 5 || strlen($password) > 50)
+		if (strlen($password) < 3 || strlen($password) > 50)
 		{
-			throw new ExceptionInvalidUser("Password muss mindesten fï¿½nf Zeichen lang sein.");
+			throw new ExceptionInvalidUser("Password muss mindesten drei Zeichen lang sein.");
 		}
 		
 		if (strlen($User->name) < 5 || strlen($User->name) > 50)
@@ -52,19 +52,19 @@ class Session
 		
 		if ($db->QueryResult("SELECT * FROM user WHERE login = '$login';") != null)
 		{
-			throw new ExceptionInvalidUser("Login ungï¿½ltig.");
+			throw new ExceptionInvalidUser("Login ungültig.");
 		}
 		
 		// Check if both password strings are equal.
 		if ($password != $password_confirm)
 		{
-			throw new ExceptionInvalidUser("Die Eingaben fï¿½r das Passwort unterscheiden sich.");
+			throw new ExceptionInvalidUser("Die Eingaben für das Passwort unterscheiden sich.");
 		}
 
 		// Check user name
 		if ($db->QueryResult("SELECT * FROM user WHERE name = '$User->name';") != null)
 		{
-			throw new ExceptionInvalidUser("Name ungï¿½ltig.");
+			throw new ExceptionInvalidUser("Name ungültig.");
 		}
 
 		// Check email
@@ -72,7 +72,7 @@ class Session
 			substr_count($User->email, '@') != 1 ||
 			substr_count($User->email, '.') < 1)
 			{
-				throw new ExceptionInvalidUser("E-Mail-Adresse ungï¿½ltig.");
+				throw new ExceptionInvalidUser("E-Mail-Adresse ungültig.");
 			}
 
 		// Insert values into database
@@ -90,12 +90,12 @@ class Session
 		// Check password
 		if (strlen($newpassword) < 5 || strlen($newpassword) > 50)
 		{
-			throw new ExceptionInvalidUser("Password muss mindesten fï¿½nf Zeichen lang sein.");
+			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
 		}
 
 		if ($newpassword != $newpassword2)
 		{
-			throw new ExceptionInvalidUser("Die Eingaben fï¿½r das neue Passwort unterscheiden sich.");
+			throw new ExceptionInvalidUser("Die Eingaben für das neue Passwort unterscheiden sich.");
 		}
 		
 		$r = $db->queryResult("SELECT passwort FROM user WHERE id= '$userid';");
@@ -121,7 +121,7 @@ class Session
 
 		if ($newpassword != $newpassword2)
 		{
-			throw new ExceptionInvalidUser("Die Eingaben fï¿½r das neue Passwort unterscheiden sich.");
+			throw new ExceptionInvalidUser("Die Eingaben für das neue Passwort unterscheiden sich.");
 		}
 		
 		$userid = $db->queryResult("SELECT id FROM user WHERE login = '$login';");
@@ -148,7 +148,7 @@ class Session
 			substr_count($email, '@') != 1 ||
 			substr_count($email, '.') < 1)
 			{
-				throw new ExceptionInvalidUser("E-Mail-Adresse ungï¿½ltig.");
+				throw new ExceptionInvalidUser("E-Mail-Adresse ungültig.");
 			}
 		$db->query("UPDATE user SET email = '$email' WHERE id = '$userid';");
 		
