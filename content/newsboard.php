@@ -36,7 +36,7 @@
 	else
 	{
 		echo "<h1> Newsboard </h1>";
-		echo "<p>Hier kann jeder seine Meinung oder wichtige Neuigkeiten loswerden:</p>";
+		echo "<p>Hier kann jeder Kommentare loswerden.</p>";
 		echo "<form action='#' method='post'>";
 		echo "<input type='hidden' name='action' value = 'write_message'>";
 		echo "<input id='Button' type='submit' name='submit' value = 'Nachricht verfassen'>";

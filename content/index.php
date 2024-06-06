@@ -18,7 +18,7 @@
 <h3>...zum <?php echo TITLE ?></h3><br>
 </p>
 <p>
-Bereits registrierte Tipper k&ouml;nnen sich hier einloggen:
+Bereits registrierte Mitspieler k&ouml;nnen sich hier einloggen:
 
 <form action='sign_in.php' method='post'>
 <table id='Form'>

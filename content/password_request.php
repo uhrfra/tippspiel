@@ -22,7 +22,7 @@
 
 function request()
 {
-	echo "<h1> Passwort zurücksetzen </h1>";
+	echo "<h1> Passwort zur&uuml;cksetzen </h1>";
 	echo "<p>";
 	echo "Falls Du Dein Passwort vergessen hast, kannst Du ein neues Passwort anforden. Dazu musst Du Dein Login und die E-Mail-Adresse, mit der Du Dich angemeldet hast, angeben.";
 	echo "<form  id='Form' action='password_request.php' method='post'>";
@@ -56,26 +56,26 @@ function requested()
 	
 	$mailtext = "Hallo,
 	
-Du hast beim Tippspiel eine Passwortänderung beantragt.
-Bitte rufe zur Passwortänderung folgende Seite auf:
+Du hast beim Tippspiel eine Passwort&amul;nderung beantragt.
+Bitte rufe zur Passwort&aml;nderung folgende Seite auf:
 $link
 Dort kannst Du Dir ein neues Passwort vergeben.
 
-Grüße vom Tipper-Team!
+Gr&szlig;e vom Tipper-Team!
 
 
 
 Diese Mail wurde automatisch generiert. Bitte antworte deshalb nicht
 auf diese Mail.";
 	
-	if (mail($usr->email, "Tippspiel Passwortänderung", $mailtext,"from:passwortaenderung@kontextfreitippspiel.de") == false)
+	if (mail($usr->email, "Tippspiel Passwort&Ã¤uml;nderung", $mailtext,"from:".PASSWORD_RESET_MAIL_ADDRESS) == false)
 	{
 		echo "Fehler beim Mailversand.";
 		return;
 	}
 	Session::setPasswordResetToken($u, $token);
 	echo "Es wurde eine E-Mail an die Adresse ".$usr->email." versandt.";
-	echo "In dieser ist ein Link zum Ändern Deines Passwortes angegeben.";
+	echo "In dieser ist ein Link zum &auml;ndern Deines Passwortes angegeben.";
 	
 }
 ?>

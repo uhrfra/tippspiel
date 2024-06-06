@@ -37,14 +37,13 @@
                                     <p class="animation animated-item-2"><?php echo TITLE_SECOND ?></p>
                             	</div>
                                 <div class="carousel-content">
-                            	<h3>Herzlich Willkommen</h3>
-                                <div style="margin-bottom:6px">Hallo <?php echo $user->name ?> willkommen beim Tippspiel.</div>
+                                <div style="margin-bottom:6px">Hallo <?php echo $user->name ?>, willkommen beim Tippspiel.</div>
                                 <div style="margin-bottom:6px">Dein derzeitiger Punktestand ist <?php $score = Game::getScore($userid, 0); echo $score; ?> Punkt<?php if( $score!=1)echo "e"?> und Du stehst auf Platz <?php echo Game::getHighscorePosition($userid, 0); ?> von <?php echo Game::getNumUsers(0); ?>.</div>
 <?php
 	$m = new Matches();
 	if (!$m->started())
 	{
-		echo "<p>Bis zum Beginn des ersten Spiels kannst Du Deinen Meistertipp noch &auml;ndern.</p>";
+		echo "<p>Bis zum Beginn des ersten Spiels kannst Du Deinen Meistertipp noch &auml;ndern (im Men&uuml unter Deine Daten -> Profil).</p>";
 	}
 ?>
 
