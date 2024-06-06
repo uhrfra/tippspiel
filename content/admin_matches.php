@@ -33,7 +33,7 @@ if (isset($_POST['action']))
 	{
 		try
 		{
-			$m = new Match();
+			$m = new MatchEvent();
 			$m->teamid1 = $_POST['team1'];
 			$m->teamid2 = $_POST['team2'];
 			$m->matchdayid = $_POST['matchday'];

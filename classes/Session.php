@@ -18,7 +18,7 @@ class User
 
 class Session
 {
-	public function Session()
+	public function __construct()
 	{
 	}
 
@@ -37,7 +37,7 @@ class Session
 		
 		if (strlen($password) < 5 || strlen($password) > 50)
 		{
-			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
+			throw new ExceptionInvalidUser("Password muss mindesten fï¿½nf Zeichen lang sein.");
 		}
 		
 		if (strlen($User->name) < 5 || strlen($User->name) > 50)
@@ -52,22 +52,19 @@ class Session
 		
 		if ($db->QueryResult("SELECT * FROM user WHERE login = '$login';") != null)
 		{
-			throw new ExceptionInvalidUser("Login ungültig.");
+			throw new ExceptionInvalidUser("Login ungï¿½ltig.");
 		}
-
-		
 		
 		// Check if both password strings are equal.
 		if ($password != $password_confirm)
 		{
-			throw new ExceptionInvalidUser("Die Eingaben für das Passwort unterscheiden sich.");
+			throw new ExceptionInvalidUser("Die Eingaben fï¿½r das Passwort unterscheiden sich.");
 		}
 
 		// Check user name
-		
 		if ($db->QueryResult("SELECT * FROM user WHERE name = '$User->name';") != null)
 		{
-			throw new ExceptionInvalidUser("Name ungültig.");
+			throw new ExceptionInvalidUser("Name ungï¿½ltig.");
 		}
 
 		// Check email
@@ -75,7 +72,7 @@ class Session
 			substr_count($User->email, '@') != 1 ||
 			substr_count($User->email, '.') < 1)
 			{
-				throw new ExceptionInvalidUser("E-Mail-Adresse ungültig.");
+				throw new ExceptionInvalidUser("E-Mail-Adresse ungï¿½ltig.");
 			}
 
 		// Insert values into database
@@ -93,12 +90,12 @@ class Session
 		// Check password
 		if (strlen($newpassword) < 5 || strlen($newpassword) > 50)
 		{
-			throw new ExceptionInvalidUser("Password muss mindesten fünf Zeichen lang sein.");
+			throw new ExceptionInvalidUser("Password muss mindesten fï¿½nf Zeichen lang sein.");
 		}
 
 		if ($newpassword != $newpassword2)
 		{
-			throw new ExceptionInvalidUser("Die Eingaben für das neue Passwort unterscheiden sich.");
+			throw new ExceptionInvalidUser("Die Eingaben fï¿½r das neue Passwort unterscheiden sich.");
 		}
 		
 		$r = $db->queryResult("SELECT passwort FROM user WHERE id= '$userid';");
@@ -124,7 +121,7 @@ class Session
 
 		if ($newpassword != $newpassword2)
 		{
-			throw new ExceptionInvalidUser("Die Eingaben für das neue Passwort unterscheiden sich.");
+			throw new ExceptionInvalidUser("Die Eingaben fï¿½r das neue Passwort unterscheiden sich.");
 		}
 		
 		$userid = $db->queryResult("SELECT id FROM user WHERE login = '$login';");
@@ -151,7 +148,7 @@ class Session
 			substr_count($email, '@') != 1 ||
 			substr_count($email, '.') < 1)
 			{
-				throw new ExceptionInvalidUser("E-Mail-Adresse ungültig.");
+				throw new ExceptionInvalidUser("E-Mail-Adresse ungï¿½ltig.");
 			}
 		$db->query("UPDATE user SET email = '$email' WHERE id = '$userid';");
 		
@@ -182,7 +179,7 @@ class Session
 		
 		// Create a random session id.
 		mt_srand((double) microtime()*1000000);
-		$sessionid = md5(str_replace(".","",$REMOTE_ADDR) + mt_rand(100000, 999999));
+		$sessionid = md5(str_replace(".","", $_SERVER["REMOTE_ADDR"]).strval(mt_rand(100000, 999999)));
 		
 		$sessiontime = MAX_SESSION_TIME;
 		// Write session id into the database
@@ -205,8 +202,6 @@ class Session
 		
 		// Finally...
 		$this->cleanupExpiredSessions();
-		
-		
 	}
 	
 	// Removes current sessionid from database and destroyes cookie.
@@ -230,10 +225,8 @@ class Session
 	// This function can be used to identifiy the user of the current session after login.
 	// It also resets the session timer to 2 hours.
 	// \returns The user id of the current session or null if the user could not be logged in.
-	public function getCurrentUserId()
+	public static function getCurrentUserId()
 	{
-	
-	
 		if (Session::$current_uid != -1)
 		{
 			return Session::$current_uid;
@@ -295,7 +288,7 @@ class Session
 			   return $res = $db->queryResult("SELECT login FROM user WHERE id = '$userid';");
 	   }
 
-	public function getUser($userid)
+	public static function getUser($userid)
 	{
 		
 		if ($userid == null)
@@ -346,14 +339,12 @@ class Session
 	
 	private static $current_uid = -1;
 
-
-	public function showNoAccessPage()
+	public static function showNoAccessPage()
 	{
 		echo "<h1>Fehler</h1>";
 
 		echo "<p>Du bist zur Zeit nicht eingeloggt und hast keinen Zugriff auf diese Seite.</p>";
 		echo "<p><a href='index.php'>Zur&uuml;ck zur Startseite</a>.</p>";
-
 	}
 }
 ?>

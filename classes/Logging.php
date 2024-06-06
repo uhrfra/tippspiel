@@ -6,12 +6,9 @@ include_once("../config/config.php");
 // A helper class for logging.
 class Logging
 {
-
-	
-	
 	public static function logException($message, $file, $line, $logmsg = "", $code = 0)
 	{
-		$fp = fopen(LOGFILE_EXCEPTION, a);
+		$fp = fopen(LOGFILE_EXCEPTION, "a");
 		if ($fp)
 		{
 			if (strlen($logmessage) == 0)
@@ -34,7 +31,7 @@ class Logging
 			return;
 		}
 		
-		$fp = fopen(LOGFILE_DEBUG, a);
+		$fp = fopen(LOGFILE_DEBUG, "a");
 		if ($fp)
 		{
 			fputs($fp, date("d.m.Y h:i:s", time())." : ".$message."\n");

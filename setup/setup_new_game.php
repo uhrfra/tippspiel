@@ -13,7 +13,7 @@ include_once ("../classes/Database.php");
 include_once("../classes/Matches.php");
 include ("create_tables.sql");
 
-switch ($_POST[nextstep])
+switch ($_POST['nextstep'])
 {
 	case 1:
 		step1();
@@ -28,6 +28,7 @@ switch ($_POST[nextstep])
 
 function step0()
 {
+echo DB_HOST;
 	echo "This will setup a new game. Make sure that the configuration is properly set up in the conig/config.php file.<br>
 		  To start the setup press this button:<br>
 		  <form action='#' method='post'>
@@ -108,7 +109,7 @@ function step2()
 		$adminname = $_POST['adminname'];
 		$pwmd5 = md5($_POST['adminpw']);
 		$db->Query("INSERT INTO `user` (`login`, `passwort`,`name`, `email`, `adminlevel`, `wettbewerb`) VALUES ('$adminlogin', '$pwmd5','$adminname', '', 2, 0);");
-		echo "Added admin user $adminuser[2] <br>";
+		echo "Added admin user $adminname <br>";
 	}
 	
 	$teams = $_POST['teams'];
@@ -131,7 +132,7 @@ function step2()
 		$matchitems = preg_split('/[;]/', $match);
 		try
 		{
-			$m = new Match();
+			$m = new MatchEvent();
 			$m->teamname1 = trim($matchitems[2]);
 			$m->teamname2 = trim($matchitems[3]);
 			$m->matchdayid = trim($matchitems[1]);
@@ -147,8 +148,6 @@ function step2()
 }
 	
 ?>
-
-
 
 </body>
 </html>

@@ -8,7 +8,7 @@ define("MATCHSTATUS_OPEN", 0);
 define("MATCHSTATUS_RUNNING", 1);
 define("MATCHSTATUS_CLOSED", 2);
 
-class Match
+class MatchEvent
 {
 	public $id;
 	public $teamid1;
@@ -89,14 +89,14 @@ class Matches
 		$currentmd = $this->getCurrentMatchday();
 		while ($row = mysqli_fetch_row($result))
 		{
-			if ($row[0] != currentmd)
+			if ($row[0] != $currentmd)
 			{
 				return $row[0];
 			}
 		}
 		return null;
 	}
-
+	
 	
 
 	public function getAllMatches()
@@ -115,7 +115,7 @@ ORDER BY spiele.datum;";
 		$ret = array();
 		while($row = mysqli_fetch_row($result))
 		{
-			$m = new Match();
+			$m = new MatchEvent();
 			$m->datetime = $row[0];
 			$m->teamid1 = $row[1];
 			$m->teamname1 = $row[2];
@@ -153,7 +153,7 @@ ORDER BY spiele.datum DESC;";
 		$ret = array();
 		if($row = mysqli_fetch_row($result))
 		{
-			$m = new Match();
+			$m = new MatchEvent();
 			$m->datetime = $row[0];
 			$m->teamid1 = $row[1];
 			$m->teamname1 = $row[2];
@@ -192,7 +192,7 @@ ORDER BY spiele.id DESC;";
 		}
 	
 	}
-	public function addMatch(Match $m)
+	public function addMatch(MatchEvent $m)
 	{
 		$db = new Database();
 		//Add only if not exists!!!
@@ -212,7 +212,7 @@ ORDER BY spiele.id DESC;";
 		$db->query($query);
 	}
 
-	public function addMatchByNames(Match $m)
+	public function addMatchByNames(MatchEvent $m)
 	{
 		$db = new Database();
 		$m->teamid1 = $db->queryResult("SELECT id FROM laender WHERE land = '$m->teamname1';");
@@ -258,7 +258,7 @@ ORDER BY spiele.id DESC;";
 		$ret = array();
 		while($row = mysqli_fetch_row($result))
 		{
-			$m = new Match();
+			$m = new MatchEvent();
 			$m->datetime = $row[0];
 			$m->teamid1 = $row[1];
 			$m->teamname1 = $row[2];
@@ -297,7 +297,7 @@ ORDER BY spiele.datum;";
 		$ret = array();
 		while($row = mysqli_fetch_row($result))
 		{
-			$m = new Match();
+			$m = new MatchEvent();
 			$m->datetime = $row[0];
 			$m->teamid1 = $row[1];
 			$m->teamname1 = $row[2];
@@ -329,7 +329,7 @@ ORDER BY spiele.datum;";
 		$ret = array();
 		while($row = mysqli_fetch_row($result))
 		{
-			$m = new Match();
+			$m = new MatchEvent();
 			$m->datetime = $row[0];
 			$m->teamid1 = $row[1];
 			$m->teamname1 = $row[2];

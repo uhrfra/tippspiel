@@ -1,5 +1,11 @@
 <?php
     $active_main = "";
+    $active_user = "";
+    $active_tables = "";
+    $active_admin = "";
+    $active_news = "";
+    $active_rules = "";
+
     if(strpos($uri, "main"))
     {
         $active_main = "active";
@@ -34,10 +40,6 @@
     {
         $active_rules = "active";
     }
-
-
-
-
 ?>
 
    <header class="navbar navbar-inverse navbar-fixed-top shadow topmenu" role="banner">

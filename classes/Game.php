@@ -149,7 +149,7 @@ class Game
 				WHERE user.id = '$userid' AND user.meistertip = laender.id;";
 		$db = new Database();
 		$result = $db->query($sqlU5);
-		if (result == null)
+		if ($result == null)
 		{
 			return null;
 		}
