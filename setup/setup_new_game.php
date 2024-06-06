@@ -135,7 +135,7 @@ function step2()
 			$m = new MatchEvent();
 			$m->teamname1 = trim($matchitems[2]);
 			$m->teamname2 = trim($matchitems[3]);
-			$m->matchdayid = trim($matchitems[1]);
+			$m->matchdayname = trim($matchitems[1]);
 			$m->datetime = trim($matchitems[0]);
 			$matchesobj->addMatchByNames($m);
 			echo "Added match: ", $match,"<br>";
