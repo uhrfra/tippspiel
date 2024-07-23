@@ -97,7 +97,38 @@ class Matches
 		return null;
 	}
 	
-	
+	public function getAllClosedMatches()
+	{
+	$sql = "SELECT DATE_FORMAT(spiele.datum, '%d.%m.%y - %H:%i') AS datum,
+  l1.id,
+  l1.land,
+  l2.id,
+  l2.land,
+  spiele.id,
+	spiele.tore1,
+	spiele.tore2
+FROM (spiele LEFT JOIN `laender` AS l1 ON spiele.ms1 = l1.id) LEFT JOIN `laender` AS l2 ON spiele.ms2 = l2.id
+WHERE spiele.status = 2
+ORDER BY spiele.datum;";
+
+		$db = new Database;
+		$result = $db->query($sql);
+		$ret = array();
+		while($row = mysqli_fetch_row($result))
+		{
+			$m = new MatchEvent();
+			$m->datetime = $row[0];
+			$m->teamid1 = $row[1];
+			$m->teamname1 = $row[2];
+			$m->teamid2 = $row[3];
+			$m->teamname2 = $row[4];
+			$m->id = $row[5];
+			$m->tore1 = $row[6];
+			$m->tore2 = $row[7];
+			array_push($ret, $m);
+		}
+		return $ret;
+	}
 
 	public function getAllMatches()
 	{
