@@ -37,8 +37,9 @@ class Game
 		$score_result = SCORE_RESULT; // Result is tipped right.
 		$score_diff = SCORE_DIFF; // Difference is tipped right.
 		$score_tendency = SCORE_TENDENCY; // Tendency is tipped right.
-		$sqlU1 = "SELECT (anz_er * $score_result + anz_tr * $score_diff + anz_sr * $score_tendency) as punkte
+		$sqlU1 = "SELECT (IF(laender.meisterstatus = 1, $score_champtip, 0) + anz_er * $score_result + anz_tr * $score_diff + anz_sr * $score_tendency) as punkte
 			FROM `user`
+			LEFT JOIN laender ON user.meistertip = laender.id
 			WHERE user.id = '$userid';";
 		$db = new Database();
 		return $db->queryResult($sqlU1);
