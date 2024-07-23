@@ -50,7 +50,7 @@ function requested()
 	$usr = Session::getUser($u);
 	
 	mt_srand((double) microtime()*1000000);
-	$token = md5(str_replace(".","",$REMOTE_ADDR) + mt_rand(100000, 999999));
+	$token = md5(str_replace(".","",$_SERVER["REMOTE_ADDR"]).strval(mt_rand(100000, 999999)));
 	
 	$link=PASSWORD_RESET_URL."?token=".$token;
 	
