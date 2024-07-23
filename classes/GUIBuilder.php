@@ -73,7 +73,7 @@ class GUIBuilder
 		}
 		echo "<form action='$sitelink' method='post'>";
 		echo "<div style='text-align:center'>"; // table centering for IEs
-		echo "<table id=\"Highscore\" class=\"table table-striped table-hover\">";
+		echo "<table id=\"Highscore\" class=\"table table-striped table-hover\" style='table-layout:fixed;'>";
 
 		if ($sitelink == "../content/main.php")
 			echo "<tr><th>Datum</th><th>Spiel</th><th>Dein Tipp</th><tr>";
