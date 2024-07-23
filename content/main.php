@@ -43,7 +43,7 @@
 	$m = new Matches();
 	if (!$m->started())
 	{
-		echo "<p>Bis zum Beginn des ersten Spiels kannst Du Deinen Meistertipp noch &auml;ndern (im Men&uuml unter Deine Daten -> Profil).</p>";
+		echo "<p>Bis zum Beginn des ersten Spiels kannst Du Deinen Meistertipp noch <a href='profile.php'>hier</a> &auml;ndern.</p>";
 	}
 ?>
 
@@ -61,7 +61,7 @@
 <div class="row">
 
 <div class="col-md-6 col-sm-12">
-    <h2>Die Top Ten</h2>
+    <h2>Die Top Ten <small><a href="highscore.php">(Tabelle anzeigen)</a></small></h2>
 <?php
     GUIBuilder::buildHighscoreTable($userid,0, 1, 0, 1, "")
 ?>
@@ -69,7 +69,7 @@
 
 
 <div class="col-md-6 col-sm-12">
-  <h2> Vergangene und aktuelle Spiele</h2>
+  <h2> Vergangene und aktuelle Spiele <small><a href='view_matches.php?show=2'>(alle anzeigen)</a></small></h2>
 <?php
     $prevMatchday = $m->getPreviousMatchday();
     if ($prevMatchday == null)
@@ -81,7 +81,7 @@
 	GUIBuilder::buildClosedGamesTable($userid, null, true);
     }
 
-    echo "<h2>Kommende Spiele</h2>";
+    echo "<h2>Kommende Spiele <small><a href='view_matches.php?show=0'>(alle anzeigen)</a></small></h2>";
     GUIBuilder::buildTippForm($userid, null, "../content/main.php");
 ?>
 </div>
