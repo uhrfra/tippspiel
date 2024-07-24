@@ -203,7 +203,7 @@ class Game
 			$ut->champtip = $ct->name;
 		}
 		
-		if ($ct->instatus == 2)
+		if ($ct->instatus == 1)
 		{
 			$ut->scoreChamptip = SCORE_CHAMPTIP;
 		}
